@@ -3,6 +3,17 @@ import { MenuIcon, MountainIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet"
 import { IoMdNotifications } from "react-icons/io";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import img from "../assets/306359564_1481897882236391_7201988815944866377_n.jpg"
+
+
 
 
 const Navbar = () => {
@@ -13,7 +24,7 @@ const Navbar = () => {
                     <MountainIcon className="h-6 w-6" />
                     <span className="text-lg font-semibold">ParcelPioneer</span>
                 </Link>
-                <div className="hidden md:flex gap-4">
+                <div className="hidden items-center md:flex gap-4">
                     <Link href="#" className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
                         Home
                     </Link>
@@ -26,6 +37,17 @@ const Navbar = () => {
                     <Link href="#" className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
                         Login
                     </Link>
+                    {
+                        <DropdownMenu>
+                            <DropdownMenuTrigger><img className="h-10 w-10 rounded-full bg-cover" src={img} alt="" /></DropdownMenuTrigger>
+                            <DropdownMenuContent>
+                                <DropdownMenuLabel>Fojle Tuhin</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                               <Link to='/dashboard'> <DropdownMenuItem>Dashboard</DropdownMenuItem></Link>
+                                <DropdownMenuItem>Logout</DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    }
 
                 </div>
                 <Sheet>
