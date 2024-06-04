@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 import { MenuIcon, MountainIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet"
+import { IoMdNotifications } from "react-icons/io";
 
 
 const Navbar = () => {
@@ -17,17 +18,15 @@ const Navbar = () => {
                         Home
                     </Link>
                     <Link href="#" className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
-                        About
+                        Dashboard
                     </Link>
                     <Link href="#" className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
-                        Services
+                        <IoMdNotifications className="text-2xl" />
                     </Link>
                     <Link href="#" className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
-                        Portfolio
+                        Login
                     </Link>
-                    <Link href="#" className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
-                        Contact
-                    </Link>
+
                 </div>
                 <Sheet>
                     <SheetTrigger asChild>
@@ -42,17 +41,15 @@ const Navbar = () => {
                                 Home
                             </Link>
                             <Link href="#" className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
-                                About
+                                Dashboard
                             </Link>
                             <Link href="#" className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
-                                Services
+                                <IoMdNotifications className="text-2xl" />
                             </Link>
                             <Link href="#" className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
-                                Portfolio
+                                Login
                             </Link>
-                            <Link href="#" className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
-                                Contact
-                            </Link>
+
                         </div>
                     </SheetContent>
                 </Sheet>
