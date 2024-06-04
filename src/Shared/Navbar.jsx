@@ -18,7 +18,7 @@ import img from "../assets/306359564_1481897882236391_7201988815944866377_n.jpg"
 
 const Navbar = () => {
     return (
-        <div>
+        <div className="lg:px-[100px] md:px-16 px-4 m-auto">
             <div className="flex items-center justify-between px-4 py-2 bg-white dark:bg-gray-800">
                 <Link href="#" className="flex items-center gap-2" prefetch={false}>
                     <MountainIcon className="h-6 w-6" />
