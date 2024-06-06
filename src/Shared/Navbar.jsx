@@ -20,21 +20,21 @@ const Navbar = () => {
     return (
         <div className="lg:px-[100px] md:px-16 px-4 m-auto">
             <div className="flex items-center justify-between px-4 py-2 bg-white dark:bg-gray-800">
-                <Link href="#" className="flex items-center gap-2" prefetch={false}>
+                <Link to='/' className="flex items-center gap-2" prefetch={false}>
                     <MountainIcon className="h-6 w-6" />
                     <span className="text-lg font-semibold">ParcelPioneer</span>
                 </Link>
                 <div className="hidden items-center md:flex gap-4">
-                    <Link href="#" className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
+                    <Link to='/' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
                         Home
                     </Link>
-                    <Link href="#" className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
+                    <Link to='/' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
                         Dashboard
                     </Link>
-                    <Link href="#" className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
+                    <Link to='/' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
                         <IoMdNotifications className="text-2xl" />
                     </Link>
-                    <Link href="#" className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
+                    <Link to='/login' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
                         Login
                     </Link>
                     {
