@@ -23,10 +23,6 @@ const Statistics = () => {
                     </CountUp>
                 </p>
             </div>
-
-
-
-
         </div>
     );
 };
