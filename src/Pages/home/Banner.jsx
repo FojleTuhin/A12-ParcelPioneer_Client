@@ -11,8 +11,8 @@ const Banner = () => {
 
 
                         <div className="flex items-center">
-                            <input placeholder="Search here" type="text" className="border-2 rounded-xl border-black w-[80%] mt-20 h-14 px-5" />
-                            <Button className='-ml-20 mt-20'>Search</Button>
+                            <input placeholder="Search here" type="text" className="border-2 rounded-xl border-black md:w-[80%] w-[60%] md:mt-20 mt-10  h-10 md:h-14 px-5" />
+                            <Button className='-ml-20 md:mt-20 mt-10'>Search</Button>
                         </div>
 
                     </div>

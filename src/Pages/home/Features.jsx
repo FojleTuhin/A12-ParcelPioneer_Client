@@ -1,7 +1,7 @@
 
 const Features = () => {
     return (
-        <div className="flex flex-wrap justify-center gap-6 px-4 md:px-16 mt-32 mb-10">
+        <div className="flex flex-wrap justify-center gap-6 px-4 md:px-16 mt-16 md:mt-32 mb-10">
             <div className="w-[300px] text-center p-2">
                 <img className="" src="https://i.ibb.co/7bst0N2/ic-Parcel-Feature-1.png" alt="" />
                 <p className="text-3xl font-bold">On Demand Delivery</p>

@@ -59,18 +59,29 @@ const Navbar = () => {
                     </SheetTrigger>
                     <SheetContent side="left">
                         <div className="grid w-[200px] p-4">
-                            <Link href="#" className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
+                            <Link to='/' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
                                 Home
                             </Link>
-                            <Link href="#" className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
+                            <Link to='/' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
                                 Dashboard
                             </Link>
-                            <Link href="#" className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
+                            <Link to='/' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
                                 <IoMdNotifications className="text-2xl" />
                             </Link>
-                            <Link href="#" className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
+                            <Link to='/login' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
                                 Login
                             </Link>
+                            {
+                        <DropdownMenu>
+                            <DropdownMenuTrigger><img className="h-10 w-10 rounded-full bg-cover" src={img} alt="" /></DropdownMenuTrigger>
+                            <DropdownMenuContent>
+                                <DropdownMenuLabel>Fojle Tuhin</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                               <Link to='/dashboard'> <DropdownMenuItem>Dashboard</DropdownMenuItem></Link>
+                                <DropdownMenuItem>Logout</DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    }
 
                         </div>
                     </SheetContent>
