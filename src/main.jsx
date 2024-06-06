@@ -8,9 +8,9 @@ import {
 } from "react-router-dom";
 import Root from './Pages/Root';
 import Home from './Pages/home/Home';
-import Dashboard from './Dashboard/Dashboard';
 import Login from './Pages/Login';
 import Signup from './Pages/Signup';
+import Dashboard from './Dashboard/Dashboard';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +31,10 @@ const router = createBrowserRouter([
       }
     ]
   },
+  {
+    path:'/dashboard',
+    element:<Dashboard></Dashboard>
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

@@ -7,7 +7,7 @@ const Banner = () => {
                 <div className="">
                     <div className="md:w-[55%] w-full">
 
-                        <p className="lg:text-6xl md:text-4xl text-2xl font-bold text-[#153448] pt-8">On Demand Delivery at Your Doorstep</p>
+                        <p className="lg:text-5xl md:text-4xl text-2xl font-bold text-[#153448] pt-8">On Demand Delivery at Your Doorstep</p>
 
 
                         <div className="flex items-center">

@@ -28,7 +28,7 @@ const Navbar = () => {
                     <Link to='/' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
                         Home
                     </Link>
-                    <Link to='/' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
+                    <Link to='/dashboard' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
                         Dashboard
                     </Link>
                     <Link to='/' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
@@ -62,7 +62,7 @@ const Navbar = () => {
                             <Link to='/' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
                                 Home
                             </Link>
-                            <Link to='/' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
+                            <Link to='/dashboard' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
                                 Dashboard
                             </Link>
                             <Link to='/' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
