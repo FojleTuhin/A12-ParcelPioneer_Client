@@ -5,12 +5,12 @@ const Signup = () => {
     return (
         <div>
             <div className="hero min-h-screen" style={{ backgroundImage: `url(https://i.ibb.co/BB6BQ7f/authentication.png)` }}>
-                <div className="flex flex-row-reverse w-[80%] m-auto shadow-2xl shadow-gray-500 py-8 px-24 gap-20">
-                    <div className="w-[50%] flex justify-center items-center">
+                <div className="lg:flex lg:flex-row-reverse w-[80%] m-auto shadow-2xl shadow-gray-500 py-8 px-4 lg:px-24 gap-20">
+                    <div className="lg:w-[50%] flex justify-center items-center">
                        <img src="https://i.ibb.co/ww94K10/authentication1-1.png" alt="" />
                     </div>
-                    <div className="w-[50%]">
-                        <p className="text-2xl font-bold text-center">Sign Up</p>
+                    <div className="lg:w-[50%]">
+                        <p className="text-2xl font-bold text-center mt-8 mb-8">Sign Up</p>
 
                         <form>
                             <div className="w-full mb-4">

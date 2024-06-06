@@ -4,12 +4,12 @@ const Login = () => {
     return (
         <div>
             <div className="hero min-h-screen pt-12" style={{ backgroundImage: `url(https://i.ibb.co/BB6BQ7f/authentication.png)` }}>
-                <div className="flex w-[80%] m-auto items-center justify-center shadow-2xl shadow-gray-500 py-8 px-24 gap-20">
-                    <div className="w-[50%] flex justify-center items-center">
+                <div className="lg:flex w-[80%] m-auto items-center justify-center shadow-2xl shadow-gray-500 py-8 px-4 lg:px-24 gap-20">
+                    <div className="lg:w-[50%] flex justify-center items-center">
                         <img src="https://i.ibb.co/ww94K10/authentication1-1.png" alt="" />
                     </div>
-                    <div className="w-[50%]">
-                        <p className="text-2xl font-bold text-center">Login</p>
+                    <div className="lg:w-[50%]">
+                        <p className="text-2xl font-bold text-center my-8">Login</p>
 
                         <form>
 
