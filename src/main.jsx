@@ -17,6 +17,10 @@ import BookAParcel from './Dashboard/user/BookAParcel';
 import MyParcel from './Dashboard/user/MyParcel';
 import DeliveryList from './Dashboard/delivery/DeliveryList';
 import Reviews from './Dashboard/delivery/Reviews';
+import Statistics from './Dashboard/admin/Statistics';
+import AllUser from './Dashboard/admin/AllUser';
+import AllParcel from './Dashboard/admin/AllParcel';
+import AllDeliveryMan from './Dashboard/admin/AllDeliveryMan';
 
 const router = createBrowserRouter([
   {
@@ -55,6 +59,10 @@ const router = createBrowserRouter([
         path:'myParcel',
         element:<MyParcel></MyParcel>
       },
+
+
+
+
       // dashboard for delivery man
       {
         path:'deliveryList',
@@ -63,6 +71,26 @@ const router = createBrowserRouter([
       {
         path:'reviews',
         element:<Reviews></Reviews>
+      },
+
+
+
+      //dashboard for admin
+      {
+        path:'statistics',
+        element:<Statistics></Statistics>
+      },
+      {
+        path:'allUser',
+        element:<AllUser></AllUser>
+      },
+      {
+        path:'allParcel',
+        element:<AllParcel></AllParcel>
+      },
+      {
+        path:'allDeliveryMan',
+        element:<AllDeliveryMan></AllDeliveryMan>
       }
     ]
   }

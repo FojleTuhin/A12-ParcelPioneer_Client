@@ -13,7 +13,6 @@ const Dashboard = () => {
 
 
                     {
-                        user &&
                         <ul>
                             <li className="font-bold text-xl">{user?.displayName}</li>
                             <hr className=" border-y-2" />
@@ -22,7 +21,7 @@ const Dashboard = () => {
                             <Link to='/dashboard/userProfile'><li className="mt-5 font-semibold ">My Profile</li></Link>
                         </ul>
                     }
-
+{/* 
                     {
                         <ul>
                             <li className="font-bold text-xl">{user?.displayName}</li>
@@ -31,6 +30,16 @@ const Dashboard = () => {
                             <Link to='/dashboard/reviews'><li className="mt-5 font-semibold ">Reviews</li></Link>
                         </ul>
                     }
+                    {
+                        <ul>
+                            <li className="font-bold text-xl">{user?.displayName}</li>
+                            <hr className=" border-y-2" />
+                            <Link to='/dashboard/statistics'><li className="mt-5 font-semibold ">Statistics</li></Link>
+                            <Link to='/dashboard/allUser'><li className="mt-5 font-semibold ">All User</li></Link>
+                            <Link to='/dashboard/allParcel'><li className="mt-5 font-semibold ">All Parcel</li></Link>
+                            <Link to='/dashboard/allDeliveryMan'><li className="mt-5 font-semibold ">All Delivery Man</li></Link>
+                        </ul>
+                    } */}
 
 
 
