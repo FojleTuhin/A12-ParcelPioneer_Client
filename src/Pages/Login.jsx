@@ -1,6 +1,68 @@
+import { AuthContext } from "@/Firebase/FirebaseProvider";
+import { useContext } from "react";
+import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 const Login = () => {
+
+
+    const { signIn, googleLogin } = useContext(AuthContext)
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const handleGoogleLogin = () => {
+        googleLogin()
+            .then(result => {
+
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Successfully login",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                // navigate(location?.state ? location.state : '/')
+                console.log(result);
+            })
+            .catch(error => {
+                toast.error('Something wrong')
+            })
+    }
+
+
+
+
+    const handleLogIn = (e) => {
+        e.preventDefault()
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+
+
+        signIn(email, password)
+            .then(result => {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Successfully Login",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                // navigate(location?.state ? location.state : '/')
+            })
+            .catch(error => {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Password or email don't match!",
+
+                });
+            })
+
+    }
+
+
+
     return (
         <div>
             <div className="hero min-h-screen pt-12" style={{ backgroundImage: `url(https://i.ibb.co/BB6BQ7f/authentication.png)` }}>
@@ -11,7 +73,7 @@ const Login = () => {
                     <div className="lg:w-[50%]">
                         <p className="text-2xl font-bold text-center my-8">Login</p>
 
-                        <form>
+                        <form onSubmit={handleLogIn}>
 
                             <div className="w-full mb-4">
                                 <label >
@@ -25,19 +87,20 @@ const Login = () => {
                                     <input type="text" name="password" required placeholder="Enter your password" className="p-3 w-full rounded-lg" />
                                 </label>
                             </div>
-                          
+
                             <button type="submit" className=" w-full h-12 rounded-lg text-white bg-[#d1a054]">Sign In</button>
 
-                            <p className="font-medium mt-5 text-[#d1a054] text-center mb-3">New here? <Link to='/signUp'>Create a New Account</Link></p>
-                            <p className="font-medium  text-center mb-3">Or sign in with</p>
-                            <div className="flex justify-evenly">
 
-                                <FaGoogle />
-
-                            </div>
 
 
                         </form>
+                        <p className="font-medium mt-5 text-[#d1a054] text-center mb-3">New here? <Link to='/signUp'>Create a New Account</Link></p>
+                        <p className="font-medium  text-center mb-3">Or sign in with</p>
+                        <div className="flex justify-evenly">
+
+                            <FaGoogle onClick={handleGoogleLogin} />
+
+                        </div>
 
                     </div>
                 </div>
