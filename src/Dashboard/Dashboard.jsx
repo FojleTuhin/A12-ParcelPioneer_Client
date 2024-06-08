@@ -12,7 +12,7 @@ const Dashboard = () => {
                 <div className="w-[20%] px-6 py-10 bg-[#EBFBE5] flex flex-col justy min-h-screen justify-between">
 
 
-                    {
+                    {/* {
                         <ul>
                             <li className="font-bold text-xl">{user?.displayName}</li>
                             <hr className=" border-y-2" />
@@ -20,16 +20,16 @@ const Dashboard = () => {
                             <Link to='/dashboard/myParcel'><li className="mt-5 font-semibold ">My parcel</li></Link>
                             <Link to='/dashboard/userProfile'><li className="mt-5 font-semibold ">My Profile</li></Link>
                         </ul>
-                    }
-{/* 
-                    {
+                    } */}
+
+                    {/* {
                         <ul>
                             <li className="font-bold text-xl">{user?.displayName}</li>
                             <hr className=" border-y-2" />
                             <Link to='/dashboard/deliveryList'><li className="mt-5 font-semibold ">Delivery list</li></Link>
                             <Link to='/dashboard/reviews'><li className="mt-5 font-semibold ">Reviews</li></Link>
                         </ul>
-                    }
+                    } */}
                     {
                         <ul>
                             <li className="font-bold text-xl">{user?.displayName}</li>
@@ -39,7 +39,7 @@ const Dashboard = () => {
                             <Link to='/dashboard/allParcel'><li className="mt-5 font-semibold ">All Parcel</li></Link>
                             <Link to='/dashboard/allDeliveryMan'><li className="mt-5 font-semibold ">All Delivery Man</li></Link>
                         </ul>
-                    } */}
+                    }
 
 
 
