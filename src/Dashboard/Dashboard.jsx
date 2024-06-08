@@ -27,9 +27,8 @@ const Dashboard = () => {
                         <ul>
                             <li className="font-bold text-xl">{user?.displayName}</li>
                             <hr className=" border-y-2" />
-                            <Link to='/dashboard/bookAParcel'><li className="mt-5 font-semibold ">Delivery list</li></Link>
-                            <Link to='/dashboard/myParcel'><li className="mt-5 font-semibold ">Reviews</li></Link>
-                            <Link to='/dashboard/userProfile'><li className="mt-5 font-semibold ">My Profile</li></Link>
+                            <Link to='/dashboard/deliveryList'><li className="mt-5 font-semibold ">Delivery list</li></Link>
+                            <Link to='/dashboard/reviews'><li className="mt-5 font-semibold ">Reviews</li></Link>
                         </ul>
                     }
 
@@ -48,7 +47,7 @@ const Dashboard = () => {
                     </ul>
 
                 </div>
-                <div className="flex-1 min-h-screen">
+                <div className="flex-1 min-h-screen px-6 py-10">
                     <Outlet></Outlet>
                 </div>
 

@@ -12,6 +12,11 @@ import Login from './Pages/Login';
 import Signup from './Pages/Signup';
 import Dashboard from './Dashboard/Dashboard';
 import FirebaseProvider from './Firebase/FirebaseProvider';
+import UserProfile from './Dashboard/user/UserProfile';
+import BookAParcel from './Dashboard/user/BookAParcel';
+import MyParcel from './Dashboard/user/MyParcel';
+import DeliveryList from './Dashboard/delivery/DeliveryList';
+import Reviews from './Dashboard/delivery/Reviews';
 
 const router = createBrowserRouter([
   {
@@ -34,7 +39,32 @@ const router = createBrowserRouter([
   },
   {
     path:'/dashboard',
-    element:<Dashboard></Dashboard>
+    element:<Dashboard></Dashboard>,
+    children:[
+
+      //dashboard for normal user
+      {
+        path:'userProfile',
+        element:<UserProfile></UserProfile>
+      },
+      {
+        path:'bookAParcel',
+        element:<BookAParcel></BookAParcel>
+      },
+      {
+        path:'myParcel',
+        element:<MyParcel></MyParcel>
+      },
+      // dashboard for delivery man
+      {
+        path:'deliveryList',
+        element:<DeliveryList></DeliveryList>
+      },
+      {
+        path:'reviews',
+        element:<Reviews></Reviews>
+      }
+    ]
   }
 ]);
 

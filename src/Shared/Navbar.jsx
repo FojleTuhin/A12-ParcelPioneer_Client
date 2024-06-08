@@ -43,7 +43,7 @@ const Navbar = () => {
                     <Link to='/' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
                         Home
                     </Link>
-                    <Link to='/dashboard' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
+                    <Link to='/dashboard/userProfile' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
                         Dashboard
                     </Link>
                     <Link to='/' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
@@ -58,7 +58,7 @@ const Navbar = () => {
                                 <DropdownMenuContent>
                                     <DropdownMenuLabel>{user.displayName}</DropdownMenuLabel>
                                     <DropdownMenuSeparator />
-                                    <Link to='/dashboard'> <DropdownMenuItem>Dashboard</DropdownMenuItem></Link>
+                                    <Link to='/dashboard/userProfile'> <DropdownMenuItem>Dashboard</DropdownMenuItem></Link>
                                     <DropdownMenuItem><p onClick={handleSignOut}>Logout</p></DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
@@ -81,7 +81,7 @@ const Navbar = () => {
                             <Link to='/' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
                                 Home
                             </Link>
-                            <Link to='/dashboard' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
+                            <Link to='/dashboard/userProfile' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
                                 Dashboard
                             </Link>
                             <Link to='/' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
@@ -95,7 +95,7 @@ const Navbar = () => {
                                         <DropdownMenuContent>
                                             <DropdownMenuLabel>{user.displayName}</DropdownMenuLabel>
                                             <DropdownMenuSeparator />
-                                            <Link to='/dashboard'> <DropdownMenuItem>Dashboard</DropdownMenuItem></Link>
+                                            <Link to='/dashboard/userProfile'> <DropdownMenuItem>Dashboard</DropdownMenuItem></Link>
                                             <DropdownMenuItem><p onClick={handleSignOut}>Logout</p></DropdownMenuItem>
                                         </DropdownMenuContent>
                                     </DropdownMenu>
