@@ -1,10 +1,15 @@
 
+
 const AllUser = () => {
     return (
+
+       
         <div>
-            from AllUser
+            from all user
         </div>
-    );
+    )
+
+
 };
 
 export default AllUser;
