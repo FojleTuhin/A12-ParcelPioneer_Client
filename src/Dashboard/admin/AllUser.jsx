@@ -3,7 +3,6 @@
 const AllUser = () => {
     return (
 
-       
         <div>
             from all user
         </div>

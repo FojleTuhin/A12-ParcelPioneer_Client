@@ -24,7 +24,7 @@ const Signup = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                // navigate(location?.state ? location.state : '/')
+                navigate(location?.state ? location.state : '/')
                 console.log(result);
             })
             .catch(error => {
@@ -49,9 +49,7 @@ const Signup = () => {
             return
         }
 
-        // if (!/^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*\d).+$/.test(password)) {
-        //     toast.error("Password must be an capital letter, special character and numeric number");
-        // }
+        
 
 
 
@@ -64,7 +62,7 @@ const Signup = () => {
         createUser(email, password)
             .then(result => {
                 updateUser(name, photo)
-                // navigate(location?.state ? location.state : '/')
+                navigate(location?.state ? location.state : '/')
                 console.log(result);
             })
             .catch(error => {

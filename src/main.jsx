@@ -21,6 +21,7 @@ import Statistics from './Dashboard/admin/Statistics';
 import AllUser from './Dashboard/admin/AllUser';
 import AllParcel from './Dashboard/admin/AllParcel';
 import AllDeliveryMan from './Dashboard/admin/AllDeliveryMan';
+import PrivateRoute from './Shared/PrivateRoute';
 
 const router = createBrowserRouter([
   {
@@ -43,7 +44,7 @@ const router = createBrowserRouter([
   },
   {
     path:'/dashboard',
-    element:<Dashboard></Dashboard>,
+    element:<PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
     children:[
 
       //dashboard for normal user

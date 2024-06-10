@@ -22,7 +22,7 @@ const Login = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                // navigate(location?.state ? location.state : '/')
+                navigate(location?.state ? location.state : '/')
                 console.log(result);
             })
             .catch(error => {
@@ -48,7 +48,7 @@ const Login = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                // navigate(location?.state ? location.state : '/')
+                navigate(location?.state ? location.state : '/')
             })
             .catch(error => {
                 Swal.fire({
