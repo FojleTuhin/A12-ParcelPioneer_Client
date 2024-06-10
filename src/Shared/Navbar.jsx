@@ -11,7 +11,6 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import img from "../assets/306359564_1481897882236391_7201988815944866377_n.jpg"
 import { useContext } from "react";
 import { AuthContext } from "@/Firebase/FirebaseProvider";
 
@@ -54,7 +53,7 @@ const Navbar = () => {
                         user ?
                             <DropdownMenu>
                                 <DropdownMenuTrigger><img className="h-10 w-10 rounded-full bg-cover" src={user.photoURL
-} alt="" /></DropdownMenuTrigger>
+                                } alt="" /></DropdownMenuTrigger>
                                 <DropdownMenuContent>
                                     <DropdownMenuLabel>{user.displayName}</DropdownMenuLabel>
                                     <DropdownMenuSeparator />

@@ -44,10 +44,9 @@ const Statistics = () => {
                             <img className="h-[70px] w-[70px] rounded-full border-[#3EA570] border-4" src={user?.photoURL} alt="" />
                         </div>
 
-                        <input type="text" className="w-[100%] border-[#E6E6EB] mt-10 py-2 px-5 rounded-xl border-2 text-[#787878]" defaultValue={user?.displayName} />
-                        <br />
-                        <input type="number" className="w-[100%] border-[#E6E6EB] mt-5 py-2 px-5 rounded-xl border-2 text-[#787878]" defaultValue={'01877127477'} />
-                        <br />
+                        
+                        <p className="w-[100%] border-[#E6E6EB] mt-10 py-2 px-5 rounded-xl border-2 text-[#787878]">{user?.displayName}</p>
+                        <p className="w-[100%] border-[#E6E6EB] mt-4 py-2 px-5 rounded-xl border-2 text-[#787878]">01877127477</p>
 
                     </div>
                 </div>

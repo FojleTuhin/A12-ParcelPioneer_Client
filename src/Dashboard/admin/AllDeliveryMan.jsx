@@ -19,15 +19,15 @@ const AllDeliveryMan = () => {
             name: "deliveryManName",
             label: "Name"
         },
-        // {
-        //   name: "ownerImage",
-        //   label: "Image",
-        //   options: {
-        //     customBodyRender: (value) => (
-        //       <img src={value} alt="pic" className="w-12 h-12 rounded-full" />
-        //     )
-        //   }
-        // },
+        {
+          name: "ownerImage",
+          label: "Image",
+          options: {
+            customBodyRender: (value) => (
+              <img src={value} alt="pic" className="w-12 h-12 rounded-full" />
+            )
+          }
+        },
         {
             name: "phoneNumber",
             label: "Phone"
