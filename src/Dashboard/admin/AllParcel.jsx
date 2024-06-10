@@ -25,12 +25,13 @@ import { useState } from "react";
 
 
 
+
 const AllParcel = () => {
 
     const initiallySelectedDate = new Date();
     const [selectedDate, setSelectedDate] = useState(initiallySelectedDate);
     console.log(selectedDate);
-
+    
     const columns = [
 
 
@@ -85,14 +86,15 @@ const AllParcel = () => {
                                                 </SelectGroup>
                                             </SelectContent>
                                         </Select>
-                                        <div className="flex-1 mx-auto">
+                                        <div className="flex-1 m-auto ml-5">
                                             <DayPicker
                                                 mode="single"
                                                 selected={selectedDate}
                                                 onSelect={setSelectedDate}
                                                 required // A date must be selected
-
                                             />
+
+
                                         </div>
                                     </div>
 
