@@ -39,7 +39,7 @@ const AllUser = () => {
     },
     {
       name: "role",
-      label:"Role",
+      label: "Role",
       options: {
         customBodyRender: (value) => (
           <p
@@ -54,7 +54,7 @@ const AllUser = () => {
       }
     },
     {
-      name:"role",
+      name: "role",
       label: "MakeAdmin",
       options: {
         customBodyRender: () => (
@@ -66,51 +66,51 @@ const AllUser = () => {
       }
     },
     {
-      name:"role",
+      name: "role",
       label: "MakeDeliveryMan",
       options: {
         customBodyRender: (value) => (
-          <button 
+          <button
             className={`capitalize inline-block px-3 py-1 rounded-full font-semibold bg-[#EBFBE5] ${value === "Admin" && "disabled:"}`}>
             DeliveryMan
           </button>
         )
       }
     },
-    
+
 
   ];
 
-const data = [
+  const data = [
 
-  ["Joe James", "01877127477", "3", "Admin"],
-  ["Joe James", "01877127477", "3", "DeliveryMan"],
-  ["Joe James", "01877127477", "3", "DeliveryMan"],
-  ["Joe James", "01877127477", "3", "RegularUser"],
-  ["Joe James", "01877127477", "3", "RegularUser"],
-  ["Joe James", "01877127477", "3", "RegularUser"],
-];
-const options = {
-  selectableRows: false,
-  rowsPerPage: 5,
-  rowsPerPageOptions: [5, 10, 15]
-};
-return (
-  <div>
-    <div className=' mt-10'>
-      <div>
-        <MUIDataTable
-          title={"Featured list"}
-          data={data}
-          columns={columns}
-          options={options}
+    ["Joe James", "01877127477", "3", "Admin"],
+    ["Joe James", "01877127477", "3", "DeliveryMan"],
+    ["Joe James", "01877127477", "3", "DeliveryMan"],
+    ["Joe James", "01877127477", "3", "RegularUser"],
+    ["Joe James", "01877127477", "3", "RegularUser"],
+    ["Joe James", "01877127477", "3", "RegularUser"],
+  ];
+  const options = {
+    selectableRows: false,
+    rowsPerPage: 5,
+    rowsPerPageOptions: [5, 10, 15]
+  };
+  return (
+    <div>
+      <div className=' mt-10'>
+        <div>
+          <MUIDataTable
+            title={"All User List"}
+            data={data}
+            columns={columns}
+            options={options}
 
-        />
+          />
+        </div>
+
       </div>
-
     </div>
-  </div>
-);
+  );
 };
 
 export default AllUser;
