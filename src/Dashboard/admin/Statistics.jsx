@@ -1,4 +1,3 @@
-import { MdOutlineAddAPhoto } from "react-icons/md";
 import BarChart from "./BarChart";
 import CountUp from 'react-countup';
 import { useContext } from "react";

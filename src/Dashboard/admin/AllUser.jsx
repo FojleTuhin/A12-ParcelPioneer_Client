@@ -97,7 +97,7 @@ const AllUser = () => {
   };
   return (
     <div>
-      <div className=' mt-10'>
+      <div className=' '>
         <div>
           <MUIDataTable
             title={"All User List"}
