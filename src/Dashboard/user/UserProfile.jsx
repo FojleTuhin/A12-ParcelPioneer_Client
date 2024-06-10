@@ -7,6 +7,7 @@ import { MdOutlineAddAPhoto } from "react-icons/md";
 const UserProfile = () => {
 
     const { user } = useContext(AuthContext)
+    console.log(user);
     return (
         <div className=" px-5 py-4">
             <div className="border rounded-2xl px-5 py-4">
