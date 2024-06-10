@@ -19,7 +19,7 @@ const Dashboard = () => {
 
     return (
         
-        <div className="flex h-screen w-full">
+        <div className="flex min-h-screen w-full">
             <div className="hidden lg:block lg:w-64 lg:shrink-0 lg:border-r lg:bg-gray-100 dark:lg:bg-gray-800">
                 <div className="flex h-full flex-col justify-between py-6 px-4">
                     <div className="space-y-6">
