@@ -1,7 +1,6 @@
 import MUIDataTable from "mui-datatables";
 import {
     AlertDialog,
-    AlertDialogAction,
     AlertDialogCancel,
     AlertDialogContent,
     AlertDialogFooter,
@@ -19,19 +18,28 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 
-import { DayPicker } from "react-day-picker";
-import { useState } from "react";
+import DatePicker from "react-datepicker";
 
+import "react-datepicker/dist/react-datepicker.css";
+import { useState } from "react";
 
 
 
 
 const AllParcel = () => {
 
-    const initiallySelectedDate = new Date();
-    const [selectedDate, setSelectedDate] = useState(initiallySelectedDate);
-    console.log(selectedDate);
-    
+
+    const [startDate, setStartDate] = useState(new Date());
+    const handleDeliveryManage = (e) => {
+        e.preventDefault();
+        const deliveryDate = startDate;
+        const deliveryMan = e.target.deliveryMan.value;
+
+
+        console.log(deliveryDate, deliveryMan);
+    }
+
+
     const columns = [
 
 
@@ -57,53 +65,56 @@ const AllParcel = () => {
             name: "cost",
         },
         {
-            name: "status",
+            label: "Status"
+        },
+        {
+            name: "Manage",
             options: {
                 customBodyRender: () => (
 
                     <div>
                         <AlertDialog>
                             <AlertDialogTrigger><button
-                                className={`capitalize inline-block px-3 py-1 rounded-full font-semibold bg-pink-500`}>
+                                className={`capitalize inline-block px-3 py-1 rounded-full font-semibold bg-[#EBFBE5]`}>
                                 Manage
                             </button></AlertDialogTrigger>
                             <AlertDialogContent>
                                 <AlertDialogHeader>
                                     <AlertDialogTitle><p className="text-center font-bold mb-4">Manage Your delivery</p></AlertDialogTitle>
-                                    <div className="flex">
-                                        <Select>
-                                            <SelectTrigger className="w-[180px]">
-                                                <SelectValue placeholder="Select a delivery man" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                <SelectGroup>
-                                                    <SelectLabel>Delivery Man</SelectLabel>
-                                                    <SelectItem value="apple">Apple</SelectItem>
-                                                    <SelectItem value="banana">Banana</SelectItem>
-                                                    <SelectItem value="blueberry">Blueberry</SelectItem>
-                                                    <SelectItem value="grapes">Grapes</SelectItem>
-                                                    <SelectItem value="pineapple">Pineapple</SelectItem>
-                                                </SelectGroup>
-                                            </SelectContent>
-                                        </Select>
-                                        <div className="flex-1 m-auto ml-5">
-                                            <DayPicker
-                                                mode="single"
-                                                selected={selectedDate}
-                                                onSelect={setSelectedDate}
-                                                required // A date must be selected
-                                            />
-
-
+                                    <form onSubmit={handleDeliveryManage}>
+                                        <div className="flex">
+                                            <div>
+                                                
+                                                <div className="form-control ">
+                                                    <select className="select w-[190px] bg-none border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg" name="deliveryMan">
+                                                        <option disabled selected>Pick a delivery man</option>
+                                                        <option>Fojle</option>
+                                                        <option>Rabbi</option>
+                                                        <option>Tuhin</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div className="flex-1 m-auto ml-5">
+                                                <div className="border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg">
+                                                    <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+
+
+                                        <div className="mt-5">
+                                            <button type="submit" className="py-2 px-4 border border-[rgb(226, 232, 240)] rounded-lg">Assign</button>
+                                        </div>
+
+                                    </form>
+
 
 
 
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
                                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                    <AlertDialogAction>Assign</AlertDialogAction>
+                                    {/* <AlertDialogAction>Assign</AlertDialogAction> */}
                                 </AlertDialogFooter>
                             </AlertDialogContent>
                         </AlertDialog>
@@ -113,9 +124,7 @@ const AllParcel = () => {
                 )
             }
         },
-        {
-            label: "manage"
-        },
+        
 
 
 
@@ -144,7 +153,7 @@ const AllParcel = () => {
             <div className=''>
                 <div>
                     <MUIDataTable
-                        title={"All Parcel List"}
+                        title={"All Booked Parcel List"}
                         data={data}
                         columns={columns}
                         options={options}
