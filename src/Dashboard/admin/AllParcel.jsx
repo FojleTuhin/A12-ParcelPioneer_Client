@@ -14,6 +14,7 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 
 
@@ -142,6 +143,11 @@ const AllParcel = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>
+                    ParcelPioneer || AllParcel
+                </title>
+            </Helmet>
             <div className=''>
                 <div>
                     <MUIDataTable

@@ -1,6 +1,7 @@
 import { AuthContext } from "@/Firebase/FirebaseProvider";
 import { Pointer } from "lucide-react";
 import { useContext, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { MdOutlineAddAPhoto } from "react-icons/md";
 
 
@@ -36,6 +37,11 @@ const UserProfile = () => {
     console.log(user);
     return (
         <div className=" px-5 py-4">
+            <Helmet>
+                <title>
+                    ParcelPioneer || Profile
+                </title>
+            </Helmet>
             <div className="border rounded-2xl px-5 py-4">
                 <p className="mb-6 font-bold text-xl">My Profile</p>
 

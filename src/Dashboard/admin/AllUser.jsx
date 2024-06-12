@@ -1,4 +1,5 @@
 import MUIDataTable from 'mui-datatables';
+import { Helmet } from 'react-helmet-async';
 
 const AllUser = () => {
 
@@ -97,6 +98,11 @@ const AllUser = () => {
   };
   return (
     <div>
+      <Helmet>
+                <title>
+                    ParcelPioneer || All User
+                </title>
+            </Helmet>
       <div className=' '>
         <div>
           <MUIDataTable

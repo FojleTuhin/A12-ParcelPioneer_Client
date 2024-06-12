@@ -22,43 +22,44 @@ import AllUser from './Dashboard/admin/AllUser';
 import AllParcel from './Dashboard/admin/AllParcel';
 import AllDeliveryMan from './Dashboard/admin/AllDeliveryMan';
 import PrivateRoute from './Shared/PrivateRoute';
+import { HelmetProvider } from 'react-helmet-async';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
-    children:[
+    children: [
       {
-        path:'/',
-        element:<Home></Home>
+        path: '/',
+        element: <Home></Home>
       },
       {
-        path:'/login',
-        element:<Login></Login>
+        path: '/login',
+        element: <Login></Login>
       },
       {
-        path:'/signup',
-        element:<Signup></Signup>
+        path: '/signup',
+        element: <Signup></Signup>
       }
     ]
   },
   {
-    path:'/dashboard',
-    element:<PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
-    children:[
+    path: '/dashboard',
+    element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+    children: [
 
       //dashboard for normal user
       {
-        path:'userProfile',
-        element:<UserProfile></UserProfile>
+        path: 'userProfile',
+        element: <UserProfile></UserProfile>
       },
       {
-        path:'bookAParcel',
-        element:<BookAParcel></BookAParcel>
+        path: 'bookAParcel',
+        element: <BookAParcel></BookAParcel>
       },
       {
-        path:'myParcel',
-        element:<MyParcel></MyParcel>
+        path: 'myParcel',
+        element: <MyParcel></MyParcel>
       },
 
 
@@ -66,32 +67,32 @@ const router = createBrowserRouter([
 
       // dashboard for delivery man
       {
-        path:'deliveryList',
-        element:<DeliveryList></DeliveryList>
+        path: 'deliveryList',
+        element: <DeliveryList></DeliveryList>
       },
       {
-        path:'reviews',
-        element:<Reviews></Reviews>
+        path: 'reviews',
+        element: <Reviews></Reviews>
       },
 
 
 
       //dashboard for admin
       {
-        path:'statistics',
-        element:<Statistics></Statistics>
+        path: 'statistics',
+        element: <Statistics></Statistics>
       },
       {
-        path:'allUser',
-        element:<AllUser></AllUser>
+        path: 'allUser',
+        element: <AllUser></AllUser>
       },
       {
-        path:'allParcel',
-        element:<AllParcel></AllParcel>
+        path: 'allParcel',
+        element: <AllParcel></AllParcel>
       },
       {
-        path:'allDeliveryMan',
-        element:<AllDeliveryMan></AllDeliveryMan>
+        path: 'allDeliveryMan',
+        element: <AllDeliveryMan></AllDeliveryMan>
       }
     ]
   }
@@ -100,7 +101,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <FirebaseProvider>
-    <RouterProvider router={router} />
+      <HelmetProvider>
+        <RouterProvider router={router} />
+      </HelmetProvider>
     </FirebaseProvider>
   </React.StrictMode>,
 )

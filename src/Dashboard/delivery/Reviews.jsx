@@ -1,11 +1,16 @@
 import { Star } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 
 const Reviews = () => {
     return (
-        <div className="px-4 pb-4 bg-[#F8F6F1] ">
+        <div className="px-4 pb-4 min-h-screen bg-[#F8F6F1] ">
+            <Helmet>
+                <title>
+                    ParcelPioneer || Reviews
+                </title>
+            </Helmet>
             <div className="bg-[#EBFBE5] text-[#3EA570] py-4 mb-5">
                 <h1 className="font-bold italic  text-xl text-center">Clients Feedbacks</h1>
-                {/* <h1 className="font-bold text-3xl text-center">Feedbacks</h1> */}
             </div>
             <div className="flex flex-wrap justify-center gap-10">
                 <div className="-mt-20">

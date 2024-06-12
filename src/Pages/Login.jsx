@@ -1,5 +1,6 @@
 import { AuthContext } from "@/Firebase/FirebaseProvider";
 import { useContext } from "react";
+import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa6";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -65,6 +66,11 @@ const Login = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>
+                    ParcelPioneer || Login
+                </title>
+            </Helmet>
             <div className="hero min-h-screen pt-12" style={{ backgroundImage: `url(https://i.ibb.co/BB6BQ7f/authentication.png)` }}>
                 <div className="lg:flex w-[80%] m-auto items-center justify-center shadow-2xl shadow-gray-500 py-8 px-4 lg:px-24 gap-20">
                     <div className="lg:w-[50%] flex justify-center items-center">

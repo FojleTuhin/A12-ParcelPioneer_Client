@@ -1,4 +1,5 @@
 import MUIDataTable from "mui-datatables";
+import { Helmet } from "react-helmet-async";
 
 const AllDeliveryMan = () => {
     const columns = [
@@ -64,6 +65,11 @@ const AllDeliveryMan = () => {
     };
     return (
         <div>
+            <Helmet>
+                <title>
+                    ParcelPioneer || AllDeliveryMan
+                </title>
+            </Helmet>
             <div className=' mt-10'>
                 <div>
                     <MUIDataTable

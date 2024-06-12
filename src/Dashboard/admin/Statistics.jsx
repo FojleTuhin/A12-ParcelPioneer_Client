@@ -2,6 +2,7 @@ import BarChart from "./BarChart";
 import CountUp from 'react-countup';
 import { useContext } from "react";
 import { AuthContext } from "@/Firebase/FirebaseProvider";
+import { Helmet } from "react-helmet-async";
 
 
 const Statistics = () => {
@@ -9,6 +10,11 @@ const Statistics = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>
+                    ParcelPioneer || Statistics
+                </title>
+            </Helmet>
             <div className="flex flex-wrap justify-center gap-6 mb-14">
                 <div className="h-[140px] w-[270px] bg-[#EBFBE5] flex flex-col items-center justify-center rounded-2xl">
                     <p className="text-xl"> Admin</p>

@@ -1,14 +1,22 @@
 import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { Helmet } from "react-helmet-async";
 import { IoMdDoneAll } from "react-icons/io";
 import { MdCancel } from "react-icons/md";
-
+import { MapContainer, TileLayer } from "react-leaflet";
+import 'leaflet/dist/leaflet.css'
 const DeliveryList = () => {
 
-   
+    const center = [23.78606960000005, 90.37654022944777]
+
 
 
     return (
         <div>
+            <Helmet>
+                <title>
+                    ParcelPioneer || DeliveryList
+                </title>
+            </Helmet>
             <div className="px-4 pb-4 bg-[#F8F6F1]">
                 <div className="bg-[#EBFBE5] text-[#3EA570] py-4 mb-5">
                     <h1 className="font-bold text-xl text-center">My Delivery List</h1>
@@ -51,8 +59,17 @@ const DeliveryList = () => {
                                             <AlertDialogTitle><p className="text-center font-bold mb-4">See your delivery location</p></AlertDialogTitle>
                                         </AlertDialogHeader>
 
-                                        {/* map  */}
-                                        
+                                        {/* map...............  */}
+                                        <div >
+                                            <MapContainer
+                                                center={center}
+                                                zoom={10}
+                                                style={
+                                                    { width: '450px', height: '300px' }
+                                                }
+                                            >
+                                            </MapContainer>
+                                        </div>
 
                                         <AlertDialogFooter>
                                             <AlertDialogCancel>Cancel</AlertDialogCancel>

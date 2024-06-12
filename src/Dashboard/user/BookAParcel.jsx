@@ -5,12 +5,18 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 const BookAParcel = () => {
 
     const [startDate, setStartDate] = useState(new Date());
     const { user } = useContext(AuthContext)
     return (
         <div>
+            <Helmet>
+                <title>
+                    ParcelPioneer || BookAParcel
+                </title>
+            </Helmet>
             <div className="px-4 md:px-8 lg:px-[100px]  pb-1 bg-[#F8F6F1] ">
                 <div className="bg-[#EBFBE5] text-[#3EA570] py-4 mb-5">
                     <h1 className="font-bold text-xl text-center">Book a Parcel</h1>
