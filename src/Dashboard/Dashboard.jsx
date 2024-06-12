@@ -3,7 +3,8 @@ import { useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { ActivityIcon, ImagesIcon, LayoutGridIcon, MenuIcon, MountainIcon, SaveIcon, UsersIcon } from "lucide-react";
+import { ActivityIcon, ImagesIcon, LayoutGridIcon, ListIcon, MenuIcon, MountainIcon, SaveIcon, UsersIcon } from "lucide-react";
+import { MdReviews } from "react-icons/md";
 
 const Dashboard = () => {
 
@@ -29,7 +30,7 @@ const Dashboard = () => {
                         </Link>
 
                         {/* user dashboard. */}
-                        <nav className="space-y-1">
+                        {/* <nav className="space-y-1">
                             <Link
                                 to='/dashboard/userProfile'
                                 className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
@@ -58,7 +59,7 @@ const Dashboard = () => {
                             </Link>
                             
 
-                        </nav>
+                        </nav> */}
 
 
                         {/* admin dashboard */}
@@ -97,6 +98,32 @@ const Dashboard = () => {
                             </Link>
 
                         </nav> */}
+
+
+                        {/* Delivery Man dashboard. */}
+                        <nav className="space-y-1">
+                            <Link
+                                to='/dashboard/deliveryList'
+                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
+                                prefetch={false}
+                            >
+                                <ListIcon className="h-5 w-5"></ListIcon>
+                                Delivery List
+                                
+                                
+                            </Link>
+                            <Link
+                                to='/dashboard/reviews'
+                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
+                                prefetch={false}
+                            >
+                                <MdReviews className="h-5 w-5"></MdReviews>
+                                Reviews
+                            </Link>
+                            
+
+
+                        </nav>
                     </div>
                     <div className="space-y-4">
                         <ul>

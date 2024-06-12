@@ -33,10 +33,10 @@ const MyParcel = () => {
                         <td className="border border-slate-300">12/34/5678</td>
                         <td className="border border-slate-300">Tuhin</td>
                         <td className="border border-slate-300">pending</td>
-                        <td className="border border-slate-300">
+                        <td className="border border-slate-300 p-2">
                             <span className="flex justify-evenly">
-                                <button><MdOutlineUpdate /></button>
-                                <button><FaTrashAlt /></button>
+                                <button><MdOutlineUpdate className="text-xl  bg-[#3EA570] p-1 rounded-full text-white"/></button>
+                                <button><FaTrashAlt className="text-xl bg-red-500 p-1 rounded-full text-white"/></button>
                             </span>
                         </td>
                         <td className="border border-slate-300">Pay</td>
