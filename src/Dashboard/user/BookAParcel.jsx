@@ -105,7 +105,7 @@ const BookAParcel = () => {
 
                     </div>
                         {/* 4th div  */}
-                    <div className="md:flex mb-8 gap-4 md:justify-evenly">
+                    <div className="md:flex mb-6 gap-4 md:justify-evenly">
                         <div className="form-control w-[200px]">
                             <label className="label">
                                 <span className="label-text text-black font-bold"> Weight</span>
@@ -124,7 +124,6 @@ const BookAParcel = () => {
                         </div>
 
                     </div>
-                   
 
                     <div className="md:flex mb-5 ">
                         <button className=" bg-[#3EA570] border-none text-white w-1/2 justify-center m-auto py-2 rounded-lg font-bold text-xl">Book</button>
