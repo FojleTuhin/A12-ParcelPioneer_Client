@@ -2,8 +2,7 @@ import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, 
 import { Helmet } from "react-helmet-async";
 import { IoMdDoneAll } from "react-icons/io";
 import { MdCancel } from "react-icons/md";
-import { MapContainer, TileLayer } from "react-leaflet";
-import 'leaflet/dist/leaflet.css'
+
 const DeliveryList = () => {
 
     const center = [23.78606960000005, 90.37654022944777]
@@ -61,14 +60,11 @@ const DeliveryList = () => {
 
                                         {/* map...............  */}
                                         <div >
-                                            <MapContainer
-                                                center={center}
-                                                zoom={10}
-                                                style={
-                                                    { width: '450px', height: '300px' }
-                                                }
-                                            >
-                                            </MapContainer>
+                                           
+
+
+
+
                                         </div>
 
                                         <AlertDialogFooter>
