@@ -1,16 +1,19 @@
 import { AuthContext } from "@/Firebase/FirebaseProvider";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa6";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Signup = () => {
 
     const { createUser, updateUser, googleLogin } = useContext(AuthContext);
-
     const location = useLocation();
     const navigate = useNavigate();
+
+    const axiosPublic = useAxiosPublic();
 
 
 
@@ -18,6 +21,7 @@ const Signup = () => {
         googleLogin()
             .then(result => {
 
+                
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
@@ -50,7 +54,7 @@ const Signup = () => {
             return
         }
 
-        
+
 
 
 
@@ -62,9 +66,34 @@ const Signup = () => {
 
         createUser(email, password)
             .then(result => {
+                // create user entry in database
+
                 updateUser(name, photo)
-                navigate(location?.state ? location.state : '/')
-                console.log(result);
+                const userInfo = {
+                    name,
+                    email,
+                    photo
+                }
+                axiosPublic.post('/users', userInfo)
+                    .then(res => {
+                        if (res.data.insertedId) {
+                            console.log('user added in the database');
+
+                            Swal.fire({
+                                position: "top-end",
+                                icon: "success",
+                                title: "Successfully login",
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+
+                            navigate(location?.state ? location.state : '/')
+                            console.log(result);
+                        }
+                    })
+
+
+
             })
             .catch(error => {
                 console.log(error);
@@ -128,7 +157,7 @@ const Signup = () => {
                         <p className="font-medium  text-center mb-3">Or sign up with</p>
                         <div className="flex justify-evenly">
 
-                            <button><FaGoogle onClick={handleGoogleLogin} className="text-2xl"/></button>
+                            <button><FaGoogle onClick={handleGoogleLogin} className="text-2xl" /></button>
 
                         </div>
 

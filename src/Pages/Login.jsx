@@ -1,4 +1,5 @@
 import { AuthContext } from "@/Firebase/FirebaseProvider";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
@@ -11,19 +12,34 @@ const Login = () => {
     const { signIn, googleLogin } = useContext(AuthContext)
     const location = useLocation();
     const navigate = useNavigate();
+    const axiosPublic = useAxiosPublic();
+
 
     const handleGoogleLogin = () => {
         googleLogin()
             .then(result => {
 
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Successfully login",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                navigate(location?.state ? location.state : '/')
+                const userInfo = {
+                    name: result.user?.displayName,
+                    email: result.user?.email,
+                    photo: result.user?.photoURL
+                }
+
+                axiosPublic.post('/users', userInfo)
+                    .then(res => {
+                        console.log(res);
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "Successfully login",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        navigate(location?.state ? location.state : '/')
+
+                    })
+
+
                 console.log(result);
             })
             .catch(error => {
@@ -104,7 +120,7 @@ const Login = () => {
                         <p className="font-medium  text-center mb-3">Or sign in with</p>
                         <div className="flex justify-evenly">
 
-                            <FaGoogle onClick={handleGoogleLogin}  className="text-2xl"/>
+                            <button><FaGoogle onClick={handleGoogleLogin} className="text-2xl" /></button>
 
                         </div>
 
