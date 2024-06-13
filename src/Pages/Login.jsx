@@ -104,7 +104,7 @@ const Login = () => {
                         <p className="font-medium  text-center mb-3">Or sign in with</p>
                         <div className="flex justify-evenly">
 
-                            <FaGoogle onClick={handleGoogleLogin} />
+                            <FaGoogle onClick={handleGoogleLogin}  className="text-2xl"/>
 
                         </div>
 
