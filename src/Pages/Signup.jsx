@@ -21,15 +21,27 @@ const Signup = () => {
         googleLogin()
             .then(result => {
 
-                
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Successfully login",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                navigate(location?.state ? location.state : '/')
+                const userInfo = {
+                    name: result.user?.displayName,
+                    email: result.user?.email,
+                    photo: result.user?.photoURL
+                }
+
+                axiosPublic.post('/users', userInfo)
+                    .then(res => {
+                        console.log(res);
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "Successfully login",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        navigate(location?.state ? location.state : '/')
+
+                    })
+
+
                 console.log(result);
             })
             .catch(error => {
