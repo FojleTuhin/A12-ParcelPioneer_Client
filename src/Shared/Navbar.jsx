@@ -22,7 +22,7 @@ const Navbar = () => {
 
     const { user, logOut } = useContext(AuthContext);
 
-    const [userRole] = useUserRole();
+    const [userRole, refetch] = useUserRole();
 
     const handleSignOut = () => {
 
@@ -31,6 +31,9 @@ const Navbar = () => {
                 console.log(result);
             })
             .catch()
+
+
+            refetch();
     }
 
 
@@ -175,6 +178,7 @@ const Navbar = () => {
                                             }
                                             <DropdownMenuItem><p onClick={handleSignOut}>Logout</p></DropdownMenuItem>
                                         </DropdownMenuContent>
+                                    
                                     </DropdownMenu>
                                     :
                                     <Link to='/login' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>

@@ -1,5 +1,6 @@
 import { AuthContext } from "@/Firebase/FirebaseProvider";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
+import useUserRole from "@/hooks/useUserRole";
 import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
@@ -13,7 +14,7 @@ const Login = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const axiosPublic = useAxiosPublic();
-
+    const [, refetch]= useUserRole();
 
     const handleGoogleLogin = () => {
         googleLogin()
@@ -42,6 +43,8 @@ const Login = () => {
             .catch(error => {
                 toast.error('Something wrong')
             })
+
+            refetch();
     }
 
 
@@ -72,6 +75,9 @@ const Login = () => {
 
                 });
             })
+
+
+            refetch();
 
     }
 

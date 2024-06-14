@@ -11,7 +11,7 @@ import useUserRole from "@/hooks/useUserRole";
 const Dashboard = () => {
 
 
-    const [userRole] = useUserRole();
+    const [userRole, refetch] = useUserRole();
 
 
     const { logOut } = useContext(AuthContext);

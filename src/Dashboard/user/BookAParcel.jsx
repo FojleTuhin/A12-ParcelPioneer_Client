@@ -6,10 +6,90 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import toast from "react-hot-toast";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
+import { useMutation } from "@tanstack/react-query";
 const BookAParcel = () => {
 
     const [startDate, setStartDate] = useState(new Date());
-    const { user } = useContext(AuthContext)
+    const { user } = useContext(AuthContext);
+    const axiosPublic = useAxiosPublic();
+
+
+    const [weight, setWeight] = useState('');
+    const [price, setPrice] = useState(0);
+
+
+    const handleWeightChange = (e) => {
+
+        const inputWeight = parseFloat(e.target.value) || 0;
+        setWeight(inputWeight);
+
+        let calculatedPrice;
+        if (inputWeight === 1) {
+            calculatedPrice = 50;
+        } else if (inputWeight === 2) {
+            calculatedPrice = 100;
+        } else if (inputWeight > 2) {
+            calculatedPrice = 150;
+        } else {
+            calculatedPrice = 0;
+        }
+
+        setPrice(calculatedPrice);
+    }
+
+    const { mutateAsync } = useMutation({
+        mutationFn: async roomData => {
+            const { data } = await axiosPublic.post(`/room`, roomData)
+            return data
+        },
+        onSuccess: () => {
+            console.log('Data Saved Successfully')
+            toast.success('Room Added Successfully!')
+        },
+    })
+
+
+    const handleBookAParcel = (e) => {
+        e.preventDefault();
+        const name = e.target.name.value;
+        const email = e.target.email.value;
+        const phone = e.target.phone.value;
+        const receiverName = e.target.receiverName.value;
+        const receiversNumber = e.target.receiversNumber.value;
+        const requestedDeliveryDate = startDate;
+        const place = e.target.place.value;
+        const latitude = e.target.latitude.value;
+        const longitude = e.target.longitude.value;
+        const bookingDate = new Date();
+
+
+
+        const bookParcel = {
+            name,
+            email,
+            phone,
+            receiverName,
+            receiversNumber,
+            requestedDeliveryDate,
+            place,
+            latitude,
+            longitude,
+            weight,
+            bookingDate,
+            price
+        }
+
+        console.table(bookParcel);
+
+
+
+
+
+
+    }
+
     return (
         <div>
             <Helmet>
@@ -21,7 +101,7 @@ const BookAParcel = () => {
                 <div className="bg-[#EBFBE5] text-[#3EA570] py-4 mb-5">
                     <h1 className="font-bold text-xl text-center">Book a Parcel</h1>
                 </div>
-                <form >
+                <form onSubmit={handleBookAParcel}>
                     {/* 1st div */}
                     <div className="md:flex mb-8 gap-4 ">
                         <div className="form-control w-full">
@@ -29,7 +109,7 @@ const BookAParcel = () => {
                                 <span className="label-text text-black font-bold">Name</span>
                             </label>
                             <label className="input-group">
-                                <input type="text" name="userName" required defaultValue={user?.displayName} className="border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg w-full  bg-[#f4f3f0]" />
+                                <input type="text" name="name" required defaultValue={user?.displayName} className="border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg w-full  bg-[#f4f3f0]" />
                             </label>
                         </div>
                         <div className="form-control w-full">
@@ -45,7 +125,7 @@ const BookAParcel = () => {
                                 <span className="label-text text-black font-bold">Phone</span>
                             </label>
                             <label className="input-group">
-                                <input type="number" name="email" required placeholder="Add your number here" className="border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg w-full  bg-[#f4f3f0]" />
+                                <input type="number" name="phone" required placeholder="Add your number here" className="border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg w-full  bg-[#f4f3f0]" />
                             </label>
                         </div>
                     </div>
@@ -89,7 +169,7 @@ const BookAParcel = () => {
                                 <span className="label-text text-black font-bold">Place</span>
                             </label>
                             <label className="input-group">
-                                <input type="text" name="Place" required placeholder="Place" className="border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg w-full  bg-[#f4f3f0]" />
+                                <input type="text" name="place" required placeholder="Place" className="border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg w-full  bg-[#f4f3f0]" />
                             </label>
                         </div>
                         <div className="form-control w-full">
@@ -97,7 +177,7 @@ const BookAParcel = () => {
                                 <span className="label-text text-black font-bold">Latitude</span>
                             </label>
                             <label className="input-group">
-                                <input type="text" name="Place_Latitude" required placeholder="Find Latitude from google map" className="border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg w-full  bg-[#f4f3f0]"/>
+                                <input type="text" name="latitude" required placeholder="Find Latitude from google map" className="border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg w-full  bg-[#f4f3f0]" />
                             </label>
                         </div>
                         <div className="form-control w-full">
@@ -105,19 +185,19 @@ const BookAParcel = () => {
                                 <span className="label-text text-black font-bold">Longitude</span>
                             </label>
                             <label className="input-group">
-                                <input type="text" name="Place_Longitude" required placeholder="Find Longitude from google map" className="border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg w-full  bg-[#f4f3f0]" />
+                                <input type="text" name="longitude" required placeholder="Find Longitude from google map" className="border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg w-full  bg-[#f4f3f0]" />
                             </label>
                         </div>
 
                     </div>
-                        {/* 4th div  */}
+                    {/* 4th div  */}
                     <div className="md:flex mb-6 gap-4 md:justify-evenly">
                         <div className="form-control w-[200px]">
                             <label className="label">
                                 <span className="label-text text-black font-bold"> Weight</span>
                             </label>
                             <label className="input-group">
-                                <input type="number" name="parcelWeight" required placeholder="Add total weight" className="border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg w-full  bg-[#f4f3f0]" />
+                                <input type="number" onChange={handleWeightChange} name="weight" required placeholder="Add total weight" className="border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg w-full  bg-[#f4f3f0]" />
                             </label>
                         </div>
                         <div className="form-control w-[200px]">
@@ -125,7 +205,7 @@ const BookAParcel = () => {
                                 <span className="label-text text-black font-bold"> Price</span>
                             </label>
                             <label className="input-group">
-                                <input type="number" name="totalPrice" disabled required placeholder="total price" className="border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg w-full  bg-[#f4f3f0]" />
+                                <input type="number" name="price" disabled required placeholder="total price" defaultValue={price} className="border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg w-full  bg-[#f4f3f0]" />
                             </label>
                         </div>
 
