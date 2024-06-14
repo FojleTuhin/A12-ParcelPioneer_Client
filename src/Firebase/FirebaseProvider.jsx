@@ -18,10 +18,11 @@ const FirebaseProvider = ({children}) => {
         return createUserWithEmailAndPassword(auth, email, password)
     }
 
-    const updateUser = (name, photo) => {
+    const updateUser = (name, photo, phone) => {
         return updateProfile(auth.currentUser, {
             displayName: name,
-            photoURL: photo
+            photoURL: photo,
+            phoneNumber: phone
         }
         )
     }

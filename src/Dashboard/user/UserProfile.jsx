@@ -1,4 +1,6 @@
 import { AuthContext } from "@/Firebase/FirebaseProvider";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
+import useUserRole from "@/hooks/useUserRole";
 import { Pointer } from "lucide-react";
 import { useContext, useState } from "react";
 import { Helmet } from "react-helmet-async";
@@ -8,33 +10,44 @@ import { MdOutlineAddAPhoto } from "react-icons/md";
 
 const UserProfile = () => {
 
+    const { user, updateUser } = useContext(AuthContext);
+    const axiosPublic = useAxiosPublic();
+    const [userRole] = useUserRole();
 
     const [image, setImage] = useState([])
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         setImage(file)
-        
     };
-
-    const handleUpdateProfile = (e) =>{
-        e.preventDefault();
-        
-        const displayName = e.target.displayName.value;
-        const phoneNumber = e.target.phoneNumber.value;
-        
-
-        console.log(image, displayName, phoneNumber);
-        e.target.reset();
-    }
-
-   
 
     
 
+    const handleUpdateProfile = (e) => {
+        e.preventDefault();
 
-    const { user } = useContext(AuthContext)
+        const displayName = e.target.displayName.value;
+        const phoneNumber = e.target.phoneNumber.value;
 
-    console.log(user);
+        const updateInfo = {
+            displayName,
+            phoneNumber,
+            image
+        }
+
+        updateUser (displayName, image, phoneNumber);
+
+        const res = axiosPublic.put(`/users/${user.email}`, updateInfo)
+        console.log(res.data);
+
+        e.target.reset();
+    }
+
+
+
+
+
+
+
     return (
         <div className=" px-5 py-4">
             <Helmet>
@@ -57,13 +70,13 @@ const UserProfile = () => {
                                 </div>
                             </div>
                         </label>
-                        <input id="fileInput" type="file" style={{ display: 'none' }} onChange={handleFileChange} />
+                        <input id="fileInput" type="file" style={{ display: 'none' }} onChange={handleFileChange} className="w-2"/>
                     </div>
 
                     <div className="flex justify-between">
-                        <input type="text" className="w-[45%] border-[#E6E6EB] py-3 px-5 rounded-xl border-2 text-[#787878]" name="displayName" defaultValue={user?.displayName} />
+                        <input type="text" className="w-[45%] border-[#E6E6EB] py-3 px-5 rounded-xl border-2 text-[#787878]" name="displayName" defaultValue={userRole?.name} />
                         <br />
-                        <input type="number" name="phoneNumber" className="w-[45%] border-[#E6E6EB] py-3 px-5 rounded-xl border-2 text-[#787878]" placeholder="Add your phone number" />
+                        <input type="number" name="phoneNumber" className="w-[45%] border-[#E6E6EB] py-3 px-5 rounded-xl border-2 text-[#787878]" placeholder="Add your phone number" defaultValue={userRole.phone}/>
                         <br />
                     </div>
 

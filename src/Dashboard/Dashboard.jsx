@@ -37,7 +37,7 @@ const Dashboard = () => {
 
                         {/* user dashboard. */}
                         {
-                            userRole.role === 'regularUser' &&
+                            userRole?.role === 'regularUser' &&
                             <nav className="space-y-1">
                                 <Link
                                     to='/dashboard/userProfile'
@@ -73,7 +73,7 @@ const Dashboard = () => {
 
                         {/* admin dashboard */}
                         {
-                            userRole.role === 'admin' &&
+                            userRole?.role === 'admin' &&
                             <nav className="space-y-1">
                                 <Link
                                     to='/dashboard/statistics'
@@ -114,7 +114,7 @@ const Dashboard = () => {
 
                         {/* Delivery Man dashboard. */}
                         {
-                            userRole.role === 'deliveryMan' &&
+                            userRole?.role === 'deliveryMan' &&
                             <nav className="space-y-1">
                                 <Link
                                     to='/dashboard/deliveryList'
@@ -168,7 +168,7 @@ const Dashboard = () => {
                                     <div className="space-y-6">
                                         {/* user dashboard. */}
                                         {
-                                            userRole.role === 'regularUser' &&
+                                            userRole?.role === 'regularUser' &&
                                             <nav className="space-y-1">
                                                 <Link
                                                     to='/dashboard/userProfile'
@@ -204,7 +204,7 @@ const Dashboard = () => {
 
                                         {/* admin dashboard */}
                                         {
-                                            userRole.role === 'admin' &&
+                                            userRole?.role === 'admin' &&
                                             <nav className="space-y-1">
                                                 <Link
                                                     to='/dashboard/statistics'
@@ -245,7 +245,7 @@ const Dashboard = () => {
 
                                         {/* Delivery Man dashboard. */}
                                         {
-                                            userRole.role === 'deliveryMan' &&
+                                            userRole?.role === 'deliveryMan' &&
                                             <nav className="space-y-1">
                                                 <Link
                                                     to='/dashboard/deliveryList'
