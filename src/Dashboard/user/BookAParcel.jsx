@@ -9,13 +9,14 @@ import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { useMutation } from "@tanstack/react-query";
+import useUserRole from "@/hooks/useUserRole";
 const BookAParcel = () => {
 
     const [startDate, setStartDate] = useState(new Date());
     const { user } = useContext(AuthContext);
     const axiosPublic = useAxiosPublic();
-
-
+    const [, refetch] = useUserRole();
+    const [status, setStatus] = useState('pending');
     const [weight, setWeight] = useState('');
     const [price, setPrice] = useState(0);
 
@@ -62,6 +63,7 @@ const BookAParcel = () => {
         const place = e.target.place.value;
         const latitude = e.target.latitude.value;
         const longitude = e.target.longitude.value;
+        const type = e.target.type.value;
         const bookingDate = new Date();
 
 
@@ -76,9 +78,11 @@ const BookAParcel = () => {
             place,
             latitude,
             longitude,
+            type,
             weight,
             bookingDate,
-            price
+            price,
+            status
         }
 
         console.table(bookParcel);
@@ -86,8 +90,8 @@ const BookAParcel = () => {
 
         mutateAsync(bookParcel);
 
-
-
+        e.target.reset();
+        setPrice(0)
     }
 
     return (
@@ -192,15 +196,23 @@ const BookAParcel = () => {
                     </div>
                     {/* 4th div  */}
                     <div className="md:flex mb-6 gap-4 md:justify-evenly">
-                        <div className="form-control w-[200px]">
+                    <div className="form-control w-full">
+                            <label className="label">
+                                <span className="label-text text-black font-bold"> Type</span>
+                            </label>
+                            <label className="input-group">
+                                <input type="text" name="type" required placeholder="Add type" className="border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg w-full  bg-[#f4f3f0]" />
+                            </label>
+                        </div>
+                        <div className="form-control w-full">
                             <label className="label">
                                 <span className="label-text text-black font-bold"> Weight</span>
                             </label>
                             <label className="input-group">
-                                <input type="number" onChange={handleWeightChange} name="weight" required placeholder="Add total weight" className="border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg w-full  bg-[#f4f3f0]" />
+                                <input type="number" onBlur={handleWeightChange} name="weight" required placeholder="Add total weight" className="border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg w-full  bg-[#f4f3f0]" />
                             </label>
                         </div>
-                        <div className="form-control w-[200px]">
+                        <div className="form-control w-full">
                             <label className="label">
                                 <span className="label-text text-black font-bold"> Price</span>
                             </label>
