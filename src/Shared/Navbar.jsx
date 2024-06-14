@@ -13,13 +13,17 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useContext } from "react";
 import { AuthContext } from "@/Firebase/FirebaseProvider";
+import useUsers from "@/hooks/useUsers";
 
 
 
 
 const Navbar = () => {
 
-    const { user, logOut } = useContext(AuthContext)
+    const { user, logOut } = useContext(AuthContext);
+    const [users] = useUsers();
+
+    
 
     const handleSignOut = () => {
 
@@ -42,7 +46,8 @@ const Navbar = () => {
                     <Link to='/' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
                         Home
                     </Link>
-                    <Link to='/dashboard/userProfile' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
+                    
+                    <Link to='/dashboard' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
                         Dashboard
                     </Link>
                     <Link to='/' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>

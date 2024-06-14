@@ -23,6 +23,7 @@ import AllParcel from './Dashboard/admin/AllParcel';
 import AllDeliveryMan from './Dashboard/admin/AllDeliveryMan';
 import PrivateRoute from './Shared/PrivateRoute';
 import { HelmetProvider } from 'react-helmet-async';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const router = createBrowserRouter([
   {
@@ -98,12 +99,17 @@ const router = createBrowserRouter([
   }
 ]);
 
+
+const queryClient = new QueryClient();
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <FirebaseProvider>
-      <HelmetProvider>
-        <RouterProvider router={router} />
-      </HelmetProvider>
-    </FirebaseProvider>
+    <QueryClientProvider client={queryClient}>
+      <FirebaseProvider>
+        <HelmetProvider>
+          <RouterProvider router={router} />
+        </HelmetProvider>
+      </FirebaseProvider>
+    </QueryClientProvider>
   </React.StrictMode>,
 )

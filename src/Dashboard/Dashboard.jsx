@@ -3,13 +3,17 @@ import { useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { ActivityIcon, ImagesIcon, LayoutGridIcon, ListIcon, MenuIcon, MountainIcon, SaveIcon, UsersIcon } from "lucide-react";
+import { ActivityIcon, LayoutGridIcon, ListIcon, MenuIcon, MountainIcon, SaveIcon, UsersIcon } from "lucide-react";
 import { MdReviews } from "react-icons/md";
+import useUsers from "@/hooks/useUsers";
+
 
 const Dashboard = () => {
 
 
-    const isAdmin = true;
+    const [users] = useUsers();
+    console.log(users);
+
 
     const { logOut } = useContext(AuthContext);
     const handleSignOut = () => {
@@ -33,100 +37,109 @@ const Dashboard = () => {
                         </Link>
 
                         {/* user dashboard. */}
-                        <nav className="space-y-1">
-                            <Link
-                                to='/dashboard/userProfile'
-                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
-                                prefetch={false}
-                            >
-                                <UsersIcon className="h-5 w-5" />
-                                User Profile
-                            </Link>
-                            <Link
-                                to='/dashboard/bookAParcel'
-                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
-                                prefetch={false}
-                            >
-                                <LayoutGridIcon className="h-5 w-5" />
-                                Book a Parcel
-                            </Link>
-                            <Link
-                                to='/dashboard/myParcel'
-                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
-                                prefetch={false}
-                            >
+                        {
+                            users.role === 'regularUser' &&
+                            <nav className="space-y-1">
+                                <Link
+                                    to='/dashboard/userProfile'
+                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
+                                    prefetch={false}
+                                >
+                                    <UsersIcon className="h-5 w-5" />
+                                    User Profile
+                                </Link>
+                                <Link
+                                    to='/dashboard/bookAParcel'
+                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
+                                    prefetch={false}
+                                >
+                                    <LayoutGridIcon className="h-5 w-5" />
+                                    Book a Parcel
+                                </Link>
+                                <Link
+                                    to='/dashboard/myParcel'
+                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
+                                    prefetch={false}
+                                >
 
-                                <SaveIcon className="h-5 w-5" />
+                                    <SaveIcon className="h-5 w-5" />
 
-                                My Parcel
-                            </Link>
+                                    My Parcel
+                                </Link>
 
 
-                        </nav>
+                            </nav>
+                        }
 
 
                         {/* admin dashboard */}
-                        <nav className="space-y-1">
-                            <Link
-                                to='/dashboard/statistics'
-                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
-                                prefetch={false}
-                            >
-                                <ActivityIcon className="h-5 w-5" />
-                                Statistics
-                            </Link>
-                            <Link
-                                to='/dashboard/allParcel'
-                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
-                                prefetch={false}
-                            >
-                                <LayoutGridIcon className="h-5 w-5" />
-                                All Parcel
-                            </Link>
-                            <Link
-                                to='/dashboard/allUser'
-                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
-                                prefetch={false}
-                            >
-                                <UsersIcon className="h-5 w-5" />
-                                All Users
-                            </Link>
-                            <Link
-                                to='/dashboard/allDeliveryMan'
-                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
-                                prefetch={false}
-                            >
-                                <UsersIcon className="h-5 w-5" />
-                                All Delivery Man
-                            </Link>
+                        {
+                            users.role === 'admin' &&
+                            <nav className="space-y-1">
+                                <Link
+                                    to='/dashboard/statistics'
+                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
+                                    prefetch={false}
+                                >
+                                    <ActivityIcon className="h-5 w-5" />
+                                    Statistics
+                                </Link>
+                                <Link
+                                    to='/dashboard/allParcel'
+                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
+                                    prefetch={false}
+                                >
+                                    <LayoutGridIcon className="h-5 w-5" />
+                                    All Parcel
+                                </Link>
+                                <Link
+                                    to='/dashboard/allUser'
+                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
+                                    prefetch={false}
+                                >
+                                    <UsersIcon className="h-5 w-5" />
+                                    All Users
+                                </Link>
+                                <Link
+                                    to='/dashboard/allDeliveryMan'
+                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
+                                    prefetch={false}
+                                >
+                                    <UsersIcon className="h-5 w-5" />
+                                    All Delivery Man
+                                </Link>
 
-                        </nav>
+                            </nav>
+                        }
 
 
                         {/* Delivery Man dashboard. */}
-                        <nav className="space-y-1">
-                            <Link
-                                to='/dashboard/deliveryList'
-                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
-                                prefetch={false}
-                            >
-                                <ListIcon className="h-5 w-5"></ListIcon>
-                                Delivery List
+                        {
+                            users.role === 'deliveryMan' &&
+                            <nav className="space-y-1">
+                                <Link
+                                    to='/dashboard/deliveryList'
+                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
+                                    prefetch={false}
+                                >
+                                    <ListIcon className="h-5 w-5"></ListIcon>
+                                    Delivery List
 
 
-                            </Link>
-                            <Link
-                                to='/dashboard/reviews'
-                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
-                                prefetch={false}
-                            >
-                                <MdReviews className="h-5 w-5"></MdReviews>
-                                Reviews
-                            </Link>
+                                </Link>
+                                <Link
+                                    to='/dashboard/reviews'
+                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
+                                    prefetch={false}
+                                >
+                                    <MdReviews className="h-5 w-5"></MdReviews>
+                                    Reviews
+                                </Link>
 
 
 
-                        </nav>
+                            </nav>
+                        }
                     </div>
                     <div className="space-y-4">
                         <ul>
@@ -155,100 +168,109 @@ const Dashboard = () => {
                                 <div className="flex h-full flex-col justify-between py-6 px-4">
                                     <div className="space-y-6">
                                         {/* user dashboard. */}
-                                        <nav className="space-y-1">
-                                            <Link
-                                                to='/dashboard/userProfile'
-                                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
-                                                prefetch={false}
-                                            >
-                                                <UsersIcon className="h-5 w-5" />
-                                                User Profile
-                                            </Link>
-                                            <Link
-                                                to='/dashboard/bookAParcel'
-                                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
-                                                prefetch={false}
-                                            >
-                                                <LayoutGridIcon className="h-5 w-5" />
-                                                Book a Parcel
-                                            </Link>
-                                            <Link
-                                                to='/dashboard/myParcel'
-                                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
-                                                prefetch={false}
-                                            >
+                                        {
+                                            users.role === 'regularUser' &&
+                                            <nav className="space-y-1">
+                                                <Link
+                                                    to='/dashboard/userProfile'
+                                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
+                                                    prefetch={false}
+                                                >
+                                                    <UsersIcon className="h-5 w-5" />
+                                                    User Profile
+                                                </Link>
+                                                <Link
+                                                    to='/dashboard/bookAParcel'
+                                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
+                                                    prefetch={false}
+                                                >
+                                                    <LayoutGridIcon className="h-5 w-5" />
+                                                    Book a Parcel
+                                                </Link>
+                                                <Link
+                                                    to='/dashboard/myParcel'
+                                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
+                                                    prefetch={false}
+                                                >
 
-                                                <SaveIcon className="h-5 w-5" />
+                                                    <SaveIcon className="h-5 w-5" />
 
-                                                My Parcel
-                                            </Link>
+                                                    My Parcel
+                                                </Link>
 
 
-                                        </nav>
+                                            </nav>
+                                        }
 
 
                                         {/* admin dashboard */}
-                                        <nav className="space-y-1">
-                                            <Link
-                                                to='/dashboard/statistics'
-                                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
-                                                prefetch={false}
-                                            >
-                                                <ActivityIcon className="h-5 w-5" />
-                                                Statistics
-                                            </Link>
-                                            <Link
-                                                to='/dashboard/allParcel'
-                                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
-                                                prefetch={false}
-                                            >
-                                                <LayoutGridIcon className="h-5 w-5" />
-                                                All Parcel
-                                            </Link>
-                                            <Link
-                                                to='/dashboard/allUser'
-                                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
-                                                prefetch={false}
-                                            >
-                                                <UsersIcon className="h-5 w-5" />
-                                                All Users
-                                            </Link>
-                                            <Link
-                                                to='/dashboard/allDeliveryMan'
-                                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
-                                                prefetch={false}
-                                            >
-                                                <UsersIcon className="h-5 w-5" />
-                                                All Delivery Man
-                                            </Link>
+                                        {
+                                            users.role === 'admin' &&
+                                            <nav className="space-y-1">
+                                                <Link
+                                                    to='/dashboard/statistics'
+                                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
+                                                    prefetch={false}
+                                                >
+                                                    <ActivityIcon className="h-5 w-5" />
+                                                    Statistics
+                                                </Link>
+                                                <Link
+                                                    to='/dashboard/allParcel'
+                                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
+                                                    prefetch={false}
+                                                >
+                                                    <LayoutGridIcon className="h-5 w-5" />
+                                                    All Parcel
+                                                </Link>
+                                                <Link
+                                                    to='/dashboard/allUser'
+                                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
+                                                    prefetch={false}
+                                                >
+                                                    <UsersIcon className="h-5 w-5" />
+                                                    All Users
+                                                </Link>
+                                                <Link
+                                                    to='/dashboard/allDeliveryMan'
+                                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
+                                                    prefetch={false}
+                                                >
+                                                    <UsersIcon className="h-5 w-5" />
+                                                    All Delivery Man
+                                                </Link>
 
-                                        </nav>
+                                            </nav>
+                                        }
 
 
                                         {/* Delivery Man dashboard. */}
-                                        <nav className="space-y-1">
-                                            <Link
-                                                to='/dashboard/deliveryList'
-                                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
-                                                prefetch={false}
-                                            >
-                                                <ListIcon className="h-5 w-5"></ListIcon>
-                                                Delivery List
+                                        {
+                                            users.role === 'deliveryMan' &&
+                                            <nav className="space-y-1">
+                                                <Link
+                                                    to='/dashboard/deliveryList'
+                                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
+                                                    prefetch={false}
+                                                >
+                                                    <ListIcon className="h-5 w-5"></ListIcon>
+                                                    Delivery List
 
 
-                                            </Link>
-                                            <Link
-                                                to='/dashboard/reviews'
-                                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
-                                                prefetch={false}
-                                            >
-                                                <MdReviews className="h-5 w-5"></MdReviews>
-                                                Reviews
-                                            </Link>
+                                                </Link>
+                                                <Link
+                                                    to='/dashboard/reviews'
+                                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
+                                                    prefetch={false}
+                                                >
+                                                    <MdReviews className="h-5 w-5"></MdReviews>
+                                                    Reviews
+                                                </Link>
 
 
 
-                                        </nav>
+                                            </nav>
+                                        }
                                     </div>
                                     <div className="space-y-4">
                                         <ul>

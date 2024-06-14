@@ -24,7 +24,8 @@ const Signup = () => {
                 const userInfo = {
                     name: result.user?.displayName,
                     email: result.user?.email,
-                    photo: result.user?.photoURL
+                    photo: result.user?.photoURL,
+                    role: 'regularUser'
                 }
 
                 axiosPublic.post('/users', userInfo)
@@ -39,6 +40,8 @@ const Signup = () => {
                         navigate(location?.state ? location.state : '/')
 
                     })
+
+                // navigate(location?.state ? location.state : '/')
             })
             .catch(error => {
                 toast.error('Something wrong')
