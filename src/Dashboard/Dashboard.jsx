@@ -5,14 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ActivityIcon, LayoutGridIcon, ListIcon, MenuIcon, MountainIcon, SaveIcon, UsersIcon } from "lucide-react";
 import { MdReviews } from "react-icons/md";
-import useUsers from "@/hooks/useUsers";
+import useUserRole from "@/hooks/useUserRole";
 
 
 const Dashboard = () => {
 
 
-    const [users] = useUsers();
-    console.log(users);
+    const [userRole] = useUserRole();
 
 
     const { logOut } = useContext(AuthContext);
@@ -38,7 +37,7 @@ const Dashboard = () => {
 
                         {/* user dashboard. */}
                         {
-                            users.role === 'regularUser' &&
+                            userRole.role === 'regularUser' &&
                             <nav className="space-y-1">
                                 <Link
                                     to='/dashboard/userProfile'
@@ -74,7 +73,7 @@ const Dashboard = () => {
 
                         {/* admin dashboard */}
                         {
-                            users.role === 'admin' &&
+                            userRole.role === 'admin' &&
                             <nav className="space-y-1">
                                 <Link
                                     to='/dashboard/statistics'
@@ -115,7 +114,7 @@ const Dashboard = () => {
 
                         {/* Delivery Man dashboard. */}
                         {
-                            users.role === 'deliveryMan' &&
+                            userRole.role === 'deliveryMan' &&
                             <nav className="space-y-1">
                                 <Link
                                     to='/dashboard/deliveryList'
@@ -169,7 +168,7 @@ const Dashboard = () => {
                                     <div className="space-y-6">
                                         {/* user dashboard. */}
                                         {
-                                            users.role === 'regularUser' &&
+                                            userRole.role === 'regularUser' &&
                                             <nav className="space-y-1">
                                                 <Link
                                                     to='/dashboard/userProfile'
@@ -205,7 +204,7 @@ const Dashboard = () => {
 
                                         {/* admin dashboard */}
                                         {
-                                            users.role === 'admin' &&
+                                            userRole.role === 'admin' &&
                                             <nav className="space-y-1">
                                                 <Link
                                                     to='/dashboard/statistics'
@@ -246,7 +245,7 @@ const Dashboard = () => {
 
                                         {/* Delivery Man dashboard. */}
                                         {
-                                            users.role === 'deliveryMan' &&
+                                            userRole.role === 'deliveryMan' &&
                                             <nav className="space-y-1">
                                                 <Link
                                                     to='/dashboard/deliveryList'

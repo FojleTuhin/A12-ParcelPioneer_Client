@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useContext } from "react";
 import { AuthContext } from "@/Firebase/FirebaseProvider";
-import useUsers from "@/hooks/useUsers";
+import useUserRole from "@/hooks/useUserRole";
 
 
 
@@ -21,9 +21,8 @@ import useUsers from "@/hooks/useUsers";
 const Navbar = () => {
 
     const { user, logOut } = useContext(AuthContext);
-    const [users] = useUsers();
 
-    
+    const [userRole] = useUserRole();
 
     const handleSignOut = () => {
 
@@ -46,10 +45,37 @@ const Navbar = () => {
                     <Link to='/' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
                         Home
                     </Link>
-                    
-                    <Link to='/dashboard' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
-                        Dashboard
-                    </Link>
+
+
+                    <div>
+                        {/* for admin  */}
+                        {
+                            userRole.role === 'admin' &&
+                            <Link to='/dashboard/statistics' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
+                                Dashboard
+                            </Link>
+                        }
+
+
+                        {/* for user  */}
+                        {
+                            userRole.role === 'regularUser' &&
+                            <Link to='/dashboard/userProfile' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
+                                Dashboard
+                            </Link>
+                        }
+
+
+                        {/* for deliveryman  */}
+                        {
+                            userRole.role === 'deliveryMan' &&
+                            <Link to='/dashboard/deliveryList' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
+                                Dashboard
+                            </Link>
+                        }
+                    </div>
+
+
                     <Link to='/' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
                         <IoMdNotifications className="text-2xl" />
                     </Link>
@@ -62,7 +88,18 @@ const Navbar = () => {
                                 <DropdownMenuContent>
                                     <DropdownMenuLabel>{user.displayName}</DropdownMenuLabel>
                                     <DropdownMenuSeparator />
-                                    <Link to='/dashboard/userProfile'> <DropdownMenuItem>Dashboard</DropdownMenuItem></Link>
+                                    {
+                                        userRole.role === 'admin' &&
+                                        <Link to='/dashboard/statistics'> <DropdownMenuItem>Dashboard</DropdownMenuItem></Link>
+                                    }
+                                    {
+                                        userRole.role === 'regularUser' &&
+                                        <Link to='/dashboard/userProfile'> <DropdownMenuItem>Dashboard</DropdownMenuItem></Link>
+                                    }
+                                    {
+                                        userRole.role === 'deliveryMan' &&
+                                        <Link to='/dashboard/deliveryList'> <DropdownMenuItem>Dashboard</DropdownMenuItem></Link>
+                                    }
                                     <DropdownMenuItem><p onClick={handleSignOut}>Logout</p></DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
@@ -85,9 +122,34 @@ const Navbar = () => {
                             <Link to='/' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
                                 Home
                             </Link>
-                            <Link to='/dashboard/userProfile' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
-                                Dashboard
-                            </Link>
+
+                            <div>
+                                {/* for admin  */}
+                                {
+                                    userRole.role === 'admin' &&
+                                    <Link to='/dashboard/statistics' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
+                                        Dashboard
+                                    </Link>
+                                }
+
+
+                                {/* for user  */}
+                                {
+                                    userRole.role === 'regularUser' &&
+                                    <Link to='/dashboard/userProfile' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
+                                        Dashboard
+                                    </Link>
+                                }
+
+
+                                {/* for deliveryman  */}
+                                {
+                                    userRole.role === 'deliveryMan' &&
+                                    <Link to='/dashboard/deliveryList' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
+                                        Dashboard
+                                    </Link>
+                                }
+                            </div>
                             <Link to='/' className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
                                 <IoMdNotifications className="text-2xl" />
                             </Link>
@@ -99,7 +161,18 @@ const Navbar = () => {
                                         <DropdownMenuContent>
                                             <DropdownMenuLabel>{user.displayName}</DropdownMenuLabel>
                                             <DropdownMenuSeparator />
-                                            <Link to='/dashboard/userProfile'> <DropdownMenuItem>Dashboard</DropdownMenuItem></Link>
+                                            {
+                                                userRole.role === 'admin' &&
+                                                <Link to='/dashboard/statistics'> <DropdownMenuItem>Dashboard</DropdownMenuItem></Link>
+                                            }
+                                            {
+                                                userRole.role === 'regularUser' &&
+                                                <Link to='/dashboard/userProfile'> <DropdownMenuItem>Dashboard</DropdownMenuItem></Link>
+                                            }
+                                            {
+                                                userRole.role === 'deliveryMan' &&
+                                                <Link to='/dashboard/deliveryList'> <DropdownMenuItem>Dashboard</DropdownMenuItem></Link>
+                                            }
                                             <DropdownMenuItem><p onClick={handleSignOut}>Logout</p></DropdownMenuItem>
                                         </DropdownMenuContent>
                                     </DropdownMenu>
