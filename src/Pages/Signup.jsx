@@ -29,7 +29,6 @@ const Signup = () => {
 
                 axiosPublic.post('/users', userInfo)
                     .then(res => {
-                        console.log(res);
                         Swal.fire({
                             position: "top-end",
                             icon: "success",
@@ -40,9 +39,6 @@ const Signup = () => {
                         navigate(location?.state ? location.state : '/')
 
                     })
-
-
-                console.log(result);
             })
             .catch(error => {
                 toast.error('Something wrong')
