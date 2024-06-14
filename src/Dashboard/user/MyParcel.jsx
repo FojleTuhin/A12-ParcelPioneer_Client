@@ -2,9 +2,27 @@ import { MdOutlineUpdate } from "react-icons/md";
 import { FaTrashAlt } from "react-icons/fa";
 import { Helmet } from "react-helmet-async";
 import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
+import { useContext } from "react";
+import { AuthContext } from "@/Firebase/FirebaseProvider";
+
+
 
 
 const MyParcel = () => {
+    const { user } = useContext(AuthContext);
+
+    const axiosPublic = useAxiosPublic();
+
+    const { data: parcelData = [] } = useQuery({
+        queryKey: ['parcel'],
+        queryFn: async () => {
+            const res = await axiosPublic.get('/allParcel');
+            return res.data;
+        }
+    })
+
 
     return (
         <div className="px-4 pb-4 bg-[#F8F6F1]">
@@ -33,21 +51,23 @@ const MyParcel = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr className="text-center">
-                        <td className="border border-slate-300 ">box</td>
-                        <td className="border border-slate-300">12/23/4556</td>
-                        <td className="border border-slate-300">23/12/3457</td>
-                        <td className="border border-slate-300">12/34/5678</td>
-                        <td className="border border-slate-300">Tuhin</td>
-                        <td className="border border-slate-300">pending</td>
-                        <td className="border border-slate-300 p-2">
-                            <span className="flex justify-evenly">
-                                <button><MdOutlineUpdate className="text-xl  bg-[#3EA570] p-1 rounded-full text-white"/></button>
-                                <button><FaTrashAlt className="text-xl bg-red-500 p-1 rounded-full text-white"/></button>
-                            </span>
-                        </td>
-                        <td className="border border-slate-300">Pay</td>
-                        <AlertDialog>
+                    {
+                        parcelData.map(item =>
+                            <tr key={item._id} className="text-center">
+                                <td className="border border-slate-300 ">{item.type}</td>
+                                <td className="border border-slate-300">{item.bookingDate}</td>
+                                <td className="border border-slate-300">{item.requestedDeliveryDate}</td>
+                                <td className="border border-slate-300">updatedSoon</td>
+                                <td className="border border-slate-300">Unknown</td>
+                                <td className="border border-slate-300">{item.status}</td>
+                                <td className="border border-slate-300 p-2">
+                                    <span className="flex justify-evenly">
+                                        <button><MdOutlineUpdate className="text-xl  bg-[#3EA570] p-1 rounded-full text-white" /></button>
+                                        <button><FaTrashAlt className="text-xl bg-red-500 p-1 rounded-full text-white" /></button>
+                                    </span>
+                                </td>
+                                <td className="border border-slate-300">Pay</td>
+                                <AlertDialog>
                                     <AlertDialogTrigger><button
                                         className={`capitalize inline-block px-3 py-1 rounded-full font-semibold bg-[#EBFBE5]`}>
                                         Review
@@ -57,7 +77,7 @@ const MyParcel = () => {
                                             <AlertDialogTitle><p className="text-center font-bold mb-4">See your delivery location</p></AlertDialogTitle>
                                         </AlertDialogHeader>
 
-                                       
+
 
 
                                         <AlertDialogFooter>
@@ -65,7 +85,9 @@ const MyParcel = () => {
                                         </AlertDialogFooter>
                                     </AlertDialogContent>
                                 </AlertDialog>
-                    </tr>
+                            </tr>
+                        )
+                    }
                 </tbody>
             </table>
 

@@ -10,6 +10,8 @@ import toast from "react-hot-toast";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { useMutation } from "@tanstack/react-query";
 import useUserRole from "@/hooks/useUserRole";
+import { useNavigate } from "react-router-dom";
+
 const BookAParcel = () => {
 
     const [startDate, setStartDate] = useState(new Date());
@@ -19,6 +21,7 @@ const BookAParcel = () => {
     const [status, setStatus] = useState('pending');
     const [weight, setWeight] = useState('');
     const [price, setPrice] = useState(0);
+    const navigate = useNavigate();
 
 
     const handleWeightChange = (e) => {
@@ -48,8 +51,12 @@ const BookAParcel = () => {
         onSuccess: () => {
             console.log('Data Saved Successfully')
             toast.success('Parcel booked Successfully!')
+            navigate('dashboard/myParcel')
         },
     })
+
+    
+
 
 
     const handleBookAParcel = (e) => {
