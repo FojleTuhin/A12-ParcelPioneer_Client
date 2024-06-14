@@ -40,13 +40,13 @@ const BookAParcel = () => {
     }
 
     const { mutateAsync } = useMutation({
-        mutationFn: async roomData => {
-            const { data } = await axiosPublic.post(`/room`, roomData)
+        mutationFn: async parcelData => {
+            const { data } = await axiosPublic.post(`/allParcel`, parcelData)
             return data
         },
         onSuccess: () => {
             console.log('Data Saved Successfully')
-            toast.success('Room Added Successfully!')
+            toast.success('Parcel booked Successfully!')
         },
     })
 
@@ -84,7 +84,7 @@ const BookAParcel = () => {
         console.table(bookParcel);
 
 
-
+        mutateAsync(bookParcel);
 
 
 
