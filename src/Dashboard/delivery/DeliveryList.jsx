@@ -5,8 +5,9 @@ import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
 import { IoMdDoneAll } from "react-icons/io";
 import { MdCancel } from "react-icons/md";
-import { Map, Marker } from "pigeon-maps"
+import { Map } from "pigeon-maps"
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 
 const DeliveryList = () => {
@@ -15,8 +16,7 @@ const DeliveryList = () => {
     const [center, setCenter] = useState([])
     const [zoom, setZoom] = useState(10)
 
-    const [userRole] = useUserRole();
-    console.log(userRole._id);
+    const [userRole, refetch] = useUserRole();
 
     const axiosPublic = useAxiosPublic();
 
@@ -29,7 +29,30 @@ const DeliveryList = () => {
         }
     })
 
-    console.log(allDeliveryList);
+
+    const handleCancel = (bookingId) => {
+
+        axiosPublic.patch(`/bookingCancel/${bookingId}`)
+          .then(res => {
+            if (res.data.modifiedCount > 0) {
+              
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: `Update Successfully`,
+                showConfirmButton: false,
+                timer: 1500
+              });
+              refetch();
+            }
+            
+          })
+    
+          
+          
+          
+      }
+
 
     return (
         <div>
@@ -110,7 +133,7 @@ const DeliveryList = () => {
                                     </td>
                                     <td className="border border-slate-300">
                                         <span className="flex justify-evenly">
-                                            <button><MdCancel className="text-xl bg-red-500 p-1 rounded-full text-white" /></button>
+                                            <button><MdCancel onClick={()=>handleCancel(item._id)} className="text-xl bg-red-500 p-1 rounded-full text-white" /></button>
                                             <button><IoMdDoneAll className="text-xl bg-[#3EA570] p-1 rounded-full text-white" /></button>
                                         </span>
                                     </td>
