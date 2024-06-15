@@ -19,6 +19,8 @@ import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import moment from "moment";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
+
 
 
 
@@ -26,6 +28,7 @@ import toast from "react-hot-toast";
 const AllParcel = () => {
 
     const axiosPublic = useAxiosPublic();
+   
 
     const { data: allDeliveryMan = [], refetch } = useQuery({
         queryKey: ['deliveryMan'],
@@ -36,13 +39,14 @@ const AllParcel = () => {
     })
 
     const [bookingId, setBookingId] = useState('');
-    const handleGetBookingId = (value)=>{
+    const handleGetBookingId = (value) => {
         setBookingId(value);
     }
 
     const [status, setStatus] = useState('OnTheWay');
     const [startDate, setStartDate] = useState(new Date());
-    const handleDeliveryManage = (e) => {
+
+    const handleDeliveryManage = async(e) => {
         e.preventDefault();
         const deliveryDate = moment(startDate).format("MMM Do YY");
         const deliveryManId = e.target.deliveryMan.value;
@@ -52,20 +56,26 @@ const AllParcel = () => {
             deliveryManId,
             status
         }
-        console.log(updatebooking);
 
-
-
-        axiosPublic.put(`/allParcel/${bookingId}`, updatebooking)
+       await axiosPublic.put(`/allParcel/${bookingId}`, updatebooking)
             .then(data => {
                 console.log(data)
                 if (data.modifiedCount > 0) {
-                    toast.success("Update successfully done");
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: `Update Successfully`,
+                        showConfirmButton: false,
+                        timer: 1500
+                      });
+                      refetch();
+                    
                 }
+
             })
 
-        refetch();
-        e.target.reset();
+
+
     }
 
 
@@ -126,7 +136,7 @@ const AllParcel = () => {
 
                     <div>
                         <AlertDialog>
-                            <AlertDialogTrigger><button onClick={()=> handleGetBookingId(value)}
+                            <AlertDialogTrigger><button onClick={() => handleGetBookingId(value)}
                                 className={`capitalize inline-block px-3 py-1 rounded-full font-semibold bg-[#EBFBE5]`}>
                                 Manage
                             </button></AlertDialogTrigger>
@@ -161,6 +171,7 @@ const AllParcel = () => {
 
                                         <div className="mt-5">
                                             <button type="submit" className="py-2 px-4 border border-[rgb(226, 232, 240)] rounded-lg">Assign</button>
+                                            
                                         </div>
 
                                     </form>
@@ -171,6 +182,7 @@ const AllParcel = () => {
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
                                     <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                 
                                     {/* <AlertDialogAction>Assign</AlertDialogAction> */}
                                 </AlertDialogFooter>
                             </AlertDialogContent>

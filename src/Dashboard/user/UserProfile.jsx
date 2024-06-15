@@ -113,7 +113,7 @@ const UserProfile = () => {
             <div className="border rounded-2xl px-5 py-4 mt-5">
                 <p className="font-bold">Role: <span className="bg-[#EBFBE5] text-[#3EA570] py-2 px-3 rounded-full">{userRole.role}</span></p>
 
-                <p className="font-bold mt-5">Total Order: <span className="bg-[#EBFBE5] text-[#3EA570] py-2 px-3 rounded-full">5</span></p>
+                {/* <p className="font-bold mt-5">Total Order: <span className="bg-[#EBFBE5] text-[#3EA570] py-2 px-3 rounded-full">5</span></p> */}
             </div>
         </div>
     );

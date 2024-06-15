@@ -57,8 +57,8 @@ const MyParcel = () => {
                                 <td className="border border-slate-300 ">{item.type}</td>
                                 <td className="border border-slate-300">{item.bookingDate}</td>
                                 <td className="border border-slate-300">{item.requestedDeliveryDate}</td>
-                                <td className="border border-slate-300">updatedSoon</td>
-                                <td className="border border-slate-300">Unknown</td>
+                                <td className="border border-slate-300">{item.approximateDaliveryDate}</td>
+                                <td className="border border-slate-300">{item.deliveryManId?.slice(0,10)}</td>
                                 <td className="border border-slate-300">
                                     <p
                                         className={`capitalize inline-block px-3 py-1 rounded-full font-semibold 

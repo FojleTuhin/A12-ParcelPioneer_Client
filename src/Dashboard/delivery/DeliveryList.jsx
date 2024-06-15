@@ -1,13 +1,35 @@
 import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
+import useUserRole from "@/hooks/useUserRole";
+import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
 import { IoMdDoneAll } from "react-icons/io";
 import { MdCancel } from "react-icons/md";
+import { Map, Marker } from "pigeon-maps"
+import { useState } from "react";
+
 
 const DeliveryList = () => {
 
-    const center = [23.78606960000005, 90.37654022944777]
+    
+    const [center, setCenter] = useState([])
+    const [zoom, setZoom] = useState(10)
+
+    const [userRole] = useUserRole();
+    console.log(userRole._id);
+
+    const axiosPublic = useAxiosPublic();
 
 
+    const { data: allDeliveryList = [], } = useQuery({
+        queryKey: ['deliveryList', userRole._id],
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/deliveryList/${userRole._id}`);
+            return res.data;
+        }
+    })
+
+    console.log(allDeliveryList);
 
     return (
         <div>
@@ -38,49 +60,64 @@ const DeliveryList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr className="text-center">
-                            <td className="border border-slate-300 ">box</td>
-                            <td className="border border-slate-300">Tuhin</td>
-                            <td className="border border-slate-300">01877127477</td>
-                            <td className="border border-slate-300">01877127477</td>
-                            <td className="border border-slate-300">12/06/2024</td>
-                            <td className="border border-slate-300">14/06/2024</td>
-                            <td className="border border-slate-300">Taltola, Agargaon</td>
-                            <td className="border border-slate-300">
+                        {
+                            allDeliveryList.map(item =>
+                                <tr key={item._id} className="text-center">
+                                    <td className="border border-slate-300 ">{item.name}</td>
+                                    <td className="border border-slate-300">{item.receiverName}</td>
+                                    <td className="border border-slate-300">{item.phone}</td>
+                                    <td className="border border-slate-300">{item.receiversNumber}</td>
+                                    <td className="border border-slate-300">{item.requestedDeliveryDate}</td>
+                                    <td className="border border-slate-300">{item.approximateDaliveryDate}</td>
+                                    <td className="border border-slate-300">{item.place}</td>
+                                    <td className="border border-slate-300">
 
-                                <AlertDialog>
-                                    <AlertDialogTrigger><button
-                                        className={`capitalize inline-block px-3 py-1 rounded-full font-semibold bg-[#EBFBE5]`}>
-                                        View
-                                    </button></AlertDialogTrigger>
-                                    <AlertDialogContent>
-                                        <AlertDialogHeader>
-                                            <AlertDialogTitle><p className="text-center font-bold mb-4">See your delivery location</p></AlertDialogTitle>
-                                        </AlertDialogHeader>
+                                        <AlertDialog>
+                                            <AlertDialogTrigger><button
+                                                className={`capitalize inline-block px-3 py-1 rounded-full font-semibold bg-[#EBFBE5]`}>
+                                                View
+                                            </button></AlertDialogTrigger>
+                                            <AlertDialogContent>
+                                                <AlertDialogHeader>
+                                                    <AlertDialogTitle><p className="text-center font-bold mb-4">See your delivery location</p></AlertDialogTitle>
+                                                </AlertDialogHeader>
 
-                                        {/* map...............  */}
-                                        <div >
-                                           
+                                                {/* map...............  */}
+                                                <Map
+                                                    height={300}
+                                                    center={[item.latitude, item.longitude]}
+                                                    zoom={zoom}
+                                                    anchor={[item.latitude, item.longitude]}
+                                                    onBoundsChanged={({ center, zoom }) => {
+                                                        setCenter(center);
+                                                        setZoom(zoom);
+
+                                                    }}
+                                                />
+                                                <div >
 
 
 
 
-                                        </div>
 
-                                        <AlertDialogFooter>
-                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                        </AlertDialogFooter>
-                                    </AlertDialogContent>
-                                </AlertDialog>
-                            </td>
-                            <td className="border border-slate-300">
-                                <span className="flex justify-evenly">
-                                    <button><MdCancel className="text-xl bg-red-500 p-1 rounded-full text-white" /></button>
-                                    <button><IoMdDoneAll className="text-xl bg-[#3EA570] p-1 rounded-full text-white" /></button>
-                                </span>
-                            </td>
+                                                </div>
 
-                        </tr>
+                                                <AlertDialogFooter>
+                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                        </AlertDialog>
+                                    </td>
+                                    <td className="border border-slate-300">
+                                        <span className="flex justify-evenly">
+                                            <button><MdCancel className="text-xl bg-red-500 p-1 rounded-full text-white" /></button>
+                                            <button><IoMdDoneAll className="text-xl bg-[#3EA570] p-1 rounded-full text-white" /></button>
+                                        </span>
+                                    </td>
+
+                                </tr>
+                            )
+                        }
                     </tbody>
                 </table>
 
