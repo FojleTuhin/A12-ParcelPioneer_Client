@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 
 const DeliveryList = () => {
 
-    
+
     const [center, setCenter] = useState([])
     const [zoom, setZoom] = useState(10)
 
@@ -33,25 +33,41 @@ const DeliveryList = () => {
     const handleCancel = (bookingId) => {
 
         axiosPublic.patch(`/bookingCancel/${bookingId}`)
-          .then(res => {
-            if (res.data.modifiedCount > 0) {
-              
-              Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: `Update Successfully`,
-                showConfirmButton: false,
-                timer: 1500
-              });
-              refetch();
-            }
-            
-          })
-    
-          
-          
-          
-      }
+            .then(res => {
+                if (res.data.modifiedCount > 0) {
+
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: `Update Successfully`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    refetch();
+                }
+
+            })
+    }
+
+
+    const handleBooked = (bookingId) => {
+
+        axiosPublic.patch(`/delivered/${bookingId}`)
+            .then(res => {
+                if (res.data.modifiedCount > 0) {
+
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: `Parcel booking Successfully`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    refetch();
+                }
+
+            })
+    }
 
 
     return (
@@ -132,10 +148,20 @@ const DeliveryList = () => {
                                         </AlertDialog>
                                     </td>
                                     <td className="border border-slate-300">
-                                        <span className="flex justify-evenly">
-                                            <button><MdCancel onClick={()=>handleCancel(item._id)} className="text-xl bg-red-500 p-1 rounded-full text-white" /></button>
-                                            <button><IoMdDoneAll className="text-xl bg-[#3EA570] p-1 rounded-full text-white" /></button>
-                                        </span>
+                                        {
+                                            (item.status == 'canceled') || (item.status == 'delivered') ?
+
+
+                                                <p>{item.status}</p>
+                                                :
+                                                <span span className="flex justify-evenly">
+                                                    <button><MdCancel onClick={() => handleCancel(item._id)} className="text-xl bg-red-500 p-1 rounded-full text-white" /></button>
+                                                    <button><IoMdDoneAll onClick={() => handleBooked(item._id)} className="text-xl bg-[#3EA570] p-1 rounded-full text-white" /></button>
+                                                </span>
+
+
+
+                                        }
                                     </td>
 
                                 </tr>
@@ -145,7 +171,7 @@ const DeliveryList = () => {
                 </table>
 
             </div>
-        </div>
+        </div >
     );
 };
 
