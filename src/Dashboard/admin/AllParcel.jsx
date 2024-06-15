@@ -18,25 +18,54 @@ import { Helmet } from "react-helmet-async";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import useUsers from "@/hooks/useUsers";
+import moment from "moment";
 
 
 
 
 const AllParcel = () => {
 
-    const [users] = useUsers();
+    const axiosPublic = useAxiosPublic();
 
+    const { data: allDeliveryMan = [] } = useQuery({
+        queryKey: ['deliveryMan'],
+        queryFn: async () => {
+            const res = await axiosPublic.get('/deliveryMan');
+            return res.data;
+        }
+    })
 
+    const [status, setStatus] = useState('On the way');
     const [startDate, setStartDate] = useState(new Date());
     const handleDeliveryManage = (e) => {
         e.preventDefault();
-        const deliveryDate = startDate;
-        const deliveryMan = e.target.deliveryMan.value;
-        console.log(deliveryDate, deliveryMan);
+        const deliveryDate = moment(startDate).format("MMM Do YY");
+        const deliveryManId = e.target.deliveryMan.value;
+
+        const updatebooking = {
+            deliveryDate,
+            deliveryManId,
+            status
+        }
+        console.log(updatebooking);
+
+
+
+        axiosPublic.put(`/users/${user.email}`, updatebooking)
+            .then(data => {
+                console.log(data)
+                if (data.modifiedCount > 0) {
+                    toast.success("Update successfully done");
+                }
+            })
+
+        refetch();
+
+        e.target.reset();
     }
 
 
-    const axiosPublic = useAxiosPublic();
+
 
     const { data: allParcel = [] } = useQuery({
         queryKey: ['parcel'],
@@ -47,6 +76,8 @@ const AllParcel = () => {
 
     })
     console.log(allParcel);
+
+
 
 
     let columns = [
@@ -68,10 +99,6 @@ const AllParcel = () => {
             name: "price",
             label: "Price"
         },
-        // {
-        //     name: "status",
-        //     label: 'Status'
-        // },
         {
             name: "status",
             label: "Status",
@@ -106,16 +133,21 @@ const AllParcel = () => {
                                         <div className="flex">
                                             <div>
 
+                                                <p className="font-bold mb-2">Pick a Delivery Man</p>
+
                                                 <div className="form-control ">
                                                     <select className="select w-[190px] bg-none border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg" name="deliveryMan">
-                                                        <option disabled selected>Pick a delivery man</option>
-                                                        <option>Fojle</option>
-                                                        <option>Rabbi</option>
-                                                        <option>Tuhin</option>
+
+                                                        {
+                                                            allDeliveryMan.map(item =>
+                                                                <option key={item._id}>{item._id}</option>
+                                                            )
+                                                        }
                                                     </select>
                                                 </div>
                                             </div>
                                             <div className="flex-1 m-auto ml-5">
+                                                <p className="font-bold mb-2">Pick approximate date</p>
                                                 <div className="border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg">
                                                     <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
                                                 </div>
