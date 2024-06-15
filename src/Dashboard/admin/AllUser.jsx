@@ -22,7 +22,34 @@ const AllUser = () => {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: `${user.name} is an Admin Now!`,
+            title: `Update Admin Successfully`,
+            showConfirmButton: false,
+            timer: 1500
+          });
+          refetch();
+        }
+        
+      })
+
+      
+      
+      
+  }
+
+
+  const handleMakeDeliveryMan = (userId) => {
+
+    console.log(userId);
+
+    axiosPublic.patch(`/makeDeliveryMan/${userId}`)
+      .then(res => {
+        console.log(res.data)
+        if (res.data.modifiedCount > 0) {
+          
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `Update Delivery Man Successfully`,
             showConfirmButton: false,
             timer: 1500
           });
@@ -89,11 +116,11 @@ const AllUser = () => {
       }
     },
     {
-      name: "role",
+      name: "_id",
       label: "MakeDeliveryMan",
       options: {
         customBodyRender: (value) => (
-          <button
+          <button onClick={()=>handleMakeDeliveryMan(value)}
             className={` inline-block px-3 py-1 rounded-full font-semibold bg-[#EBFBE5]`}>
             DeliveryMan
           </button>
