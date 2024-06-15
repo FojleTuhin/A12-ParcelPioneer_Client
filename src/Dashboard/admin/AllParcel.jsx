@@ -46,20 +46,19 @@ const AllParcel = () => {
         }
 
     })
+    console.log(allParcel);
 
 
     let columns = [
         {
             name: "name",
-            label: "Name"
         },
         {
             name: "phone",
-            label: "Phone"
         },
         {
             name: "bookingDate",
-            label: "booking_date"
+            label: "bookingDate"
         },
         {
             name: "requestedDeliveryDate",
@@ -67,15 +66,14 @@ const AllParcel = () => {
         },
         {
             name: "price",
-            label:"Price"
+            label: "Price"
         },
         {
             name: "status",
             label: 'Status'
-
         },
         {
-            label: "Action",
+            name: "action",
             options: {
                 customBodyRender: () => (
 
@@ -133,17 +131,17 @@ const AllParcel = () => {
         }
     ];
 
-    // const data = [
+    const data = [
 
-    //     ["Joe James", "01877127477", "3", "4"],
-    //     ["Joe James", "01877127477", "3", "4"],
-    //     ["Joe James", "01877127477", "3", "5"],
-    //     ["Joe James", "01877127477", "3", "2"],
-    //     ["Joe James", "01877127477", "3", "2"],
-    //     ["Joe James", "01877127477", "3", "4"],
-    // ];
+        ["Joe James", "01877127477", "3", "4"],
+        ["Joe James", "01877127477", "3", "4"],
+        ["Joe James", "01877127477", "3", "5"],
+        ["Joe James", "01877127477", "3", "2"],
+        ["Joe James", "01877127477", "3", "2"],
+        ["Joe James", "01877127477", "3", "4"],
+    ];
     const options = {
-        selectableRows:false,
+        selectableRows: false,
         rowsPerPage: 5,
         rowsPerPageOptions: [5, 10, 15]
     };
@@ -156,18 +154,13 @@ const AllParcel = () => {
                     ParcelPioneer || AllParcel
                 </title>
             </Helmet>
-            <div className=''>
-                <div>
-                    <MUIDataTable
-                        title={"All Parcel List"}
-                        data={users}
-                        columns={columns}
-                        options={options}
-                    />
-
-
-                </div>
-
+            <div>
+                <MUIDataTable
+                    title={"All Parcel List"}
+                    data={allParcel}
+                    columns={columns}
+                    options={options}
+                />
             </div>
         </div>
     );
