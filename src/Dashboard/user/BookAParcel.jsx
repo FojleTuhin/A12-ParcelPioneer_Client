@@ -51,7 +51,7 @@ const BookAParcel = () => {
         onSuccess: () => {
             console.log('Data Saved Successfully')
             toast.success('Parcel booked Successfully!')
-            navigate('dashboard/myParcel')
+            navigate('/dashboard/myParcel')
         },
     })
 

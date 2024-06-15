@@ -16,9 +16,9 @@ const MyParcel = () => {
     const axiosPublic = useAxiosPublic();
 
     const { data: parcelData = [] } = useQuery({
-        queryKey: ['parcel'],
+        queryKey: ['parcel', user.email],
         queryFn: async () => {
-            const res = await axiosPublic.get('/allParcel');
+            const res = await axiosPublic.get(`/allParcel/${user.email}`);
             return res.data;
         }
     })
