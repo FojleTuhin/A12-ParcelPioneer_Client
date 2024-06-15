@@ -13,7 +13,7 @@ const AllUser = () => {
       name: "name",
       label: "User"
     },
- 
+
     {
       name: "phone",
       label: "Phone"
@@ -83,10 +83,10 @@ const AllUser = () => {
   return (
     <div>
       <Helmet>
-                <title>
-                    ParcelPioneer || All User
-                </title>
-            </Helmet>
+        <title>
+          ParcelPioneer || All User
+        </title>
+      </Helmet>
       <div className=' '>
         <div>
           <MUIDataTable

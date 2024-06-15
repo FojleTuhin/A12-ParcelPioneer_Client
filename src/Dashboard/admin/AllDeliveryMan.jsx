@@ -1,63 +1,54 @@
+import useAxiosPublic from "@/hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
 import MUIDataTable from "mui-datatables";
 import { Helmet } from "react-helmet-async";
 
 const AllDeliveryMan = () => {
-    const columns = [
-        // {
-        //     name: 'S.NO',
-        //     options: {
-        //         filter: false,
-        //         customBodyRender: (value, tableMeta) => {
-        //             return (
-        //                 tableMeta.rowIndex + 1
-        //             );
-        //         }
-        //     },
-        //     flex:1
-        // },
 
+
+    const axiosPublic = useAxiosPublic();
+
+    const { data: allDeliveryMan = [] } = useQuery({
+        queryKey: ['deliveryMan'],
+        queryFn: async () => {
+            const res = await axiosPublic.get('/deliveryMan');
+            return res.data;
+        }
+    })
+
+
+
+    let columns = [
         {
-            name: "deliveryManName",
+            name: "name",
             label: "Name"
         },
         {
-          name: "ownerImage",
-          label: "Image",
-          options: {
-            customBodyRender: (value) => (
-              <img src={value} alt="pic" className="w-12 h-12 rounded-full" />
-            )
-          }
+            name: "photo",
+            label: "Image",
+            options: {
+                customBodyRender: (value) => (
+                    <img src={value} alt="pic" className="w-12 h-12 rounded-full" />
+                )
+            }
         },
         {
-            name: "phoneNumber",
+            name: "phone",
             label: "Phone"
         },
         {
             name: "numberOfParcelDelivered",
             label: "Delivered"
         },
-        
+
         {
             name: "averageReview",
             label: "Review"
-        },
-        
-        
-        
-
+        }
 
     ];
 
-    const data = [
 
-        ["Joe James", "01877127477", "3", "4"],
-        ["Joe James", "01877127477", "3", "4"],
-        ["Joe James", "01877127477", "3", "5"],
-        ["Joe James", "01877127477", "3", "2"],
-        ["Joe James", "01877127477", "3", "2"],
-        ["Joe James", "01877127477", "3", "4"],
-    ];
     const options = {
         selectableRows: false,
         rowsPerPage: 5,
@@ -74,7 +65,7 @@ const AllDeliveryMan = () => {
                 <div>
                     <MUIDataTable
                         title={"All Delivery Man List"}
-                        data={data}
+                        data={allDeliveryMan}
                         columns={columns}
                         options={options}
 

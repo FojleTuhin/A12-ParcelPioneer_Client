@@ -15,11 +15,16 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
+import useUsers from "@/hooks/useUsers";
 
 
 
 
 const AllParcel = () => {
+
+    const [users] = useUsers();
 
 
     const [startDate, setStartDate] = useState(new Date());
@@ -27,41 +32,50 @@ const AllParcel = () => {
         e.preventDefault();
         const deliveryDate = startDate;
         const deliveryMan = e.target.deliveryMan.value;
-
-
         console.log(deliveryDate, deliveryMan);
     }
 
 
-    const columns = [
+    const axiosPublic = useAxiosPublic();
+
+    const { data: allParcel = [] } = useQuery({
+        queryKey: ['parcel'],
+        queryFn: async () => {
+            const res = await axiosPublic.get('/allParcel');
+            return res.data;
+        }
+
+    })
 
 
+    let columns = [
         {
-            name: "userName",
+            name: "name",
             label: "Name"
         },
-
         {
-            name: "phoneNumber",
+            name: "phone",
             label: "Phone"
         },
         {
             name: "bookingDate",
             label: "booking_date"
         },
-
         {
-            name: "requestedBookingDate",
+            name: "requestedDeliveryDate",
             label: "req_date"
         },
         {
-            name: "cost",
+            name: "price",
+            label:"Price"
         },
         {
-            label: "Status"
+            name: "status",
+            label: 'Status'
+
         },
         {
-            name: "Manage",
+            label: "Action",
             options: {
                 customBodyRender: () => (
 
@@ -77,7 +91,7 @@ const AllParcel = () => {
                                     <form onSubmit={handleDeliveryManage}>
                                         <div className="flex">
                                             <div>
-                                                
+
                                                 <div className="form-control ">
                                                     <select className="select w-[190px] bg-none border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg" name="deliveryMan">
                                                         <option disabled selected>Pick a delivery man</option>
@@ -116,26 +130,20 @@ const AllParcel = () => {
 
                 )
             }
-        },
-        
-
-
-
-
-
+        }
     ];
 
-    const data = [
+    // const data = [
 
-        ["Joe James", "01877127477", "3", "4"],
-        ["Joe James", "01877127477", "3", "4"],
-        ["Joe James", "01877127477", "3", "5"],
-        ["Joe James", "01877127477", "3", "2"],
-        ["Joe James", "01877127477", "3", "2"],
-        ["Joe James", "01877127477", "3", "4"],
-    ];
+    //     ["Joe James", "01877127477", "3", "4"],
+    //     ["Joe James", "01877127477", "3", "4"],
+    //     ["Joe James", "01877127477", "3", "5"],
+    //     ["Joe James", "01877127477", "3", "2"],
+    //     ["Joe James", "01877127477", "3", "2"],
+    //     ["Joe James", "01877127477", "3", "4"],
+    // ];
     const options = {
-        selectableRows: false,
+        selectableRows:false,
         rowsPerPage: 5,
         rowsPerPageOptions: [5, 10, 15]
     };
@@ -151,12 +159,13 @@ const AllParcel = () => {
             <div className=''>
                 <div>
                     <MUIDataTable
-                        title={"All Booked Parcel List"}
-                        data={data}
+                        title={"All Parcel List"}
+                        data={users}
                         columns={columns}
                         options={options}
-
                     />
+
+
                 </div>
 
             </div>
