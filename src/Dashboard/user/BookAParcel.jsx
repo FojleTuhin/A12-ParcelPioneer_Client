@@ -11,6 +11,8 @@ import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { useMutation } from "@tanstack/react-query";
 import useUserRole from "@/hooks/useUserRole";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
+
 
 const BookAParcel = () => {
 
@@ -66,12 +68,12 @@ const BookAParcel = () => {
         const phone = e.target.phone.value;
         const receiverName = e.target.receiverName.value;
         const receiversNumber = e.target.receiversNumber.value;
-        const requestedDeliveryDate = startDate;
+        const requestedDeliveryDate = moment(startDate).format("MMM Do YY");
         const place = e.target.place.value;
         const latitude = e.target.latitude.value;
         const longitude = e.target.longitude.value;
         const type = e.target.type.value;
-        const bookingDate = new Date();
+        const bookingDate = moment().format("MMM Do YY"); 
 
 
 
@@ -98,7 +100,7 @@ const BookAParcel = () => {
         mutateAsync(bookParcel);
 
         e.target.reset();
-        setPrice(0)
+        
     }
 
     return (

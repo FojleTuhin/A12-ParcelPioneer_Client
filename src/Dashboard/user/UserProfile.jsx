@@ -8,7 +8,6 @@ import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
 import { FaSpinner } from "react-icons/fa";
 import { MdOutlineAddAPhoto } from "react-icons/md";
-import Swal from "sweetalert2";
 
 
 
