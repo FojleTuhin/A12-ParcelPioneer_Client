@@ -17,8 +17,8 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
-import useUsers from "@/hooks/useUsers";
 import moment from "moment";
+import toast from "react-hot-toast";
 
 
 
@@ -27,7 +27,7 @@ const AllParcel = () => {
 
     const axiosPublic = useAxiosPublic();
 
-    const { data: allDeliveryMan = [] } = useQuery({
+    const { data: allDeliveryMan = [], refetch } = useQuery({
         queryKey: ['deliveryMan'],
         queryFn: async () => {
             const res = await axiosPublic.get('/deliveryMan');
@@ -35,7 +35,12 @@ const AllParcel = () => {
         }
     })
 
-    const [status, setStatus] = useState('On the way');
+    const [bookingId, setBookingId] = useState('');
+    const handleGetBookingId = (value)=>{
+        setBookingId(value);
+    }
+
+    const [status, setStatus] = useState('OnTheWay');
     const [startDate, setStartDate] = useState(new Date());
     const handleDeliveryManage = (e) => {
         e.preventDefault();
@@ -51,7 +56,7 @@ const AllParcel = () => {
 
 
 
-        axiosPublic.put(`/users/${user.email}`, updatebooking)
+        axiosPublic.put(`/allParcel/${bookingId}`, updatebooking)
             .then(data => {
                 console.log(data)
                 if (data.modifiedCount > 0) {
@@ -60,7 +65,6 @@ const AllParcel = () => {
             })
 
         refetch();
-
         e.target.reset();
     }
 
@@ -75,7 +79,6 @@ const AllParcel = () => {
         }
 
     })
-    console.log(allParcel);
 
 
 
@@ -107,7 +110,7 @@ const AllParcel = () => {
                     <p
                         className={`capitalize inline-block px-3 py-1 rounded-full font-semibold 
                   ${value === 'pending' && "bg-pink-500"}
-                  ${value === 'regularUser' && "bg-blue-500"}
+                  ${value === 'OnTheWay' && "bg-blue-500"}
                   ${value === 'deliveryMan' && "bg-[#EBFBE5]"}
                   `}>
                         {value}
@@ -116,13 +119,14 @@ const AllParcel = () => {
             }
         },
         {
-            name: "action",
+            name: "_id",
+            label: 'Action',
             options: {
-                customBodyRender: () => (
+                customBodyRender: (value) => (
 
                     <div>
                         <AlertDialog>
-                            <AlertDialogTrigger><button
+                            <AlertDialogTrigger><button onClick={()=> handleGetBookingId(value)}
                                 className={`capitalize inline-block px-3 py-1 rounded-full font-semibold bg-[#EBFBE5]`}>
                                 Manage
                             </button></AlertDialogTrigger>

@@ -59,7 +59,16 @@ const MyParcel = () => {
                                 <td className="border border-slate-300">{item.requestedDeliveryDate}</td>
                                 <td className="border border-slate-300">updatedSoon</td>
                                 <td className="border border-slate-300">Unknown</td>
-                                <td className="border border-slate-300">{item.status}</td>
+                                <td className="border border-slate-300">
+                                    <p
+                                        className={`capitalize inline-block px-3 py-1 rounded-full font-semibold 
+                                            ${item.status === 'pending' && "bg-pink-500"}
+                                            ${item.status === 'OnTheWay' && "bg-blue-500"}
+                                            ${item.status === 'deliveryMan' && "bg-[#EBFBE5]"}
+                                             `}>
+                                        {item.status}
+                                    </p>
+                                </td>
                                 <td className="border border-slate-300 p-2">
                                     <span className="flex justify-evenly">
                                         <button><MdOutlineUpdate className="text-xl  bg-[#3EA570] p-1 rounded-full text-white" /></button>
