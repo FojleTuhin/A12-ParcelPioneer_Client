@@ -17,76 +17,48 @@ const UserProfile = () => {
     const axiosPublic = useAxiosPublic();
     const [userRole, refetch] = useUserRole();
 
-    // const [image, setImage] = useState([])
-    // const handleFileChange = (event) => {
-    //     const file = event.target.files[0];
-    //     // setImage(file)
-    //     const formData = new FormData()
-    //     formData.append('image', file)
-
-    //     const { data } = axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY}`, formData)
-
-    //     console.log(data);
-    // };
-
-
 
     const handleUpdateProfile = async (e) => {
         e.preventDefault();
 
         const displayName = e.target.displayName.value;
         const phoneNumber = e.target.phoneNumber.value;
+
         const image = e.target.image.files[0]
         const formData = new FormData()
         formData.append('image', image)
 
-        console.log(formData);
 
 
-
-        const { data: picture } = await axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY}`, formData)
-
-
-        console.log(picture.data.display_url);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        const { data } = await axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY}`, formData)
+        const photo = data.data.display_url;
 
 
 
         const updateInfo = {
             displayName,
             phoneNumber,
-            image
+            photo
         }
 
-        // updateUser(displayName, image, phoneNumber);
+        await updateUser(displayName, photo, phoneNumber);
+        refetch();
 
-        // const res = axiosPublic.put(`/users/${user.email}`, updateInfo)
-        //     .then(data => {
-        //         console.log(data)
-        //         if (data.modifiedCount > 0) {
-        //             toast.success('Successfully toasted!')
+        await axiosPublic.put(`/users/${user.email}`, updateInfo)
+            .then(data => {
+                console.log(data)
+                if (data.modifiedCount > 0) {
 
-        //         }
+                    toast.success("Update successfully done");
 
-        //         refetch();
-        //     })
+                    refetch();
 
-        // e.target.reset();
+                }
+
+
+            })
+
+        e.target.reset();
     }
 
 
