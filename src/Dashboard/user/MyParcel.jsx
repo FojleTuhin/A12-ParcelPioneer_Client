@@ -58,13 +58,14 @@ const MyParcel = () => {
                                 <td className="border border-slate-300">{item.bookingDate}</td>
                                 <td className="border border-slate-300">{item.requestedDeliveryDate}</td>
                                 <td className="border border-slate-300">{item.approximateDaliveryDate}</td>
-                                <td className="border border-slate-300">{item.deliveryManId?.slice(0,10)}</td>
+                                <td className="border border-slate-300">{item.deliveryManId?.slice(0, 10)}</td>
                                 <td className="border border-slate-300">
                                     <p
                                         className={`capitalize inline-block px-3 py-1 rounded-full font-semibold 
                                             ${item.status === 'pending' && "bg-pink-500"}
                                             ${item.status === 'OnTheWay' && "bg-blue-500"}
-                                            ${item.status === 'deliveryMan' && "bg-[#EBFBE5]"}
+                                             ${item.status === 'canceled' && "bg-red-300"}
+                                            ${item.status === 'delivered' && "bg-[#3EA570] text-white"}
                                              `}>
                                         {item.status}
                                     </p>

@@ -122,6 +122,7 @@ const AllParcel = () => {
                   ${value === 'pending' && "bg-pink-500"}
                   ${value === 'OnTheWay' && "bg-blue-500"}
                   ${value === 'canceled' && "bg-red-300"}
+                  ${value === 'delivered' && "bg-[#3EA570] text-white"}
                   `}>
                         {value}
                     </p>
