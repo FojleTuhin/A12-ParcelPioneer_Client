@@ -6,6 +6,7 @@ import { Pointer } from "lucide-react";
 import { useContext, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
+import { FaSpinner } from "react-icons/fa";
 import { MdOutlineAddAPhoto } from "react-icons/md";
 import Swal from "sweetalert2";
 
@@ -16,6 +17,7 @@ const UserProfile = () => {
     const { user, updateUser } = useContext(AuthContext);
     const axiosPublic = useAxiosPublic();
     const [userRole, refetch] = useUserRole();
+    const [loading, setLoading] = useState(false)
 
 
     const handleUpdateProfile = async (e) => {
@@ -42,7 +44,6 @@ const UserProfile = () => {
         }
 
         await updateUser(displayName, photo, phoneNumber);
-        refetch();
 
         await axiosPublic.put(`/users/${user.email}`, updateInfo)
             .then(data => {
@@ -51,12 +52,14 @@ const UserProfile = () => {
 
                     toast.success("Update successfully done");
 
-                    refetch();
+
 
                 }
 
 
             })
+
+        refetch();
 
         e.target.reset();
     }
@@ -81,7 +84,7 @@ const UserProfile = () => {
 
                 <form onSubmit={handleUpdateProfile}>
                     <div>
-                        <label htmlFor="fileInput">
+                        <label htmlFor="fileInput" >
                             <div className="custom-file-input">
                                 <div className="bg-[#3EA570] h-9 w-9 rounded-full text-center flex justify-center items-center relative bottom-8 left-16">
 
@@ -89,18 +92,26 @@ const UserProfile = () => {
                                 </div>
                             </div>
                         </label>
-                        <input id="fileInput" type="file" name="image" style={{ display: 'none' }} className="w-2" />
+                        <input id="fileInput" required type="file" name="image" style={{ display: 'none' }} className="w-2" />
                     </div>
 
                     <div className="flex justify-between">
-                        <input type="text" className="w-[45%] border-[#E6E6EB] py-3 px-5 rounded-xl border-2 text-[#787878]" name="displayName" defaultValue={userRole?.name} />
+                        <input type="text" title="For update name You should update image also" className="w-[45%] border-[#E6E6EB] py-3 px-5 rounded-xl border-2 text-[#787878]" name="displayName" defaultValue={userRole?.name} />
                         <br />
-                        <input type="number" name="phoneNumber" className="w-[45%] border-[#E6E6EB] py-3 px-5 rounded-xl border-2 text-[#787878]" placeholder="Add your phone number" defaultValue={userRole.phone} />
+                        <input type="number" title="For update number You should update image also" name="phoneNumber" className="w-[45%] border-[#E6E6EB] py-3 px-5 rounded-xl border-2 text-[#787878]" placeholder="Add your phone number" defaultValue={userRole.phone} />
                         <br />
                     </div>
 
+
+
                     <div className="">
-                        <button className="mt-5 bg-[#EBFBE5] w-[50%] border-[#3EA570] py-3 px-5 rounded-xl border-2 text-[#3EA570] font-bold ">Confirm Change</button>
+                        <button disabled={loading} className="mt-5 bg-[#EBFBE5] w-[50%] border-[#3EA570] py-3 px-5 rounded-xl border-2 text-[#3EA570] font-bold ">
+                            {
+                                loading ? (<FaSpinner className="animate-spin m-auto"></FaSpinner>)
+                                    :
+                                    ('Confirm Change')
+                            }
+                        </button>
                     </div>
                 </form>
 
