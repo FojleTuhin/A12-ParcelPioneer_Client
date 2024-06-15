@@ -48,14 +48,8 @@ const UserProfile = () => {
             .then(data => {
                 console.log(data)
                 if (data.modifiedCount > 0) {
-
                     toast.success("Update successfully done");
-
-
-
                 }
-
-
             })
 
         refetch();

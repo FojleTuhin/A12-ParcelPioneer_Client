@@ -68,9 +68,25 @@ const AllParcel = () => {
             name: "price",
             label: "Price"
         },
+        // {
+        //     name: "status",
+        //     label: 'Status'
+        // },
         {
             name: "status",
-            label: 'Status'
+            label: "Status",
+            options: {
+                customBodyRender: (value) => (
+                    <p
+                        className={`capitalize inline-block px-3 py-1 rounded-full font-semibold 
+                  ${value === 'pending' && "bg-pink-500"}
+                  ${value === 'regularUser' && "bg-blue-500"}
+                  ${value === 'deliveryMan' && "bg-[#EBFBE5]"}
+                  `}>
+                        {value}
+                    </p>
+                )
+            }
         },
         {
             name: "action",
@@ -131,15 +147,7 @@ const AllParcel = () => {
         }
     ];
 
-    const data = [
 
-        ["Joe James", "01877127477", "3", "4"],
-        ["Joe James", "01877127477", "3", "4"],
-        ["Joe James", "01877127477", "3", "5"],
-        ["Joe James", "01877127477", "3", "2"],
-        ["Joe James", "01877127477", "3", "2"],
-        ["Joe James", "01877127477", "3", "4"],
-    ];
     const options = {
         selectableRows: false,
         rowsPerPage: 5,

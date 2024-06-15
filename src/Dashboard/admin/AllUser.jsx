@@ -1,14 +1,52 @@
+import { AuthContext } from '@/Firebase/FirebaseProvider';
+import useAxiosPublic from '@/hooks/useAxiosPublic';
 import useUsers from '@/hooks/useUsers';
 import MUIDataTable from 'mui-datatables';
+import { useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
+import Swal from 'sweetalert2';
 
 const AllUser = () => {
 
-  const [users] = useUsers();
+  const [users, refetch] = useUsers();
+  const axiosPublic = useAxiosPublic();
+  const { user } = useContext(AuthContext);
+
+  const handleMakeAdmin = (userId) => {
+
+    axiosPublic.patch(`/makeAdmin/${userId}`)
+      .then(res => {
+        console.log(res.data)
+        if (res.data.modifiedCount > 0) {
+          
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `${user.name} is an Admin Now!`,
+            showConfirmButton: false,
+            timer: 1500
+          });
+          refetch();
+        }
+        
+      })
+
+      
+      
+      
+  }
+ 
+
+  
+
+
+
+
+
+
+
 
   const columns = [
-
-
     {
       name: "name",
       label: "User"
@@ -39,11 +77,11 @@ const AllUser = () => {
       }
     },
     {
-      name: "role",
+      name: "_id",
       label: "MakeAdmin",
       options: {
-        customBodyRender: () => (
-          <button
+        customBodyRender: (value) => (
+          <button onClick={() => handleMakeAdmin(value)}
             className={`capitalize inline-block px-3 py-1 rounded-full font-semibold bg-pink-500`}>
             Admin
           </button>
@@ -66,15 +104,7 @@ const AllUser = () => {
 
   ];
 
-  // const data = [
 
-  //   ["Joe James", "01877127477", "3", "Admin"],
-  //   ["Joe James", "01877127477", "3", "DeliveryMan"],
-  //   ["Joe James", "01877127477", "3", "DeliveryMan"],
-  //   ["Joe James", "01877127477", "3", "RegularUser"],
-  //   ["Joe James", "01877127477", "3", "RegularUser"],
-  //   ["Joe James", "01877127477", "3", "RegularUser"],
-  // ];
   const options = {
     selectableRows: false,
     rowsPerPage: 5,
