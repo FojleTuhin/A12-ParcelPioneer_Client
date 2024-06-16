@@ -74,51 +74,29 @@ console.log(parcel);
         console.table(updateParcel);
 
 
-        //send data to the server
-        // fetch(`http://localhost:5000/update/${parcel._id}`, {
-        //     method: 'PuT',
-        //     headers: {
-        //         'content-type': 'application/json'
-        //     },
-        //     body: JSON.stringify(bookParcel)
-        // })
-
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         console.log(data)
-        //         if (data.modifiedCount > 0) {
-        //             Swal.fire({
-        //                 position: "top-end",
-        //                 icon: "success",
-        //                 title: "Your updated successfully done",
-        //                 showConfirmButton: false,
-        //                 timer: 1500
-        //             });
-        //         }
-        //     })
 
 
-        // axiosPublic.put(`/update/${parcel._id}`,updateParcel)
-        //     .then(data => {
-        //         console.log(data)
-        //         if (data.modifiedCount > 0) {
-        //             Swal.fire({
-        //                 position: "top-end",
-        //                 icon: "success",
-        //                 title: `Update Successfully`,
-        //                 showConfirmButton: false,
-        //                 timer: 1500
-        //             });
+        axiosPublic.put(`/update/${parcel._id}`,updateParcel)
+            .then(data => {
+                console.log(data)
+                if (data.modifiedCount > 0) {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: `Update Successfully`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                     
 
-        //         }
-        //     })
+                }
+            })
 
 
 
 
 
-        // e.target.reset();
+        e.target.reset();
 
     }
     return (
@@ -253,7 +231,7 @@ console.log(parcel);
                         </div>
 
                         <div className="md:flex mb-5 ">
-                            <button className=" bg-[#3EA570] border-none text-white w-1/2 justify-center m-auto py-2 rounded-lg font-bold text-xl">Book</button>
+                            <button className=" bg-[#3EA570] border-none text-white w-1/2 justify-center m-auto py-2 rounded-lg font-bold text-xl">Update booking</button>
                         </div>
                     </form>
                 </div>
