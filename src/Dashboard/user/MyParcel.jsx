@@ -11,6 +11,7 @@ import '@smastrom/react-rating/style.css'
 import moment from "moment";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 
 
@@ -130,7 +131,9 @@ const MyParcel = () => {
                                     {
                                         item.status === 'pending' ?
                                             <span className="flex justify-evenly">
-                                                <button><MdOutlineUpdate className="text-xl  bg-[#3EA570] p-1 rounded-full text-white" /></button>
+                                                <Link to={`/dashboard/update/${item._id}`}>
+                                                    <button><MdOutlineUpdate className="text-xl  bg-[#3EA570] p-1 rounded-full text-white" /></button>
+                                                </Link>
                                                 <button><FaTrashAlt onClick={() => handleCancel(item._id)} className="text-xl bg-red-500 p-1 rounded-full text-white" /></button>
                                             </span>
                                             :
@@ -139,10 +142,10 @@ const MyParcel = () => {
                                 </td>
                                 <td className="border border-slate-300">
                                     {
-                                        item.status === 'delivered'?
-                                        <button>Pay</button>
-                                        :
-                                        ''
+                                        item.status === 'delivered' ?
+                                            <button>Pay</button>
+                                            :
+                                            ''
                                     }
                                 </td>
                                 <td>

@@ -22,13 +22,13 @@ const BookAParcel = () => {
     const [, refetch] = useUserRole();
     const [status, setStatus] = useState('pending');
     const [weight, setWeight] = useState('');
-    const [price, setPrice] = useState(0);
+    const [price, setPrice] = useState();
     const navigate = useNavigate();
 
 
     const handleWeightChange = (e) => {
 
-        const inputWeight = parseFloat(e.target.value) || 0;
+        const inputWeight = parseFloat(e.target.value);
         setWeight(inputWeight);
 
         let calculatedPrice;

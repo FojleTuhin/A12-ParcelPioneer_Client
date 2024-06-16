@@ -24,6 +24,7 @@ import AllDeliveryMan from './Dashboard/admin/AllDeliveryMan';
 import PrivateRoute from './Shared/PrivateRoute';
 import { HelmetProvider } from 'react-helmet-async';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import UpdateParcel from './Dashboard/user/UpdateParcel';
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,12 @@ const router = createBrowserRouter([
       {
         path: 'myParcel',
         element: <MyParcel></MyParcel>
+      },
+      {
+        path:'update/:id',
+        element:<UpdateParcel></UpdateParcel>,
+        loader:({params})=>fetch(`http://localhost:5000/update/${params.id}`)
+
       },
 
 
