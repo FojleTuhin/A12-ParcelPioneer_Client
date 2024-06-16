@@ -64,7 +64,7 @@ const MyParcel = () => {
                                         className={`capitalize inline-block px-3 py-1 rounded-full font-semibold 
                                             ${item.status === 'pending' && "bg-pink-500"}
                                             ${item.status === 'OnTheWay' && "bg-blue-500"}
-                                             ${item.status === 'canceled' && "bg-red-300"}
+                                             ${item.status === 'returned' && "bg-red-300"}
                                             ${item.status === 'delivered' && "bg-[#3EA570] text-white"}
                                              `}>
                                         {item.status}

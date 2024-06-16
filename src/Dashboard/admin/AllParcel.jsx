@@ -121,7 +121,7 @@ const AllParcel = () => {
                         className={`capitalize inline-block px-3 py-1 rounded-full font-semibold 
                   ${value === 'pending' && "bg-pink-500"}
                   ${value === 'OnTheWay' && "bg-blue-500"}
-                  ${value === 'canceled' && "bg-red-300"}
+                  ${value === 'returned' && "bg-red-300"}
                   ${value === 'delivered' && "bg-[#3EA570] text-white"}
                   `}>
                         {value}

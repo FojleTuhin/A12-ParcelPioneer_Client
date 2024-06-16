@@ -19,6 +19,7 @@ const DeliveryList = () => {
     const [userRole, refetch] = useUserRole();
 
     const axiosPublic = useAxiosPublic();
+    console.log(userRole._id);
 
 
     const { data: allDeliveryList = [], } = useQuery({
@@ -28,11 +29,15 @@ const DeliveryList = () => {
             return res.data;
         }
     })
+   
 
 
-    const handleCancel = (bookingId) => {
+   
 
-        axiosPublic.patch(`/bookingCancel/${bookingId}`)
+
+    const handleReturned = (bookingId) => {
+
+        axiosPublic.patch(`/bookingReturned/${bookingId}`)
             .then(res => {
                 if (res.data.modifiedCount > 0) {
 
@@ -50,9 +55,28 @@ const DeliveryList = () => {
     }
 
 
-    const handleBooked = (bookingId) => {
+    const handleBooked = (bookingId, id) => {
 
         axiosPublic.patch(`/delivered/${bookingId}`)
+            .then(res => {
+                if (res.data.modifiedCount > 0) {
+
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: `Parcel booking Successfully`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    refetch();
+                }
+
+            })
+
+
+
+
+            axiosPublic.patch(`/totalDeliveredNumber/${id}`)
             .then(res => {
                 if (res.data.modifiedCount > 0) {
 
@@ -149,14 +173,14 @@ const DeliveryList = () => {
                                     </td>
                                     <td className="border border-slate-300">
                                         {
-                                            (item.status == 'canceled') || (item.status == 'delivered') ?
+                                            (item.status == 'returned') || (item.status == 'delivered') ?
 
 
                                                 <p>{item.status}</p>
                                                 :
                                                 <span span className="flex justify-evenly">
-                                                    <button><MdCancel onClick={() => handleCancel(item._id)} className="text-xl bg-red-500 p-1 rounded-full text-white" /></button>
-                                                    <button><IoMdDoneAll onClick={() => handleBooked(item._id)} className="text-xl bg-[#3EA570] p-1 rounded-full text-white" /></button>
+                                                    <button><MdCancel onClick={() => handleReturned(item._id)} className="text-xl bg-red-500 p-1 rounded-full text-white" /></button>
+                                                    <button><IoMdDoneAll onClick={() => handleBooked(item._id,userRole._id)} className="text-xl bg-[#3EA570] p-1 rounded-full text-white" /></button>
                                                 </span>
 
 

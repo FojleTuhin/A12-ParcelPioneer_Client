@@ -1,4 +1,5 @@
 import useAxiosPublic from "@/hooks/useAxiosPublic";
+import useUserRole from "@/hooks/useUserRole";
 import { useQuery } from "@tanstack/react-query";
 import MUIDataTable from "mui-datatables";
 import { Helmet } from "react-helmet-async";
@@ -7,11 +8,20 @@ const AllDeliveryMan = () => {
 
 
     const axiosPublic = useAxiosPublic();
+    const [userRole] = useUserRole();
 
     const { data: allDeliveryMan = [] } = useQuery({
         queryKey: ['deliveryMan'],
         queryFn: async () => {
             const res = await axiosPublic.get('/deliveryMan');
+            return res.data;
+        }
+    })
+
+    const { data: myTotalDeliveredList = [], } = useQuery({
+        queryKey: ['myTotalDeliveredList', userRole._id],
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/myTotalDeliveredList/${userRole._id}`);
             return res.data;
         }
     })
