@@ -79,14 +79,6 @@ const DeliveryList = () => {
             axiosPublic.patch(`/totalDeliveredNumber/${id}`)
             .then(res => {
                 if (res.data.modifiedCount > 0) {
-
-                    Swal.fire({
-                        position: "top-end",
-                        icon: "success",
-                        title: `Parcel booking Successfully`,
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
                     refetch();
                 }
 

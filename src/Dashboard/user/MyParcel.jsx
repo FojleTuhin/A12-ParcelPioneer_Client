@@ -3,15 +3,19 @@ import { FaTrashAlt } from "react-icons/fa";
 import { Helmet } from "react-helmet-async";
 import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
-import { useQuery } from "@tanstack/react-query";
-import { useContext } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useContext, useState } from "react";
 import { AuthContext } from "@/Firebase/FirebaseProvider";
-
+import { Rating } from "@smastrom/react-rating";
+import '@smastrom/react-rating/style.css'
+import moment from "moment";
+import toast from "react-hot-toast";
 
 
 
 const MyParcel = () => {
     const { user } = useContext(AuthContext);
+    const [rating, setRating] = useState(0);
 
     const axiosPublic = useAxiosPublic();
 
@@ -22,6 +26,44 @@ const MyParcel = () => {
             return res.data;
         }
     })
+
+
+    const { mutateAsync } = useMutation({
+        mutationFn: async newFeedback => {
+            const { data } = await axiosPublic.post(`/feedback`, newFeedback)
+            return data
+        },
+        onSuccess: () => {
+            console.log('Data Saved Successfully')
+            toast.success('Feedback given Successfully!')
+        },
+    })
+
+
+    const handleGiveReview = (e) => {
+        e.preventDefault();
+        const feedback = e.target.feedback.value;
+        const date = moment().format("MMM Do YY");
+        const deliveryManId = e.target.deliveryManId.value;
+        
+
+
+        const newFeedback={
+            name: user.displayName,
+            photo: user.photoURL,
+            rating,
+            feedback,
+            date,
+            deliveryManId
+        }
+
+       
+        mutateAsync(newFeedback);
+
+        e.target.reset();
+
+
+    }
 
 
     return (
@@ -84,7 +126,42 @@ const MyParcel = () => {
                                     </button></AlertDialogTrigger>
                                     <AlertDialogContent>
                                         <AlertDialogHeader>
-                                            <AlertDialogTitle><p className="text-center font-bold mb-4">See your delivery location</p></AlertDialogTitle>
+                                            <AlertDialogTitle><p className="text-center font-bold mb-4">Give a review of delivery man</p></AlertDialogTitle>
+
+
+
+
+
+                                            <form className="mx-auto" onSubmit={handleGiveReview}>
+                                                <div className="-mt-20 ">
+                                                    <div className="h-[106px] w-[106px] rounded-full border-4 border-[#95D2B3] relative top-24 left-8">
+                                                        <div className="h-[101px] w-[100px] rounded-full border-4 border-[#78ABA8]">
+                                                            <img className="h-[100px] w-[100px] rounded-full" src={user.photoURL} alt="" />
+                                                        </div>
+                                                    </div>
+                                                    <div className="w-[350px] bg-gray-200 mt-10 px-6 py-6 rounded-2xl " >
+                                                        <div className="ml-32">
+                                                            <p className="font-bold ">{user.displayName}</p>
+                                                            <div >
+                                                                <Rating
+                                                                    style={{ maxWidth: 180 }}
+                                                                    value={rating}
+                                                                    onChange={setRating}
+                                                                    isRequired
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <input type="text" name="deliveryManId" defaultValue={item.deliveryManId} className="border border-gray-400 py-2 px-3 rounded-lg mb-3"/>
+                                                        <textarea name="feedback" id="" className="border border-gray-400 w-full rounded-lg"></textarea>
+                                                        <br />
+
+                                                        <AlertDialogCancel><button className="">Submit</button></AlertDialogCancel>
+                                                    </div>
+                                                </div>
+
+                                            </form>
+
+
                                         </AlertDialogHeader>
 
 
