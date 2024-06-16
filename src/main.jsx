@@ -71,8 +71,7 @@ const router = createBrowserRouter([
       },
 
 
-
-
+      
       // dashboard for delivery man
       {
         path: 'deliveryList',

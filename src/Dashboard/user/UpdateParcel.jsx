@@ -74,8 +74,6 @@ console.log(parcel);
         console.table(updateParcel);
 
 
-
-
         axiosPublic.put(`/update/${parcel._id}`,updateParcel)
             .then(data => {
                 console.log(data)
