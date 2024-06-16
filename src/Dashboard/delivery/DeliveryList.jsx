@@ -29,10 +29,10 @@ const DeliveryList = () => {
             return res.data;
         }
     })
-   
 
 
-   
+
+
 
 
     const handleReturned = (bookingId) => {
@@ -76,7 +76,7 @@ const DeliveryList = () => {
 
 
 
-            axiosPublic.patch(`/totalDeliveredNumber/${id}`)
+        axiosPublic.patch(`/totalDeliveredNumber/${id}`)
             .then(res => {
                 if (res.data.modifiedCount > 0) {
                     refetch();
@@ -172,7 +172,7 @@ const DeliveryList = () => {
                                                 :
                                                 <span span className="flex justify-evenly">
                                                     <button><MdCancel onClick={() => handleReturned(item._id)} className="text-xl bg-red-500 p-1 rounded-full text-white" /></button>
-                                                    <button><IoMdDoneAll onClick={() => handleBooked(item._id,userRole._id)} className="text-xl bg-[#3EA570] p-1 rounded-full text-white" /></button>
+                                                    <button><IoMdDoneAll onClick={() => handleBooked(item._id, userRole._id)} className="text-xl bg-[#3EA570] p-1 rounded-full text-white" /></button>
                                                 </span>
 
 

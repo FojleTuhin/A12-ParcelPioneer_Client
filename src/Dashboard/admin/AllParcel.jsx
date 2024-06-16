@@ -123,6 +123,7 @@ const AllParcel = () => {
                   ${value === 'OnTheWay' && "bg-blue-500"}
                   ${value === 'returned' && "bg-red-300"}
                   ${value === 'delivered' && "bg-[#3EA570] text-white"}
+                  ${value === 'canceled' && "bg-red-500 text-white"}
                   `}>
                         {value}
                     </p>

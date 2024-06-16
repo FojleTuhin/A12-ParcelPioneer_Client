@@ -218,7 +218,7 @@ const BookAParcel = () => {
                                 <span className="label-text text-black font-bold"> Weight</span>
                             </label>
                             <label className="input-group">
-                                <input type="number" onBlur={handleWeightChange} name="weight" required placeholder="Add total weight" className="border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg w-full  bg-[#f4f3f0]" />
+                                <input type="number" onChange={handleWeightChange} name="weight" required placeholder="Add total weight" className="border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg w-full  bg-[#f4f3f0]" />
                             </label>
                         </div>
                         <div className="form-control w-full">
