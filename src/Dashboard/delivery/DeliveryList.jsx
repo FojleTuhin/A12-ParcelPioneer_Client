@@ -16,13 +16,13 @@ const DeliveryList = () => {
     const [center, setCenter] = useState([])
     const [zoom, setZoom] = useState(10)
 
-    const [userRole, refetch] = useUserRole();
+    const [userRole] = useUserRole();
 
     const axiosPublic = useAxiosPublic();
     console.log(userRole._id);
 
 
-    const { data: allDeliveryList = [], } = useQuery({
+    const { data: allDeliveryList = [], refetch } = useQuery({
         queryKey: ['deliveryList', userRole._id],
         queryFn: async () => {
             const res = await axiosPublic.get(`/deliveryList/${userRole._id}`);
@@ -37,41 +37,59 @@ const DeliveryList = () => {
 
     const handleReturned = (bookingId) => {
 
-        axiosPublic.patch(`/bookingReturned/${bookingId}`)
-            .then(res => {
-                if (res.data.modifiedCount > 0) {
 
-                    Swal.fire({
-                        position: "top-end",
-                        icon: "success",
-                        title: `Update Successfully`,
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                    refetch();
+        Swal.fire({
+            title: "Do you want to returned the parcel?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+            denyButtonText: `No`
+        })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    axiosPublic.patch(`/bookingReturned/${bookingId}`)
+                        .then(res => {
+                            if (res.data.modifiedCount > 0) {
+
+                                Swal.fire("Parcel returned successfully!", "", "success");
+                                refetch();
+                            }
+
+                        })
+                } else if (result.isDenied) {
+                    Swal.fire("Changes are not saved", "", "info");
                 }
+            });
 
-            })
+
     }
 
 
     const handleBooked = (bookingId, id) => {
 
-        axiosPublic.patch(`/delivered/${bookingId}`)
-            .then(res => {
-                if (res.data.modifiedCount > 0) {
+        Swal.fire({
+            title: "Booked the parcel?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+            denyButtonText: `No`
+        })
+            .then((result) => {
 
-                    Swal.fire({
-                        position: "top-end",
-                        icon: "success",
-                        title: `Parcel booking Successfully`,
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                    refetch();
+                if (result.isConfirmed) {
+                    axiosPublic.patch(`/delivered/${bookingId}`)
+                        .then(res => {
+                            if (res.data.modifiedCount > 0) {
+                                Swal.fire("Parcel successfully booked!", "", "success");
+                                refetch();
+                            }
+                        })
+                } else if (result.isDenied) {
+                    Swal.fire("Changes are not saved", "", "info");
                 }
+            });
 
-            })
+
 
 
 

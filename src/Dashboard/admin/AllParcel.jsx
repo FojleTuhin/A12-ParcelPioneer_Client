@@ -58,26 +58,15 @@ const AllParcel = () => {
         }
 
 
-        // Swal.fire({
-        //     title: "Do you want to save the changes?",
-        //     showDenyButton: true,
-        //     showCancelButton: true,
-        //     confirmButtonText: "Save",
-        //     denyButtonText: `Don't save`
-        // }).then((result) => {
-        //     if (result.isConfirmed) {
-                axiosPublic.put(`/allParcel/${bookingId}`, updatebooking)
-                    .then(data => {
-                        console.log(data)
-                        if (data.modifiedCount > 0) {
-                            Swal.fire("Saved!", "", "success");
-                            refetch();
-                        }
-                    })
-        //     } else if (result.isDenied) {
-        //         Swal.fire("Changes are not saved", "", "info");
-        //     }
-        // });
+
+        axiosPublic.put(`/allParcel/${bookingId}`, updatebooking)
+            .then(data => {
+                console.log(data)
+                if (data.modifiedCount > 0) {
+                    Swal.fire("Saved!", "", "success");
+                    refetch();
+                }
+            })
 
 
 
