@@ -12,6 +12,7 @@ import { useMutation } from "@tanstack/react-query";
 import useUserRole from "@/hooks/useUserRole";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
+import Swal from "sweetalert2";
 
 
 const BookAParcel = () => {
@@ -45,6 +46,9 @@ const BookAParcel = () => {
         setPrice(calculatedPrice);
     }
 
+
+    
+
     const { mutateAsync } = useMutation({
         mutationFn: async parcelData => {
             const { data } = await axiosPublic.post(`/allParcel`, parcelData)
@@ -52,7 +56,7 @@ const BookAParcel = () => {
         },
         onSuccess: () => {
             console.log('Data Saved Successfully')
-            toast.success('Parcel booked Successfully!')
+            Swal.fire("Saved!", "", "success");
             navigate('/dashboard/myParcel')
         },
     })

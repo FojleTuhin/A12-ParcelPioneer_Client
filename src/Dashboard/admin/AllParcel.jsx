@@ -58,14 +58,14 @@ const AllParcel = () => {
         }
 
 
-        Swal.fire({
-            title: "Do you want to save the changes?",
-            showDenyButton: true,
-            showCancelButton: true,
-            confirmButtonText: "Save",
-            denyButtonText: `Don't save`
-        }).then((result) => {
-            if (result.isConfirmed) {
+        // Swal.fire({
+        //     title: "Do you want to save the changes?",
+        //     showDenyButton: true,
+        //     showCancelButton: true,
+        //     confirmButtonText: "Save",
+        //     denyButtonText: `Don't save`
+        // }).then((result) => {
+        //     if (result.isConfirmed) {
                 axiosPublic.put(`/allParcel/${bookingId}`, updatebooking)
                     .then(data => {
                         console.log(data)
@@ -74,10 +74,10 @@ const AllParcel = () => {
                             refetch();
                         }
                     })
-            } else if (result.isDenied) {
-                Swal.fire("Changes are not saved", "", "info");
-            }
-        });
+        //     } else if (result.isDenied) {
+        //         Swal.fire("Changes are not saved", "", "info");
+        //     }
+        // });
 
 
 
@@ -126,9 +126,9 @@ const AllParcel = () => {
                 customBodyRender: (value) => (
                     <p
                         className={`capitalize inline-block px-3 py-1 rounded-full font-semibold 
-                  ${value === 'pending' && "bg-pink-500"}
-                  ${value === 'OnTheWay' && "bg-blue-500"}
-                  ${value === 'returned' && "bg-red-300"}
+                  ${value === 'pending' && "bg-pink-500 text-white"}
+                  ${value === 'OnTheWay' && "bg-blue-500 text-white"}
+                  ${value === 'returned' && "bg-red-300 text-white"}
                   ${value === 'delivered' && "bg-[#3EA570] text-white"}
                   ${value === 'canceled' && "bg-red-500 text-white"}
                   `}>
@@ -143,16 +143,17 @@ const AllParcel = () => {
             options: {
                 customBodyRender: (value) => (
 
-                    <div className="z-50">
+                    <div>
                         <AlertDialog>
-                            <AlertDialogTrigger><button onClick={() => handleGetBookingId(value)}
-                                className={`capitalize inline-block px-3 py-1 rounded-full font-semibold bg-[#EBFBE5]`}>
-                                Manage
-                            </button></AlertDialogTrigger>
+                            <AlertDialogTrigger>
+                                <button onClick={() => handleGetBookingId(value)}
+                                    className={`capitalize inline-block px-3 py-1 rounded-full font-semibold bg-[#EBFBE5]`}>
+                                    Manage
+                                </button></AlertDialogTrigger>
                             <AlertDialogContent>
                                 <AlertDialogHeader>
                                     <AlertDialogTitle><p className="text-center font-bold mb-4">Manage Your delivery</p></AlertDialogTitle>
-                                    <form onSubmit={handleDeliveryManage}>
+                                    <form onSubmit={handleDeliveryManage} className="">
                                         <div className="flex">
                                             <div>
 
@@ -180,7 +181,7 @@ const AllParcel = () => {
 
                                         <div className="mt-5">
 
-                                           <button type="submit" className="border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg">Assign</button>
+                                            <button type="submit" className="border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg">Assign</button>
                                         </div>
 
                                     </form>

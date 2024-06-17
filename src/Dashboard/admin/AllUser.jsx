@@ -1,4 +1,3 @@
-import { AuthContext } from '@/Firebase/FirebaseProvider';
 import useAxiosPublic from '@/hooks/useAxiosPublic';
 import useUsers from '@/hooks/useUsers';
 import MUIDataTable from 'mui-datatables';
@@ -73,14 +72,6 @@ const AllUser = () => {
 
 
   }
-
-
-
-
-
-
-
-
 
 
 
