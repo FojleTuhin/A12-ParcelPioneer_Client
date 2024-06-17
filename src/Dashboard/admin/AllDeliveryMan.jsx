@@ -8,7 +8,6 @@ const AllDeliveryMan = () => {
 
 
     const axiosPublic = useAxiosPublic();
-    const [userRole] = useUserRole();
 
     const { data: allDeliveryMan = [] } = useQuery({
         queryKey: ['deliveryMan'],
@@ -18,13 +17,7 @@ const AllDeliveryMan = () => {
         }
     })
 
-    const { data: myTotalDeliveredList = [], } = useQuery({
-        queryKey: ['myTotalDeliveredList', userRole._id],
-        queryFn: async () => {
-            const res = await axiosPublic.get(`/myTotalDeliveredList/${userRole._id}`);
-            return res.data;
-        }
-    })
+
 
 
 
