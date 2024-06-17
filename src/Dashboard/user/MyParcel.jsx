@@ -20,7 +20,7 @@ const MyParcel = () => {
     const [rating, setRating] = useState(0);
     const axiosPublic = useAxiosPublic();
 
-    const { data: parcelData = [] } = useQuery({
+    const { data: parcelData = [], refetch } = useQuery({
         queryKey: ['parcel', user.email],
         queryFn: async () => {
             const res = await axiosPublic.get(`/allParcel/${user.email}`);
@@ -43,20 +43,29 @@ const MyParcel = () => {
 
 
     const handleCancel = (id) => {
-        axiosPublic.patch(`/canceled/${id}`)
-            .then(res => {
-                if (res.data.modifiedCount > 0) {
 
-                    Swal.fire({
-                        position: "top-end",
-                        icon: "success",
-                        title: `Parcel cancel Successfully`,
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
+
+        Swal.fire({
+            title: "Do you want to cancel the Parcel?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+            denyButtonText: `No`
+        })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    axiosPublic.patch(`/canceled/${id}`)
+                        .then(res => {
+                            if (res.data.modifiedCount > 0) {
+                                Swal.fire("Parcel canceled done!", "", "success");
+                                refetch();
+                            }
+                        })
+                } else if (result.isDenied) {
+                    Swal.fire("Changes are not saved", "", "info");
                 }
+            });
 
-            })
     }
 
 

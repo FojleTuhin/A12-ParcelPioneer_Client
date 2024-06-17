@@ -18,7 +18,6 @@ import { Helmet } from "react-helmet-async";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import moment from "moment";
-import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 
 
@@ -46,6 +45,15 @@ const AllParcel = () => {
     const [status, setStatus] = useState('OnTheWay');
     const [startDate, setStartDate] = useState(new Date());
 
+    const { data: allParcel = [] } = useQuery({
+        queryKey: ['parcel'],
+        queryFn: async () => {
+            const res = await axiosPublic.get('/allParcel');
+            return res.data;
+        }
+
+    })
+
     const handleDeliveryManage = (e) => {
         e.preventDefault();
         const deliveryDate = moment(startDate).format("MMM Do YY");
@@ -58,15 +66,31 @@ const AllParcel = () => {
         }
 
 
-
-        axiosPublic.put(`/allParcel/${bookingId}`, updatebooking)
-            .then(data => {
-                console.log(data)
-                if (data.modifiedCount > 0) {
-                    Swal.fire("Saved!", "", "success");
-                    refetch();
+        Swal.fire({
+            title: "Do you want to save the changes?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Save",
+            denyButtonText: `Don't save`
+        })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    axiosPublic.put(`/allParcel/${bookingId}`, updatebooking)
+                        .then(data => {
+                            console.log(data)
+                            if (data.modifiedCount > 0) {
+                                Swal.fire("Saved!", "", "success");
+                                refetch();
+                            }
+                        })
+                } else if (result.isDenied) {
+                    Swal.fire("Changes are not saved", "", "info");
                 }
-            })
+            });
+
+
+
+
 
 
 
@@ -77,14 +101,7 @@ const AllParcel = () => {
 
 
 
-    const { data: allParcel = [] } = useQuery({
-        queryKey: ['parcel'],
-        queryFn: async () => {
-            const res = await axiosPublic.get('/allParcel');
-            return res.data;
-        }
 
-    })
 
 
 
@@ -170,7 +187,8 @@ const AllParcel = () => {
 
                                         <div className="mt-5">
 
-                                            <button type="submit" className="border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg">Assign</button>
+                                            {/* <button type="submit" className="border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg">Assign</button> */}
+                                            <AlertDialogCancel><button>Assign</button></AlertDialogCancel>
                                         </div>
 
                                     </form>
