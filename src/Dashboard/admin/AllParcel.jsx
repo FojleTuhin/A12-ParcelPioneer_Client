@@ -28,7 +28,7 @@ import Swal from "sweetalert2";
 const AllParcel = () => {
 
     const axiosPublic = useAxiosPublic();
-   
+
 
     const { data: allDeliveryMan = [], refetch } = useQuery({
         queryKey: ['deliveryMan'],
@@ -46,7 +46,7 @@ const AllParcel = () => {
     const [status, setStatus] = useState('OnTheWay');
     const [startDate, setStartDate] = useState(new Date());
 
-    const handleDeliveryManage = async(e) => {
+    const handleDeliveryManage = (e) => {
         e.preventDefault();
         const deliveryDate = moment(startDate).format("MMM Do YY");
         const deliveryManId = e.target.deliveryMan.value;
@@ -57,22 +57,29 @@ const AllParcel = () => {
             status
         }
 
-       await axiosPublic.put(`/allParcel/${bookingId}`, updatebooking)
-            .then(data => {
-                console.log(data)
-                if (data.modifiedCount > 0) {
-                    Swal.fire({
-                        position: "top-end",
-                        icon: "success",
-                        title: `Update Successfully`,
-                        showConfirmButton: false,
-                        timer: 1500
-                      });
-                      refetch();
-                    
-                }
 
-            })
+        Swal.fire({
+            title: "Do you want to save the changes?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Save",
+            denyButtonText: `Don't save`
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosPublic.put(`/allParcel/${bookingId}`, updatebooking)
+                    .then(data => {
+                        console.log(data)
+                        if (data.modifiedCount > 0) {
+                            Swal.fire("Saved!", "", "success");
+                            refetch();
+                        }
+                    })
+            } else if (result.isDenied) {
+                Swal.fire("Changes are not saved", "", "info");
+            }
+        });
+
+
 
 
 
@@ -136,7 +143,7 @@ const AllParcel = () => {
             options: {
                 customBodyRender: (value) => (
 
-                    <div>
+                    <div className="z-50">
                         <AlertDialog>
                             <AlertDialogTrigger><button onClick={() => handleGetBookingId(value)}
                                 className={`capitalize inline-block px-3 py-1 rounded-full font-semibold bg-[#EBFBE5]`}>
@@ -172,8 +179,8 @@ const AllParcel = () => {
 
 
                                         <div className="mt-5">
-                                            <button type="submit" className="py-2 px-4 border border-[rgb(226, 232, 240)] rounded-lg">Assign</button>
-                                            
+
+                                           <button type="submit" className="border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg">Assign</button>
                                         </div>
 
                                     </form>
@@ -184,7 +191,7 @@ const AllParcel = () => {
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
                                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                 
+
                                     {/* <AlertDialogAction>Assign</AlertDialogAction> */}
                                 </AlertDialogFooter>
                             </AlertDialogContent>

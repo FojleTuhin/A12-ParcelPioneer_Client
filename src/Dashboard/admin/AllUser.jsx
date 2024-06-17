@@ -2,7 +2,6 @@ import { AuthContext } from '@/Firebase/FirebaseProvider';
 import useAxiosPublic from '@/hooks/useAxiosPublic';
 import useUsers from '@/hooks/useUsers';
 import MUIDataTable from 'mui-datatables';
-import { useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Swal from 'sweetalert2';
 
@@ -10,60 +9,73 @@ const AllUser = () => {
 
   const [users, refetch] = useUsers();
   const axiosPublic = useAxiosPublic();
-  const { user } = useContext(AuthContext);
 
   const handleMakeAdmin = (userId) => {
 
-    axiosPublic.patch(`/makeAdmin/${userId}`)
-      .then(res => {
-        if (res.data.modifiedCount > 0) {
-          
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: `Update Admin Successfully`,
-            showConfirmButton: false,
-            timer: 1500
-          });
-          refetch();
-        }
-        
-      })
 
-      
-      
-      
+    Swal.fire({
+      title: "Do you want to save the changes?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Save",
+      denyButtonText: `Don't save`
+    })
+      .then((result) => {
+        if (result.isConfirmed) {
+          axiosPublic.patch(`/makeAdmin/${userId}`)
+            .then(res => {
+              if (res.data.modifiedCount > 0) {
+                Swal.fire("Saved successfully!");
+                refetch();
+              }
+            })
+        } else if (result.isDenied) {
+          Swal.fire("Changes are not saved", "", "info");
+        }
+      });
+
+
+
+
+
+
   }
 
 
   const handleMakeDeliveryMan = (userId) => {
 
-    console.log(userId);
+    Swal.fire({
+      title: "Do you want to save the changes?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Save",
+      denyButtonText: `Don't save`
+    })
+      .then((result) => {
+        if (result.isConfirmed) {
 
-    axiosPublic.patch(`/makeDeliveryMan/${userId}`)
-      .then(res => {
-        console.log(res.data)
-        if (res.data.modifiedCount > 0) {
-          
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: `Update Delivery Man Successfully`,
-            showConfirmButton: false,
-            timer: 1500
-          });
-          refetch();
+          axiosPublic.patch(`/makeDeliveryMan/${userId}`)
+            .then(res => {
+              console.log(res.data)
+              if (res.data.modifiedCount > 0) {
+                Swal.fire("Saved successfully!");
+                refetch();
+              }
+            })
+        } else if (result.isDenied) {
+          Swal.fire("Changes are not saved");
         }
-        
-      })
+      });
 
-      
-      
-      
+
+
+
+
+
   }
- 
 
-  
+
+
 
 
 
@@ -119,7 +131,7 @@ const AllUser = () => {
       label: "MakeDeliveryMan",
       options: {
         customBodyRender: (value) => (
-          <button onClick={()=>handleMakeDeliveryMan(value)}
+          <button onClick={() => handleMakeDeliveryMan(value)}
             className={` inline-block px-3 py-1 rounded-full font-semibold bg-[#EBFBE5]`}>
             DeliveryMan
           </button>

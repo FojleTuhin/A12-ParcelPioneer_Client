@@ -44,21 +44,21 @@ const Statistics = () => {
                 <div className="h-[140px] w-[270px] bg-[#EBFBE5] flex flex-col items-center justify-center rounded-2xl">
                     <p className="text-xl"> Admin</p>
                     <p className="font-semibold text-5xl">
-                        <CountUp end={totalAdmin.length} duration={5}>
+                        <CountUp end={totalAdmin.length} duration={4}>
                         </CountUp>
                     </p>
                 </div>
                 <div className="h-[140px] w-[270px] bg-[#FAECFF] flex flex-col items-center justify-center rounded-2xl">
                     <p className="text-xl"> Delivery Man</p>
                     <p className="font-semibold text-5xl">
-                        <CountUp end={deliveryMan.length} duration={5}>
+                        <CountUp end={deliveryMan.length} duration={4}>
                         </CountUp>
                     </p>
                 </div>
                 <div className="h-[140px] w-[270px] bg-[#EBFBE5] flex flex-col items-center justify-center rounded-2xl">
                     <p className="text-xl">Regular User</p>
                     <p className="font-semibold text-5xl">
-                        <CountUp end={regularUser.length} duration={5}>
+                        <CountUp end={regularUser.length} duration={4}>
                         </CountUp>
                     </p>
                 </div>
