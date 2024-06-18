@@ -19,7 +19,7 @@ const MyParcel = () => {
     const { user } = useContext(AuthContext);
     const [rating, setRating] = useState(0);
     const axiosPublic = useAxiosPublic();
-    const [feedbackForAvgRatting, setFeedbackForAvgRatting] = useState([]);
+    // const [feedbackForAvgRatting, setFeedbackForAvgRatting] = useState([]);
 
     const { data: parcelData = [], refetch } = useQuery({
         queryKey: ['parcel', user.email],
@@ -89,18 +89,15 @@ const MyParcel = () => {
         e.target.reset();
 
 
+        axiosPublic.patch(`/calculateAvgRating/${deliveryManId}`)
+            .then(data => {
+                console.log(data)
+                if (data.modifiedCount > 0) {
+                    Swal.fire("Saved!", "", "success");
+                    refetch();
+                }
+            })
 
-        // await axiosPublic.get(`/feedback/${deliveryManId}`)
-        // .then(data=>{
-        //     // console.log(data.data);
-        //     setFeedbackForAvgRatting(data.data)
-        //     refetch();
-        // })
-
-
-
-        // console.log(feedbackForAvgRatting);
-        // refetch()
     }
 
 

@@ -1,5 +1,4 @@
 import useAxiosPublic from "@/hooks/useAxiosPublic";
-import useUserRole from "@/hooks/useUserRole";
 import { useQuery } from "@tanstack/react-query";
 import MUIDataTable from "mui-datatables";
 import { Helmet } from "react-helmet-async";
@@ -45,7 +44,7 @@ const AllDeliveryMan = () => {
         },
 
         {
-            name: "averageReview",
+            name: "averageRating",
             label: "Review"
         }
 
