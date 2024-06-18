@@ -33,6 +33,8 @@ const Statistics = () => {
     })
 
 
+
+
     return (
         <div>
             <Helmet>
@@ -63,7 +65,7 @@ const Statistics = () => {
                     </p>
                 </div>
             </div>
-            <div className="md:flex">
+            <div className="md:flex gap-6">
                 <div>
                     <BarChart></BarChart>
                 </div>
