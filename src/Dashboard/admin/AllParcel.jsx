@@ -37,7 +37,8 @@ const AllParcel = () => {
         }
     })
 
-    const [bookingId, setBookingId] = useState('');
+
+    const [bookingId, setBookingId] = useState({});
     const handleGetBookingId = (value) => {
         setBookingId(value);
     }
@@ -45,10 +46,22 @@ const AllParcel = () => {
     const [status, setStatus] = useState('OnTheWay');
     const [startDate, setStartDate] = useState(new Date());
 
+const [from, setFrom] = useState('');
+const [to, setTo] = useState('')
+    const handleSearchByDate = (e) => {
+        e.preventDefault();
+        const dateFrom = e.target.dateFrom.value;
+        setFrom(dateFrom)
+        const dateTo = e.target.dateTo.value;
+        setTo(dateTo);
+    }
+
+    console.log(from,to);
+
     const { data: allParcel = [] } = useQuery({
-        queryKey: ['parcel'],
+        queryKey: ['parcel', from, to],
         queryFn: async () => {
-            const res = await axiosPublic.get('/allParcel');
+            const res = await axiosPublic.get(`/allParcel?from=${from}&to=${to}`);
             return res.data;
         }
 
@@ -220,6 +233,7 @@ const AllParcel = () => {
     };
 
 
+
     return (
         <div>
             <Helmet>
@@ -227,6 +241,19 @@ const AllParcel = () => {
                     ParcelPioneer || AllParcel
                 </title>
             </Helmet>
+
+            <div className="mb-16">
+                <form onSubmit={handleSearchByDate}>
+                    <span className="font-bold mr-4 text-xl">From</span>
+                    <input type="date" name="dateFrom" id="" className="border border-gray-500 rounded-md py-2 px-4" />
+
+                    <span className="font-bold ml-10 mr-4 text-xl">To</span>
+                    <input type="date" name="dateTo" id="" className="border border-gray-500 rounded-md py-2 px-4" />
+
+
+                    <button type="submit" className="border border-gray-500 rounded-md py-2 px-4 ml-16">Search</button>
+                </form>
+            </div>
             <div>
                 <MUIDataTable
                     title={"All Parcel List"}

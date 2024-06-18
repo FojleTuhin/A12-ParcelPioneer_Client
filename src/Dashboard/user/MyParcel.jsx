@@ -21,13 +21,27 @@ const MyParcel = () => {
     const axiosPublic = useAxiosPublic();
     // const [feedbackForAvgRatting, setFeedbackForAvgRatting] = useState([]);
 
+    
+
+    const [search, setSearch] = useState('');
+
     const { data: parcelData = [], refetch } = useQuery({
-        queryKey: ['parcel', user.email],
+        queryKey: ['parcel', user.email, search],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/allParcel/${user.email}`);
+            const res = await axiosPublic.get(`/allParcel/${user.email}?search=${search}`);
             return res.data;
         }
     })
+
+
+   
+    const handleSearch = (e) => {
+        e.preventDefault();
+        const searchText = e.target.searchStatus.value;
+        setSearch(searchText);
+        e.target.reset();
+        // console.log(search);
+    }
 
 
     const { mutateAsync } = useMutation({
@@ -101,6 +115,8 @@ const MyParcel = () => {
     }
 
 
+
+
     return (
         <div className="px-4 pb-4 bg-[#F8F6F1]">
             <Helmet>
@@ -110,6 +126,13 @@ const MyParcel = () => {
             </Helmet>
             <div className="bg-[#EBFBE5] text-[#3EA570] py-4 mb-5">
                 <h1 className="font-bold text-xl text-center">My Parcel List</h1>
+            </div>
+
+            <div className="mb-10">
+                <form onSubmit={handleSearch}>
+                    <input type="text" name="searchStatus" className="border border-gray-400 rounded-md px-5 py-2 " placeholder="Search by booking status" />
+                    <button type="submit" className="border border-gray-400 rounded-md px-5 py-2 ">Search</button>
+                </form>
             </div>
 
             <table className="border-collapse border border-slate-400">
