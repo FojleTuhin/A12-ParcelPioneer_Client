@@ -197,7 +197,7 @@ const MyParcel = () => {
                                     {
                                         item.status === 'delivered' ? (
                                             item.payment ? (
-                                                <p className=" text-white bg-[#3EA570]  px-3 py-1 rounded-full">Done</p>
+                                                <p className=" text-white bg-[#3EA570]  px-1 py-1 rounded-full">Done</p>
                                             ) : (
                                                 <button className="bg-[#EBFBE5] p-2 border border-gray-500 rounded-md">
                                                     <Link to={`/dashboard/payment/${item._id}`}>Pay</Link>
@@ -243,7 +243,7 @@ const MyParcel = () => {
                                                                         </div>
                                                                     </div>
                                                                     <input type="text" name="deliveryManId" defaultValue={item.deliveryManId} className="border border-gray-400 py-2 px-3 rounded-lg mb-3" />
-                                                                    <textarea name="feedback" id="" className="border border-gray-400 w-full rounded-lg"></textarea>
+                                                                    <textarea name="feedback" id="" placeholder="add a review" className="border border-gray-400 w-full rounded-lg px-4 py-2"></textarea>
                                                                     <br />
 
                                                                     <AlertDialogCancel><button className="">Submit</button></AlertDialogCancel>

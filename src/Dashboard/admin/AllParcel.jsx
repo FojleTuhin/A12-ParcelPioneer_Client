@@ -43,8 +43,8 @@ const AllParcel = () => {
         setBookingId(value);
     }
 
-//     const [status, setStatus] = useState('OnTheWay');
-//     const [startDate, setStartDate] = useState(new Date());
+    const [status, setStatus] = useState('OnTheWay');
+    const [startDate, setStartDate] = useState(new Date());
 
 // const [from, setFrom] = useState('');
 // const [to, setTo] = useState('')
@@ -61,9 +61,9 @@ const AllParcel = () => {
 
 
     const { data: allParcel = [] } = useQuery({
-        queryKey: ['parcel', from, to],
+        queryKey: ['parcel'],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/allParcel?from=${from}&to=${to}`);
+            const res = await axiosPublic.get(`/allParcel`);
             return res.data;
         }
 
@@ -243,7 +243,7 @@ const AllParcel = () => {
             </Helmet>
 
             <div className="mb-16">
-                <form onSubmit={handleSearchByDate}>
+                <form>
                     <span className="font-bold mr-4 text-xl">From</span>
                     <input type="date" name="dateFrom" id="" className="border border-gray-500 rounded-md py-2 px-4" />
 
@@ -254,7 +254,7 @@ const AllParcel = () => {
                     <button type="submit" className="border border-gray-500 rounded-md py-2 px-4 ml-16">Search</button>
                 </form>
             </div>
-            <div className=" mt-10">
+            <div className="mt-10">
                 <MUIDataTable
                     title={"All Parcel List"}
                     data={allParcel}
