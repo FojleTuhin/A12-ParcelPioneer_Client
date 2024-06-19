@@ -41,6 +41,7 @@ const Signup = () => {
                             showConfirmButton: false,
                             timer: 1500
                         });
+                        refetch();
                         navigate(location?.state ? location.state : '/')
 
                     })
@@ -51,7 +52,7 @@ const Signup = () => {
                 toast.error('Something wrong')
             })
 
-            refetch();
+           
     }
 
 

@@ -36,6 +36,7 @@ const Login = () => {
                             showConfirmButton: false,
                             timer: 1500
                         });
+                        refetch();
                         navigate(location?.state ? location.state : '/')
 
                     })
@@ -44,7 +45,7 @@ const Login = () => {
                 toast.error('Something wrong')
             })
 
-            refetch();
+            
     }
 
 

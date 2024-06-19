@@ -187,7 +187,7 @@ const MyParcel = () => {
                                 <td className="border border-slate-300">
                                     {
                                         item.status === 'delivered' ?
-                                            <button>Pay</button>
+                                            <button className="bg-[#EBFBE5] p-2 border border-gray-500 rounded-md"><Link to='/dashboard/payment'>Pay</Link></button>
                                             :
                                             ''
                                     }
