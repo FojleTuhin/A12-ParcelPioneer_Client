@@ -21,7 +21,7 @@ const MyParcel = () => {
     const axiosPublic = useAxiosPublic();
     // const [feedbackForAvgRatting, setFeedbackForAvgRatting] = useState([]);
 
-    
+
 
     const [search, setSearch] = useState('');
 
@@ -34,7 +34,7 @@ const MyParcel = () => {
     })
 
 
-   
+
     const handleSearch = (e) => {
         e.preventDefault();
         const searchText = e.target.searchStatus.value;
@@ -185,12 +185,27 @@ const MyParcel = () => {
                                     }
                                 </td>
                                 <td className="border border-slate-300">
+                                    {/* {
+                                        item.status === 'delivered' ? (
+                                            <button className="bg-[#EBFBE5] p-2 border border-gray-500 rounded-md">
+                                                <Link to={`/dashboard/payment/${item._id}`}>Pay</Link>
+                                            </button>
+                                        ) : ''
+                                    } */}
+
+
                                     {
-                                        item.status === 'delivered' ?
-                                            <button className="bg-[#EBFBE5] p-2 border border-gray-500 rounded-md"><Link to={`/dashboard/payment/${item._id}`}>Pay</Link></button>
-                                            :
-                                            ''
+                                        item.status === 'delivered' ? (
+                                            item.payment ? (
+                                                <p className="font-bold text-white bg-[#3EA570]  px-3 py-1 rounded-full">Done</p>
+                                            ) : (
+                                                <button className="bg-[#3EA570] p-2 border border-gray-500 rounded-md">
+                                                    <Link to={`/dashboard/payment/${item._id}`}>Pay</Link>
+                                                </button>
+                                            )
+                                        ) : ''
                                     }
+
                                 </td>
                                 <td>
                                     {

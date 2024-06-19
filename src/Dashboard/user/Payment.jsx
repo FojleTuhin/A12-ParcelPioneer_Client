@@ -8,7 +8,7 @@ const Payment = () => {
 
     const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_API_KEY);
     const parcel =useLoaderData();
-    const {price} = parcel;
+    const {price, _id} = parcel;
     // console.log(price);
 
 
@@ -31,7 +31,7 @@ const Payment = () => {
                 <div className="bg-[#F8F6F1] h-[350px] w-[700px]">
                     <div className="p-10">
                         <Elements stripe={stripePromise}>
-                            <CheckoutForm price={price}></CheckoutForm>
+                            <CheckoutForm price={price} id={_id}></CheckoutForm>
                         </Elements>
                     </div>
 
