@@ -2,6 +2,7 @@ import { AuthContext } from "@/Firebase/FirebaseProvider";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const CheckoutForm = ({ price, id }) => {
@@ -13,6 +14,7 @@ const CheckoutForm = ({ price, id }) => {
     const [clientSecret, setClientSecret] = useState('')
     const { user } = useContext(AuthContext);
     const [transactionId, setTransactionId] = useState('');
+    const navigate = useNavigate();
 
     console.log(price);
 
@@ -90,6 +92,8 @@ const CheckoutForm = ({ price, id }) => {
                             showConfirmButton: false,
                             timer: 1500
                         });
+
+                        navigate('/dashboard/myParcel')
 
 
                     }

@@ -199,7 +199,7 @@ const MyParcel = () => {
                                             item.payment ? (
                                                 <p className="font-bold text-white bg-[#3EA570]  px-3 py-1 rounded-full">Done</p>
                                             ) : (
-                                                <button className="bg-[#3EA570] p-2 border border-gray-500 rounded-md">
+                                                <button className="bg-[#EBFBE5] p-2 border border-gray-500 rounded-md">
                                                     <Link to={`/dashboard/payment/${item._id}`}>Pay</Link>
                                                 </button>
                                             )
