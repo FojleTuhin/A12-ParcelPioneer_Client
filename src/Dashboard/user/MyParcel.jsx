@@ -118,7 +118,7 @@ const MyParcel = () => {
 
 
     return (
-        <div className="px-4 pb-4 bg-[#F8F6F1]">
+        <div className="md:px-4 pb-4 bg-[#F8F6F1]">
             <Helmet>
                 <title>
                     ParcelPioneer || MyParcel
@@ -135,7 +135,7 @@ const MyParcel = () => {
                 </form>
             </div>
 
-            <table className="border-collapse border border-slate-400">
+            <table className="border-collapse border border-slate-400 table-auto">
 
                 <thead>
                     <tr>
@@ -197,7 +197,7 @@ const MyParcel = () => {
                                     {
                                         item.status === 'delivered' ? (
                                             item.payment ? (
-                                                <p className="font-bold text-white bg-[#3EA570]  px-3 py-1 rounded-full">Done</p>
+                                                <p className=" text-white bg-[#3EA570]  px-3 py-1 rounded-full">Done</p>
                                             ) : (
                                                 <button className="bg-[#EBFBE5] p-2 border border-gray-500 rounded-md">
                                                     <Link to={`/dashboard/payment/${item._id}`}>Pay</Link>

@@ -116,7 +116,7 @@ const DeliveryList = () => {
                     <h1 className="font-bold text-xl text-center">My Delivery List</h1>
                 </div>
 
-                <table className="border-collapse border border-slate-400">
+                <table className="border-collapse border table-auto border-slate-400">
 
                     <thead>
                         <tr>

@@ -43,20 +43,22 @@ const AllParcel = () => {
         setBookingId(value);
     }
 
-    const [status, setStatus] = useState('OnTheWay');
-    const [startDate, setStartDate] = useState(new Date());
+//     const [status, setStatus] = useState('OnTheWay');
+//     const [startDate, setStartDate] = useState(new Date());
 
-const [from, setFrom] = useState('');
-const [to, setTo] = useState('')
-    const handleSearchByDate = (e) => {
-        e.preventDefault();
-        const dateFrom = e.target.dateFrom.value;
-        setFrom(dateFrom)
-        const dateTo = e.target.dateTo.value;
-        setTo(dateTo);
-    }
+// const [from, setFrom] = useState('');
+// const [to, setTo] = useState('')
+//     const handleSearchByDate = (e) => {
+//         e.preventDefault();
+//         const dateFrom = e.target.dateFrom.value;
+//         setFrom(dateFrom)
+//         const dateTo = e.target.dateTo.value;
+//         setTo(dateTo);
 
-    console.log(from,to);
+//         console.log(from , to);
+
+//     }
+
 
     const { data: allParcel = [] } = useQuery({
         queryKey: ['parcel', from, to],
@@ -212,8 +214,6 @@ const [to, setTo] = useState('')
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
                                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-
-                                    {/* <AlertDialogAction>Assign</AlertDialogAction> */}
                                 </AlertDialogFooter>
                             </AlertDialogContent>
                         </AlertDialog>
@@ -254,7 +254,7 @@ const [to, setTo] = useState('')
                     <button type="submit" className="border border-gray-500 rounded-md py-2 px-4 ml-16">Search</button>
                 </form>
             </div>
-            <div>
+            <div className=" mt-10">
                 <MUIDataTable
                     title={"All Parcel List"}
                     data={allParcel}

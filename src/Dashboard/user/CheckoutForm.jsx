@@ -93,7 +93,7 @@ const CheckoutForm = ({ price, id }) => {
                             timer: 1500
                         });
 
-                        navigate('/dashboard/myParcel')
+                        // navigate('/dashboard/myParcel')
 
 
                     }
