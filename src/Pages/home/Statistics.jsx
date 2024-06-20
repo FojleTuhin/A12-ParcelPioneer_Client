@@ -7,10 +7,10 @@ const Statistics = () => {
     const axiosPublic = useAxiosPublic();
     const [users] = useUsers();
     
-    const { data: allParcel = [] } = useQuery({
-        queryKey: ['parcel'],
+    const { data: totalParcel = [] } = useQuery({
+        queryKey: ['totalParcel'],
         queryFn: async () => {
-            const res = await axiosPublic.get('/allParcel');
+            const res = await axiosPublic.get('/totalParcel');
             return res.data;
         }
     })
@@ -28,7 +28,7 @@ const Statistics = () => {
             <div className="h-[150px] w-[300px] bg-[#EBFBE5] flex flex-col items-center justify-center rounded-2xl">
                 <p className="text-xl"> Parcel Booked</p>
                 <p className="font-semibold text-5xl">
-                    <CountUp end={allParcel.length} duration={5}>
+                    <CountUp end={totalParcel.length} duration={5}>
                     </CountUp>
                 </p>
             </div>
