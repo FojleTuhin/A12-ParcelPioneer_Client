@@ -21,7 +21,6 @@ const MyParcel = () => {
     const [rating, setRating] = useState(0);
     const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure();
-    // const [feedbackForAvgRatting, setFeedbackForAvgRatting] = useState([]);
 
 
 
@@ -42,7 +41,6 @@ const MyParcel = () => {
         const searchText = e.target.searchStatus.value;
         setSearch(searchText);
         e.target.reset();
-        // console.log(search);
     }
 
 

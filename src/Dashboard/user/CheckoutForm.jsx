@@ -88,12 +88,12 @@ const CheckoutForm = ({ price, id }) => {
                         Swal.fire({
                             position: "top-end",
                             icon: "success",
-                            title: `Payment Successfully`,
+                            title: `Payment Successfull`,
                             showConfirmButton: false,
                             timer: 1500
                         });
 
-                        // navigate('/dashboard/myParcel')
+                        navigate('/dashboard/success')
 
 
                     }

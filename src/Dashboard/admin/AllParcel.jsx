@@ -48,18 +48,19 @@ const AllParcel = () => {
     const [status, setStatus] = useState('OnTheWay');
     const [startDate, setStartDate] = useState(new Date());
 
-// const [from, setFrom] = useState('');
-// const [to, setTo] = useState('')
-//     const handleSearchByDate = (e) => {
-//         e.preventDefault();
-//         const dateFrom = e.target.dateFrom.value;
-//         setFrom(dateFrom)
-//         const dateTo = e.target.dateTo.value;
-//         setTo(dateTo);
+    const [from, setFrom] = useState('');
+    const [to, setTo] = useState('');
+    
+    const handleSearchByDate = (e) => {
+        e.preventDefault();
+        const dateFrom = e.target.dateFrom.value;
+        setFrom(dateFrom)
+        const dateTo = e.target.dateTo.value;
+        setTo(dateTo);
 
-//         console.log(from , to);
+        console.log(from, to);
 
-//     }
+    }
 
 
     const { data: allParcel = [] } = useQuery({
@@ -103,6 +104,7 @@ const AllParcel = () => {
                 } else if (result.isDenied) {
                     Swal.fire("Changes are not saved", "", "info");
                 }
+                refetch();
             });
 
 
@@ -245,7 +247,7 @@ const AllParcel = () => {
             </Helmet>
 
             <div className="mb-16">
-                <form>
+                <form onSubmit={handleSearchByDate}>
                     <span className="font-bold mr-4 text-xl">From</span>
                     <input type="date" name="dateFrom" id="" className="border border-gray-500 rounded-md py-2 px-4" />
 

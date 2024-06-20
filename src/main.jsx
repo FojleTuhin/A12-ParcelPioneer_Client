@@ -27,6 +27,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import UpdateParcel from './Dashboard/user/UpdateParcel';
 import Payment from './Dashboard/user/Payment';
 import Error from './Pages/Error';
+import Success from './Dashboard/user/Success';
 
 const router = createBrowserRouter([
   {
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
         path:'payment/:id',
         element:<Payment></Payment>,
         loader:({params})=>fetch(`http://localhost:5000/payment/${params.id}`)
+      },
+      {
+        path:'success',
+        element:<Success></Success>
       },
 
 
