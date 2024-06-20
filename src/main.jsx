@@ -26,11 +26,13 @@ import { HelmetProvider } from 'react-helmet-async';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import UpdateParcel from './Dashboard/user/UpdateParcel';
 import Payment from './Dashboard/user/Payment';
+import Error from './Pages/Error';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
+    errorElement:<Error></Error>,
     children: [
       {
         path: '/',

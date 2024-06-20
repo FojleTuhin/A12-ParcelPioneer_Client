@@ -19,6 +19,7 @@ import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import moment from "moment";
 import Swal from "sweetalert2";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
 
 
 
@@ -27,6 +28,7 @@ import Swal from "sweetalert2";
 const AllParcel = () => {
 
     const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
 
 
     const { data: allDeliveryMan = [], refetch } = useQuery({
@@ -63,7 +65,7 @@ const AllParcel = () => {
     const { data: allParcel = [] } = useQuery({
         queryKey: ['parcel'],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/allParcel`);
+            const res = await axiosSecure.get(`/allParcel`);
             return res.data;
         }
 
