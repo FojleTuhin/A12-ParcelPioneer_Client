@@ -1,14 +1,15 @@
 
 import  { useEffect, useState } from 'react';
-import axios from 'axios';
 import Chart from 'react-apexcharts';
+import useAxiosSecure from '@/hooks/useAxiosSecure';
 
 function Barchart() {
     const [chartData, setChartData] = useState({ categories: [], data: [] });
+    const axiosSecure = useAxiosSecure();
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get('http://localhost:5000/allParcel');
+            const response = await axiosSecure.get('http://localhost:5000/allParcel');
             const orders = response.data;
 
             const ordersByDate = orders.reduce((acc, order) => {

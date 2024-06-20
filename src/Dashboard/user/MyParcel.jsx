@@ -12,6 +12,7 @@ import moment from "moment";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
 
 
 
@@ -19,6 +20,7 @@ const MyParcel = () => {
     const { user } = useContext(AuthContext);
     const [rating, setRating] = useState(0);
     const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
     // const [feedbackForAvgRatting, setFeedbackForAvgRatting] = useState([]);
 
 
@@ -28,7 +30,7 @@ const MyParcel = () => {
     const { data: parcelData = [], refetch } = useQuery({
         queryKey: ['parcel', user.email, search],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/allParcel/${user.email}?search=${search}`);
+            const res = await axiosSecure.get(`/allParcel/${user.email}?search=${search}`);
             return res.data;
         }
     })

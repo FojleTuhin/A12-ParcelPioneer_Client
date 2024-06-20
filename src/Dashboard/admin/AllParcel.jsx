@@ -92,7 +92,7 @@ const AllParcel = () => {
         })
             .then((result) => {
                 if (result.isConfirmed) {
-                    axiosPublic.put(`/allParcel/${bookingId}`, updatebooking)
+                    axiosSecure.put(`/allParcel/${bookingId}`, updatebooking)
                         .then(data => {
                             console.log(data)
                             if (data.modifiedCount > 0) {

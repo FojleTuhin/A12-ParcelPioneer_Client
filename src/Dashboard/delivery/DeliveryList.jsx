@@ -8,6 +8,7 @@ import { MdCancel } from "react-icons/md";
 import { Map } from "pigeon-maps"
 import { useState } from "react";
 import Swal from "sweetalert2";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
 
 
 const DeliveryList = () => {
@@ -17,6 +18,7 @@ const DeliveryList = () => {
     const [zoom, setZoom] = useState(10)
 
     const [userRole] = useUserRole();
+    const axiosSecure = useAxiosSecure();
 
     const axiosPublic = useAxiosPublic();
     console.log(userRole._id);
@@ -25,7 +27,7 @@ const DeliveryList = () => {
     const { data: allDeliveryList = [], refetch } = useQuery({
         queryKey: ['deliveryList', userRole._id],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/deliveryList/${userRole._id}`);
+            const res = await axiosSecure.get(`/deliveryList/${userRole._id}`);
             return res.data;
         }
     })
