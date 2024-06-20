@@ -31,7 +31,7 @@ function Barchart() {
         };
 
         fetchData();
-    }, []);
+    }, [axiosSecure]);
 
     const chartOptions = {
         chart: {
@@ -54,7 +54,7 @@ function Barchart() {
 
     return (
         <div className="App">
-            <Chart options={chartOptions} series={series} type="bar" height={300} width={350}/>
+            <Chart options={chartOptions} series={series} type="bar" height={300} width={340}/>
         </div>
     );
 }

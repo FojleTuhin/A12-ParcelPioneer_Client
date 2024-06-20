@@ -247,7 +247,7 @@ const AllParcel = () => {
             </Helmet>
 
             <div className="mb-16">
-                <form onSubmit={handleSearchByDate}>
+                <form onSubmit={handleSearchByDate} className="flex md:inline-block">
                     <span className="font-bold mr-4 text-xl">From</span>
                     <input type="date" name="dateFrom" id="" className="border border-gray-500 rounded-md py-2 px-4" />
 
@@ -259,11 +259,12 @@ const AllParcel = () => {
                 </form>
             </div>
             <div className="mt-10">
-                <MUIDataTable
+                <MUIDataTable className="overflow-auto"
                     title={"All Parcel List"}
                     data={allParcel}
                     columns={columns}
                     options={options}
+                    
                 />
             </div>
         </div>

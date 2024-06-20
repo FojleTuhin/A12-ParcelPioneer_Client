@@ -65,7 +65,7 @@ const AllDeliveryMan = () => {
             </Helmet>
             <div className=' mt-10'>
                 <div>
-                    <MUIDataTable
+                    <MUIDataTable className="overflow-auto"
                         title={"All Delivery Man List"}
                         data={allDeliveryMan}
                         columns={columns}

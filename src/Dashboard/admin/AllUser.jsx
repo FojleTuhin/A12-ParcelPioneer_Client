@@ -148,11 +148,12 @@ const AllUser = () => {
       </Helmet>
       <div className=' '>
         <div>
-          <MUIDataTable
+          <MUIDataTable className="overflow-auto"
             title={"All User List"}
             data={users}
             columns={columns}
             options={options}
+            
 
           />
         </div>
