@@ -50,7 +50,7 @@ const AllParcel = () => {
 
     const [from, setFrom] = useState('');
     const [to, setTo] = useState('');
-    
+
     const handleSearchByDate = (e) => {
         e.preventDefault();
         const dateFrom = e.target.dateFrom.value;
@@ -247,24 +247,31 @@ const AllParcel = () => {
             </Helmet>
 
             <div className="mb-16">
-                <form onSubmit={handleSearchByDate} className="flex md:inline-block">
-                    <span className="font-bold mr-4 text-xl">From</span>
-                    <input type="date" name="dateFrom" id="" className="border border-gray-500 rounded-md py-2 px-4" />
+                <form onSubmit={handleSearchByDate} className="md:grid md:grid-cols-3">
+                    <div>
+                        <span className="font-bold mr-4 text-xl">From</span>
+                        <input type="date" name="dateFrom" id="" className="border border-gray-500 rounded-md py-2 px-4" />
+                    </div>
 
-                    <span className="font-bold ml-10 mr-4 text-xl">To</span>
-                    <input type="date" name="dateTo" id="" className="border border-gray-500 rounded-md py-2 px-4" />
+                    <div>
+                        <span className="font-bold  mr-4 text-xl">To</span>
+                        <input type="date" name="dateTo" id="" className="border border-gray-500 rounded-md py-2 px-4" />
+                    </div>
+
+                    <div>
+                        <button type="submit" className="border border-gray-500 rounded-md py-2 px-4 ml-16">Search</button>
+                    </div>
 
 
-                    <button type="submit" className="border border-gray-500 rounded-md py-2 px-4 ml-16">Search</button>
                 </form>
             </div>
             <div className="mt-10">
-                <MUIDataTable className="overflow-auto"
+                <MUIDataTable className=""
                     title={"All Parcel List"}
                     data={allParcel}
                     columns={columns}
                     options={options}
-                    
+
                 />
             </div>
         </div>

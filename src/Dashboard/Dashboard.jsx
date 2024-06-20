@@ -283,7 +283,7 @@ const Dashboard = () => {
                         </Sheet>
                     </div>
                 </header>
-                <main className="p-4 lg:p-8">
+                <main className="md:p-4 lg:p-8">
                     <Outlet></Outlet>
                 </main>
             </div>

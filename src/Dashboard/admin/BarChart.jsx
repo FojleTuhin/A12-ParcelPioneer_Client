@@ -53,8 +53,8 @@ function Barchart() {
     ];
 
     return (
-        <div className="App">
-            <Chart options={chartOptions} series={series} type="bar" height={300} width={340}/>
+        <div className="">
+            <Chart options={chartOptions} series={series} type="bar" height={300} />
         </div>
     );
 }
