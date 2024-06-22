@@ -149,7 +149,7 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex-1">
+            <div className="flex-1 overflow-x-auto">
                 <header className="sticky top-0 z-10 border-b bg-white px-4 py-3 dark:border-gray-800 dark:bg-gray-900 lg:hidden">
                     <div className="flex items-center justify-between">
                         <Link to='/' className="flex items-center gap-2 font-bold" prefetch={false}>
@@ -283,7 +283,7 @@ const Dashboard = () => {
                         </Sheet>
                     </div>
                 </header>
-                <main className="md:p-4 lg:p-8">
+                <main className="md:p-4 p-2 lg:p-8 ">
                     <Outlet></Outlet>
                 </main>
             </div>
