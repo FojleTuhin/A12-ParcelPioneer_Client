@@ -49,7 +49,7 @@ const AllParcel = () => {
     const [startDate, setStartDate] = useState(new Date());
 
     const [from, setFrom] = useState('');
-    const [to, setTo] = useState('');
+    const [to, setTo] = useState("");
 
     const handleSearchByDate = (e) => {
         e.preventDefault();
@@ -66,7 +66,7 @@ const AllParcel = () => {
     const { data: allParcel = [] } = useQuery({
         queryKey: ['parcel'],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/allParcel`);
+            const res = await axiosSecure.get(`/allParcel?`);
             return res.data;
         }
 
@@ -106,15 +106,6 @@ const AllParcel = () => {
                 }
                 refetch();
             });
-
-
-
-
-
-
-
-
-
     }
 
 
