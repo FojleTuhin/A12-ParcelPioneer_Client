@@ -10,8 +10,8 @@ import { MdOutlineElectricalServices } from "react-icons/md";
 const WhatWeSend = () => {
     return (
         <div className="px-4 md:px-16 lg:px-[100px] mb-20">
-            <h2 className="font-bold text-4xl mt-24 text-center mb-16">What Can You Send?</h2>
-            <div className="flex justify-evenly">
+            <h2 className="font-bold text-2xl md:text-4xl mt-24 text-center mb-16">What Can You Send?</h2>
+            <div className="flex justify-evenly flex-wrap">
                 <div className="flex flex-col w-[180px] h-[200px] py-[40px] items-center rounded-xl shadow-lg">
                     <GrGift className="text-red-500 text-[64px] mb-10"/>
                     <p className="font-semibold text-xl">Gift</p>

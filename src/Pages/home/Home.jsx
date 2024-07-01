@@ -5,6 +5,7 @@ import Statistics from "./Statistics";
 import TopDeliveryMan from "./TopDeliveryMan";
 import WhatWeSend from "./WhatWeSend";
 import Questions from "./Questions";
+import Available from "./Available";
 
 const Home = () => {
     return (
@@ -17,6 +18,7 @@ const Home = () => {
             <Banner/>
             <WhatWeSend></WhatWeSend>
             <Features></Features>
+            <Available></Available>
             <Statistics></Statistics>
             <TopDeliveryMan></TopDeliveryMan>
             <Questions></Questions>
