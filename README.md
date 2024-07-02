@@ -32,6 +32,20 @@ Basically, it is a parcel tracking and delivery management website. It allows us
 - If booking status is pending customer can change booking or cancel the parcel.
 - Responsive layout
 
+## Technology
+For built this website using a variety of advanced technologies:
+• Tailwind CSS
+• React
+• React Router DOM
+• Tanstack Query: For data fetching and state management.
+• Firebase
+• MongoDB
+• Express.js
+• Node.js
+• MUI Data Table
+• Pigeon Maps
+These technologies work together to create a dynamic, user-friendly platform for managing parcel deliveries.
+
 
 
 
