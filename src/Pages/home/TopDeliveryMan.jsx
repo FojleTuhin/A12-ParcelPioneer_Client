@@ -23,7 +23,7 @@ const TopDeliveryMan = () => {
             <div className=" flex flex-wrap justify-center gap-6  mt-12 mb-10 ">
                 {
                     TopDeliveryMan.map(item =>
-                        <div key={item._id} className="w-[300px]  shadow-slate-600 shadow-lg">
+                        <div key={item._id} className="w-[300px]   shadow-lg">
                             <img className=" bg-cover h-[300px] w-full" src={item.photo} alt="" />
                             <div className="text-center font-semibold bg-white py-12">
                                 <p className="font-bold text-xl">{item.name}</p>
