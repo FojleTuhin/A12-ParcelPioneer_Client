@@ -47,21 +47,13 @@ These technologies work together to create a dynamic, user-friendly platform for
 
 ##Use Locally
 1. Clone the Project
-<br/>
-Clone the repository using the following command:<br/>
-git clone https://github.com/FojleTuhin/A12-ParcelPioneer_Client.git
-2. Navigate to the Project Directory<br/>
-Change your directory to the project's directory:<br/>
+   https://github.com/FojleTuhin/A12-ParcelPioneer_Client.git
+2. Install Necessary Dependencies
+   npm i
+3. Set Up Configuration and Environment File
+4. Run the Project
+   npm run dev
 
-
-cd A12-ParcelPioneer_Client
-3. Install Necessary Dependencies <br/>
-Install the project dependencies: <br/>
-npm install
-4. Set Up Configuration and Environment File
-
-5. Run the Project
-npm run dev
 
 
 
