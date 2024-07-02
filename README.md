@@ -44,6 +44,19 @@ For built this website using a variety of advanced technologies:
 These technologies work together to create a dynamic, user-friendly platform for managing parcel deliveries.
 
 
+## Use locally
+1. Clone the Project
+   https://github.com/FojleTuhin/A12-ParcelPioneer_Client.git
+   
+2. Install Necessary Dependencies
+   npm install
+
+4. Set Up Configuration and env file
+
+5. Run the Project
+   npm run dev
+
+
 
 
 
