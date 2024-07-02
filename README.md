@@ -22,15 +22,12 @@ Basically, it is a parcel tracking and delivery management website. It allows us
 
 - It shows top 3 delivery man by highest parcel delivered and avg.
 - Dashboard.(Admin, deliveryman and regular user)
-- Number of orders of a single booking date.
-- Manage delivery man for every parcel.
+- Number of orders of a single booking date by using bar chart.
 - Admin can make anyone an admin or deliverey man.
 - Deliverey man can see the location.
 - Delivery man can see his personal review which is give a customer.
-- Customer can search a parcel by booking status.
 - After delivered the  parcel customer can pay money by using card.
-- If booking status is pending customer can change booking or cancel the parcel.
-- Responsive layout
+
 
 ## Technology
 For built this website using a variety of advanced technologies:
