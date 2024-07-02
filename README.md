@@ -44,17 +44,41 @@ For built this website using a variety of advanced technologies:
 These technologies work together to create a dynamic, user-friendly platform for managing parcel deliveries.
 
 
-## Use locally
-1. Clone the Project
-   https://github.com/FojleTuhin/A12-ParcelPioneer_Client.git
-   
-2. Install Necessary Dependencies
-   npm install
 
-4. Set Up Configuration and env file
+##Use Locally
+1. Clone the Project
+Clone the repository using the following command:
+
+bash
+Copy code
+git clone https://github.com/FojleTuhin/A12-ParcelPioneer_Client.git
+2. Navigate to the Project Directory
+Change your directory to the project's directory:
+
+bash
+Copy code
+cd A12-ParcelPioneer_Client
+3. Install Necessary Dependencies
+Install the project dependencies:
+
+bash
+Copy code
+npm install
+4. Set Up Configuration and Environment File
+Set up your configuration and create an .env file if necessary. Typically, you can copy the example file:
+
+bash
+Copy code
+cp .env.example .env
+Then edit the .env file and provide the required environment variables.
 
 5. Run the Project
-   npm run dev
+Run the project using the following command:
+
+bash
+Copy code
+npm run dev
+
 
 
 
