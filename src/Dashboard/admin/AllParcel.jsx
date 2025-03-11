@@ -45,7 +45,7 @@ const AllParcel = () => {
         setBookingId(value);
     }
 
-    const [status, setStatus] = useState('OnTheWay');
+    const [status] = useState('OnTheWay');
     const [startDate, setStartDate] = useState(new Date());
 
     const [from, setFrom] = useState('');
@@ -180,7 +180,7 @@ const AllParcel = () => {
 
                                                         {
                                                             allDeliveryMan.map(item =>
-                                                                <option key={item._id}>{item._id}</option>
+                                                                <option key={item._id}>{item.name}</option>
                                                             )
                                                         }
                                                     </select>
