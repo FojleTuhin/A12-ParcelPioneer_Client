@@ -1,5 +1,4 @@
-
-
+"use client"
 
 import { useState } from "react"
 import { MapPin, Phone, Mail, Clock, Send } from "lucide-react"
@@ -9,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import DynamicMap from "@/Dashboard/delivery/DynamicMap"
 
 export default function Contact() {
   const [formSubmitted, setFormSubmitted] = useState(false)
@@ -28,7 +28,8 @@ export default function Contact() {
         <div className="container mx-auto px-4 md:px-6 text-center">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">Contact Us</h1>
           <p className="text-gray-700 max-w-3xl mx-auto text-lg">
-            Have questions or need assistance? We are here to help! Reach out to our team using any of the methods below.
+            Have questions or need assistance? We are here to help! Reach out to our team using any of the methods
+            below.
           </p>
         </div>
       </section>
@@ -149,20 +150,18 @@ export default function Contact() {
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">Find Us</h2>
-          <div className="bg-white rounded-lg shadow-md p-2 max-w-5xl mx-auto">
-            <div className="aspect-video relative">
-              <img
-                src="/placeholder.svg?height=400&width=800"
-                alt="Map Location"
-                
-                className="rounded-md object-cover"
-              />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="bg-white p-3 rounded-lg shadow-lg">
-                  <MapPin className="text-amber-500 h-8 w-8" />
-                </div>
-              </div>
-            </div>
+          <div className="bg-white rounded-lg shadow-md p-2 max-w-5xl mx-auto" style={{ height: "500px" }}>
+            <DynamicMap
+              center={[23.78704482275975, 90.37755942330254]}
+              zoom={15}
+              markers={[
+                {
+                  position: [23.78704482275975, 90.37755942330254],
+                  title: "ParcelPioneer Office",
+                  description: "123 Delivery Street, Gulshan, Dhaka",
+                },
+              ]}
+            />
           </div>
         </div>
       </section>
