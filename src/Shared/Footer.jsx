@@ -14,9 +14,9 @@ const Footer = () => {
                         <Link to='/'><a className="btn btn-ghost text-xl font-bold">ParcelPioneer</a></Link>
                     </div>
                     <p className="mt-9 text-[#9D9EA1]">Customer Supports:</p>
-                    <p>(+880) 1877127477</p>
+                    <a href="tel:+01877127477">(+880) 1877127477</a>
                     <p className="mt-3 text-[#9D9EA1]">Taltola, Agargaon <br /> Dhaka 1207</p>
-                    <p className="mt-3">fojletuhin@gmail.com</p>
+                    <a href="mailto:fojletuhin@gmail.com">fojletuhin@gmail.com</a>
                     <div className="flex gap-12 mt-5 mb-5 text-4xl">
                         <a href="https://www.facebook.com/fojla.tuhin" target='blank'> <BsFacebook /></a>
                         <a href="https://www.instagram.com/fojletuhin/" target='blank'> <BsInstagram /></a>
@@ -49,7 +49,7 @@ const Footer = () => {
                 </div>
 
             </div>
-            <p className='text-center pb-10 text-white'>© 2024 . All rights reserved.</p>
+            <p className='text-center pb-10 text-white'>© 2025 . All rights reserved <a href="https://fojletuhin.netlify.app/" target="_blank">Fojle Tuhin</a></p>
         </div>
         </div>
     );
