@@ -38,8 +38,8 @@ const Navbar = () => {
 
 
     return (
-        <div className="lg:px-[100px] md:px-16 px-4 m-auto">
-            <div className="flex items-center justify-between px-4 py-2 bg-white dark:bg-gray-800">
+        <div className="lg:px-[100px] md:px-16 px-4 m-auto fixed w-full">
+            <div className="flex items-center justify-between px-4 py-2 ">
                 <Link to='/' className="flex items-center gap-2" prefetch={false}>
                     <MountainIcon className="h-6 w-6" />
                     <span className="text-lg font-semibold">ParcelPioneer</span>

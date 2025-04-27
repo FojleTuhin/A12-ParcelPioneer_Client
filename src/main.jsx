@@ -21,7 +21,7 @@ import Statistics from './Dashboard/admin/Statistics';
 import AllUser from './Dashboard/admin/AllUser';
 import AllParcel from './Dashboard/admin/AllParcel';
 import AllDeliveryMan from './Dashboard/admin/AllDeliveryMan';
-import PrivateRoute from './Shared/PrivateRoute';
+// import PrivateRoute from './Shared/PrivateRoute';
 import { HelmetProvider } from 'react-helmet-async';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import UpdateParcel from './Dashboard/user/UpdateParcel';
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+    element: <Dashboard></Dashboard>,
     children: [
 
       //dashboard for normal user
@@ -70,12 +70,12 @@ const router = createBrowserRouter([
       {
         path:'update/:id',
         element:<UpdateParcel></UpdateParcel>,
-        loader:({params})=>fetch(`https://parcel-pioneer-server.vercel.app/update/${params.id}`)
+        loader:({params})=>fetch(`http://localhost:5000/update/${params.id}`)
       },
       {
         path:'payment/:id',
         element:<Payment></Payment>,
-        loader:({params})=>fetch(`https://parcel-pioneer-server.vercel.app/payment/${params.id}`)
+        loader:({params})=>fetch(`http://localhost:5000/payment/${params.id}`)
       },
       {
         path:'success',

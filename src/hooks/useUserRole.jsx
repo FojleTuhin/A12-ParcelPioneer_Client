@@ -16,6 +16,7 @@ const useUserRole = () => {
         }
     })
 
+    console.log(userRole);
 
     return [userRole, refetch, isLoading];
 };

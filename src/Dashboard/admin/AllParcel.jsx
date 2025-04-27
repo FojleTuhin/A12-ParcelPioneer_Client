@@ -180,7 +180,7 @@ const AllParcel = () => {
 
                                                         {
                                                             allDeliveryMan.map(item =>
-                                                                <option key={item._id}>{item.name}</option>
+                                                                <option key={item._id}>{item._id}</option>
                                                             )
                                                         }
                                                     </select>

@@ -16,7 +16,7 @@ const UserProfile = () => {
     const { user, updateUser } = useContext(AuthContext);
     const axiosPublic = useAxiosPublic();
     const [userRole, refetch] = useUserRole();
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
 
 
     const handleUpdateProfile = async (e) => {
