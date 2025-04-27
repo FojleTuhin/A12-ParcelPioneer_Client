@@ -27,6 +27,7 @@ import Error from "./Pages/Error";
 import Success from "./Dashboard/user/Success";
 import AboutUs from "./Pages/aboutUs/AboutUs";
 import Services from "./Pages/services/Services";
+import Contact from "./Pages/contact/Contact";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,11 @@ const router = createBrowserRouter([
       {
         path: "/services", 
         element: <Services></Services>,
+        
+      },
+      {
+        path: "/contact", 
+        element: <Contact></Contact>,
         
       },
       {

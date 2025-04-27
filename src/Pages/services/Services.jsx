@@ -7,7 +7,7 @@ export default function Services() {
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-amber-50 py-16 md:py-24">
+      <section className="bg-[#EEDDD5] py-16 md:py-24">
         <div className="container mx-auto px-4 md:px-6 text-center">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">Our Services</h1>
           <p className="text-gray-700 max-w-3xl mx-auto text-lg">

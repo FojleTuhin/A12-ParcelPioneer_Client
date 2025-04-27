@@ -36,6 +36,7 @@ const Navbar = () => {
           <MountainIcon className="h-6 w-6" />
           <span className="text-lg font-semibold">ParcelPioneer</span>
         </Link>
+
         <div className="hidden items-center md:flex gap-4">
           <Link
             to="/"
@@ -62,12 +63,45 @@ const Navbar = () => {
           </Link>
 
           <Link
-            to="/"
+            to="/contact"
             className="text-lg font-medium hover:underline underline-offset-4"
             prefetch={false}
           >
             Contact
           </Link>
+        </div>
+        <div className="hidden items-center md:flex gap-4">
+          {/* <Link
+            to="/"
+            className="text-lg font-medium hover:underline underline-offset-4"
+            prefetch={false}
+          >
+            Home
+          </Link>
+
+          <Link
+            to="/aboutUs"
+            className="text-lg font-medium hover:underline underline-offset-4"
+            prefetch={false}
+          >
+            About us
+          </Link>
+
+          <Link
+            to="/services"
+            className="text-lg font-medium hover:underline underline-offset-4"
+            prefetch={false}
+          >
+            Services
+          </Link>
+
+          <Link
+            to="/contact"
+            className="text-lg font-medium hover:underline underline-offset-4"
+            prefetch={false}
+          >
+            Contact
+          </Link> */}
 
           <div>
             {/* for admin  */}
@@ -103,8 +137,6 @@ const Navbar = () => {
               </Link>
             )}
           </div>
-
-          
 
           {user ? (
             <DropdownMenu>
@@ -226,7 +258,7 @@ const Navbar = () => {
                   </Link>
                 )}
               </div>
-              
+
               {user ? (
                 <DropdownMenu>
                   <DropdownMenuTrigger>
