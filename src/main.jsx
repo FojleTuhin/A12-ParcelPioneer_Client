@@ -26,6 +26,7 @@ import Payment from "./Dashboard/user/Payment";
 import Error from "./Pages/Error";
 import Success from "./Dashboard/user/Success";
 import AboutUs from "./Pages/aboutUs/AboutUs";
+import Services from "./Pages/services/Services";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,11 @@ const router = createBrowserRouter([
       {
         path: "/aboutUs",
         element: <AboutUs />,
+      },
+      {
+        path: "/services", 
+        element: <Services></Services>,
+        
       },
       {
         path: "/login",

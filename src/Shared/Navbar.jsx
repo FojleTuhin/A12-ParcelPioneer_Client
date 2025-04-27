@@ -54,7 +54,7 @@ const Navbar = () => {
           </Link>
 
           <Link
-            to="/"
+            to="/services"
             className="text-lg font-medium hover:underline underline-offset-4"
             prefetch={false}
           >
