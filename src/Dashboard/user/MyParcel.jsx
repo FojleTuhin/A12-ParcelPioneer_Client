@@ -27,9 +27,9 @@ const MyParcel = () => {
     const [search, setSearch] = useState('');
 
     const { data: parcelData = [], refetch } = useQuery({
-        queryKey: ['parcel', user.email, search],
+        queryKey: ['parcel', user?.email, search],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/allParcel/${user.email}?search=${search}`);
+            const res = await axiosSecure.get(`/allParcel/${user?.email}?search=${search}`);
             return res.data;
         }
     })
@@ -159,7 +159,7 @@ const MyParcel = () => {
                                     <td className="border border-slate-300">{item.bookingDate}</td>
                                     <td className="border border-slate-300">{item.requestedDeliveryDate}</td>
                                     <td className="border border-slate-300">{item.approximateDaliveryDate}</td>
-                                    <td title={item.deliveryManId} className="border border-slate-300">{item.deliveryManId?.slice(0, 10)}</td>
+                                    <td title={item.deliveryManName} className="border border-slate-300">{item.deliveryManId?.slice(0, 10)}</td>
                                     <td className="border border-slate-300">
                                         <p
                                             className={`capitalize inline-block px-3 py-1 rounded-full font-semibold 

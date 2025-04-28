@@ -1,74 +1,77 @@
-"use client"
+"use client";
 
-import MUIDataTable from "mui-datatables"
+import MUIDataTable from "mui-datatables";
 
-import DatePicker from "react-datepicker"
+import DatePicker from "react-datepicker";
 
-import "react-datepicker/dist/react-datepicker.css"
-import { useState } from "react"
-import { Helmet } from "react-helmet-async"
-import useAxiosPublic from "@/hooks/useAxiosPublic"
-import { useQuery } from "@tanstack/react-query"
-import moment from "moment"
-import Swal from "sweetalert2"
-import useAxiosSecure from "@/hooks/useAxiosSecure"
+import "react-datepicker/dist/react-datepicker.css";
+import { useState } from "react";
+import { Helmet } from "react-helmet-async";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
+import moment from "moment";
+import Swal from "sweetalert2";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
 
 const AllParcel = () => {
-  const axiosPublic = useAxiosPublic()
-  const axiosSecure = useAxiosSecure()
-  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const { data: allDeliveryMan = [], refetch } = useQuery({
     queryKey: ["deliveryMan"],
     queryFn: async () => {
-      const res = await axiosPublic.get("/deliveryMan")
-      return res.data
+      const res = await axiosPublic.get("/deliveryMan");
+      return res.data;
     },
-  })
+  });
 
-  const [bookingId, setBookingId] = useState({})
+  const [bookingId, setBookingId] = useState({});
   const handleGetBookingId = (value) => {
-    setBookingId(value)
-  }
+    setBookingId(value);
+  };
 
-  const [status] = useState("OnTheWay")
-  const [startDate, setStartDate] = useState(new Date())
+  const [status] = useState("OnTheWay");
+  const [startDate, setStartDate] = useState(new Date());
 
-  const [from, setFrom] = useState("")
-  const [to, setTo] = useState("")
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
 
   const handleSearchByDate = (e) => {
-    e.preventDefault()
-    const dateFrom = e.target.dateFrom.value
-    setFrom(dateFrom)
-    const dateTo = e.target.dateTo.value
-    setTo(dateTo)
+    e.preventDefault();
+    const dateFrom = e.target.dateFrom.value;
+    setFrom(dateFrom);
+    const dateTo = e.target.dateTo.value;
+    setTo(dateTo);
 
-    console.log(from, to)
-  }
+    console.log(from, to);
+  };
 
   const { data: allParcel = [] } = useQuery({
     queryKey: ["parcel"],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/allParcel?`)
-      return res.data
+      const res = await axiosSecure.get(`/allParcel?`);
+      return res.data;
     },
-  })
+  });
 
   const handleDeliveryManage = (e, deliveryManId) => {
-    e.preventDefault()
-    setIsDialogOpen(false) // Close the dialog first
+    e.preventDefault();
+    setIsDialogOpen(false); // Close the dialog first
 
     // Then show the SweetAlert
     setTimeout(() => {
-      const deliveryDate = moment(startDate).format("MMM Do YY")
+      const deliveryDate = moment(startDate).format("MMM Do YY");
 
       const updatebooking = {
         deliveryDate,
         deliveryManId,
+        deliveryManName: allDeliveryMan.find(
+          (item) => item._id === deliveryManId
+        )?.name,
         status,
-      }
-
+      };
+      console.log(updatebooking);
       Swal.fire({
         title: "Do you want to save the changes?",
         showDenyButton: true,
@@ -77,19 +80,21 @@ const AllParcel = () => {
         denyButtonText: `Don't save`,
       }).then((result) => {
         if (result.isConfirmed) {
-          axiosSecure.put(`/allParcel/${bookingId}`, updatebooking).then((data) => {
-            console.log(data)
-            if (data.data?.modifiedCount > 0) {
-              Swal.fire("Saved!", "", "success")
-              refetch()
-            }
-          })
+          axiosSecure
+            .put(`/allParcel/${bookingId}`, updatebooking)
+            .then((data) => {
+              console.log(data);
+              if (data.data?.modifiedCount > 0) {
+                Swal.fire("Saved!", "", "success");
+                refetch();
+              }
+            });
         } else if (result.isDenied) {
-          Swal.fire("Changes are not saved", "", "info")
+          Swal.fire("Changes are not saved", "", "info");
         }
-      })
-    }, 100) // Small delay to ensure dialog is closed
-  }
+      });
+    }, 100); // Small delay to ensure dialog is closed
+  };
 
   const columns = [
     {
@@ -137,8 +142,8 @@ const AllParcel = () => {
           <div>
             <button
               onClick={() => {
-                handleGetBookingId(value)
-                setIsDialogOpen(true)
+                handleGetBookingId(value);
+                setIsDialogOpen(true);
               }}
               className={`capitalize inline-block px-3 py-1 rounded-full font-semibold bg-[#EBFBE5]`}
             >
@@ -148,12 +153,15 @@ const AllParcel = () => {
             {isDialogOpen && (
               <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[1000]">
                 <div className="bg-white p-6 rounded-lg w-[500px] max-w-[90%]">
-                  <h2 className="text-center font-bold mb-4">Manage Your delivery</h2>
+                  <h2 className="text-center font-bold mb-4">
+                    Manage Your delivery
+                  </h2>
 
                   <form
                     onSubmit={(e) => {
-                      const deliveryManId = document.getElementById("deliveryManSelect").value
-                      handleDeliveryManage(e, deliveryManId)
+                      const deliveryManId =
+                        document.getElementById("deliveryManSelect").value;
+                      handleDeliveryManage(e, deliveryManId);
                     }}
                   >
                     <div className="flex flex-col md:flex-row gap-4">
@@ -176,7 +184,10 @@ const AllParcel = () => {
                       <div className="flex-1">
                         <p className="font-bold mb-2">Pick approximate date</p>
                         <div className="border border-[rgb(226, 232, 240)] py-2 px-4 rounded-lg">
-                          <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+                          <DatePicker
+                            selected={startDate}
+                            onChange={(date) => setStartDate(date)}
+                          />
                         </div>
                       </div>
                     </div>
@@ -204,13 +215,13 @@ const AllParcel = () => {
         ),
       },
     },
-  ]
+  ];
 
   const options = {
     selectableRows: false,
     rowsPerPage: 5,
     rowsPerPageOptions: [5, 10, 15],
-  }
+  };
 
   return (
     <div>
@@ -222,26 +233,45 @@ const AllParcel = () => {
         <form onSubmit={handleSearchByDate} className="md:grid md:grid-cols-3">
           <div>
             <span className="font-bold mr-4 text-xl">From</span>
-            <input type="date" name="dateFrom" id="" className="border border-gray-500 rounded-md py-2 px-4" />
+            <input
+              type="date"
+              name="dateFrom"
+              id=""
+              className="border border-gray-500 rounded-md py-2 px-4"
+            />
           </div>
 
           <div>
             <span className="font-bold  mr-4 text-xl">To</span>
-            <input type="date" name="dateTo" id="" className="border border-gray-500 rounded-md py-2 px-4" />
+            <input
+              type="date"
+              name="dateTo"
+              id=""
+              className="border border-gray-500 rounded-md py-2 px-4"
+            />
           </div>
 
           <div>
-            <button type="submit" className="border border-gray-500 rounded-md py-2 px-4 ml-16">
+            <button
+              type="submit"
+              className="border border-gray-500 rounded-md py-2 px-4 ml-16"
+            >
               Search
             </button>
           </div>
         </form>
       </div>
       <div className="mt-10">
-        <MUIDataTable className="" title={"All Parcel List"} data={allParcel} columns={columns} options={options} />
+        <MUIDataTable
+          className=""
+          title={"All Parcel List"}
+          data={allParcel}
+          columns={columns}
+          options={options}
+        />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AllParcel
+export default AllParcel;
