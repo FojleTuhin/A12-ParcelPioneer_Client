@@ -9,7 +9,7 @@ function Barchart() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axiosSecure.get('https://parcel-pioneer-server.vercel.app/allParcel');
+            const response = await axiosSecure.get('http://localhost:5000/allParcel');
             const orders = response.data;
 
             const ordersByDate = orders.reduce((acc, order) => {

@@ -72,6 +72,7 @@ const AllParcel = () => {
         status,
       };
       console.log(updatebooking);
+      
       Swal.fire({
         title: "Do you want to save the changes?",
         showDenyButton: true,
@@ -219,7 +220,7 @@ const AllParcel = () => {
 
   const options = {
     selectableRows: false,
-    rowsPerPage: 5,
+    rowsPerPage: 10,
     rowsPerPageOptions: [5, 10, 15],
   };
 

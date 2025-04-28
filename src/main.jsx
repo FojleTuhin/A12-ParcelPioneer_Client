@@ -84,13 +84,13 @@ const router = createBrowserRouter([
         path: "update/:id",
         element: <UpdateParcel></UpdateParcel>,
         loader: ({ params }) =>
-          fetch(`https://parcel-pioneer-server.vercel.app/update/${params.id}`),
+          fetch(`http://localhost:5000/update/${params.id}`),
       },
       {
         path: "payment/:id",
         element: <Payment></Payment>,
         loader: ({ params }) =>
-          fetch(`https://parcel-pioneer-server.vercel.app/payment/${params.id}`),
+          fetch(`http://localhost:5000/payment/${params.id}`),
       },
       {
         path: "success",
