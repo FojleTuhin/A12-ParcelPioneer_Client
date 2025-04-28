@@ -22,11 +22,28 @@ import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Phone, Mail, Package, Star } from "lucide-react";
+
 const MyParcel = () => {
   const { user } = useContext(AuthContext);
   const [rating, setRating] = useState(0);
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
+
+  const [deliveryman, setDeliveryMan] = useState(null);
 
   const [search, setSearch] = useState("");
 
@@ -39,6 +56,21 @@ const MyParcel = () => {
       return res.data;
     },
   });
+
+  const { data: allDeliveryMan = [] } = useQuery({
+    queryKey: ["deliveryMan"],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/deliveryMan");
+      return res.data;
+    },
+  });
+
+  const handleDeliveryMan = (deliveryManId) => {
+    const deliveryMan = allDeliveryMan.find(
+      (item) => item._id === deliveryManId
+    );
+    setDeliveryMan(deliveryMan);
+  };
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -157,11 +189,90 @@ const MyParcel = () => {
                 <td className="border border-slate-300">
                   {item.approximateDaliveryDate}
                 </td>
-                <td
-                  title={item.deliveryManName}
+                {/* <td
                   className="border border-slate-300"
                 >
-                  {item.deliveryManId?.slice(0, 10)}
+                  {item.deliveryManName}
+                </td> */}
+                <td className="border border-slate-300">
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button
+                        variant="outline"
+                        onClick={() => {
+                          handleDeliveryMan(item.deliveryManId);
+                        }}
+                      >
+                        {item?.deliveryManName}
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-md">
+                      <DialogHeader>
+                        <DialogTitle className="text-xl">
+                          Delivery Person Details
+                        </DialogTitle>
+                      </DialogHeader>
+
+                      <div className="mt-4 space-y-6">
+                        {/* Profile section with photo and name */}
+                        <div className="flex flex-col sm:flex-row items-center gap-4">
+                          <Avatar className="h-24 w-24">
+                            <AvatarImage
+                              src={deliveryman?.photo || "/placeholder.svg"}
+                              alt={deliveryman?.name}
+                            />
+                            <AvatarFallback>
+                              {deliveryman?.name.substring(0, 2).toUpperCase()}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="text-center sm:text-left">
+                            <h3 className="text-lg font-semibold">
+                              {deliveryman?.name}
+                            </h3>
+                            <div className="flex items-center justify-center sm:justify-start mt-2">
+                              <Star className="h-5 w-5 text-yellow-500 mr-1" />
+                              <span className="font-medium">
+                                {deliveryman?.averageRating}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Contact information */}
+                        <div className="grid gap-3">
+                          <div className="flex items-center gap-3">
+                            <Phone className="h-5 w-5 text-gray-500" />
+                            <span>{deliveryman?.phone}</span>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <Mail className="h-5 w-5 text-gray-500" />
+                            <span>{deliveryman?.email}</span>
+                          </div>
+                        </div>
+
+                        {/* Stats */}
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                          <div className="flex items-center gap-3">
+                            <Package className="h-5 w-5 text-gray-500" />
+                            <div>
+                              <span className="font-medium">
+                                {deliveryman?.numberOfParcelDelivered}
+                              </span>
+                              <span className="text-gray-600 ml-1">
+                                parcels delivered
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <DialogClose asChild>
+                        <Button className="w-full mt-4" type="button">
+                          Close
+                        </Button>
+                      </DialogClose>
+                    </DialogContent>
+                  </Dialog>
                 </td>
                 <td className="border border-slate-300">
                   <p
