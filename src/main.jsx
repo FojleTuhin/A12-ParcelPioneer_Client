@@ -28,6 +28,7 @@ import Success from "./Dashboard/user/Success";
 import AboutUs from "./Pages/aboutUs/AboutUs";
 import Services from "./Pages/services/Services";
 import Contact from "./Pages/contact/Contact";
+import DeliveryManProfile from "./Dashboard/delivery/UserProfile";
 
 const router = createBrowserRouter([
   {
@@ -44,14 +45,12 @@ const router = createBrowserRouter([
         element: <AboutUs />,
       },
       {
-        path: "/services", 
+        path: "/services",
         element: <Services></Services>,
-        
       },
       {
-        path: "/contact", 
+        path: "/contact",
         element: <Contact></Contact>,
-        
       },
       {
         path: "/login",
@@ -98,6 +97,10 @@ const router = createBrowserRouter([
       },
 
       // dashboard for delivery man
+      {
+        path: "deliveryManProfile",
+        element: <DeliveryManProfile />,
+      },
       {
         path: "deliveryList",
         element: <DeliveryList></DeliveryList>,
