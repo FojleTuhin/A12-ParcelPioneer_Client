@@ -29,7 +29,8 @@ const Signup = () => {
                     name: result.user?.displayName,
                     email: result.user?.email,
                     photo: result.user?.photoURL,
-                    role: 'regularUser'
+                    role: 'regularUser',
+                    
                 }
 
                 axiosPublic.post('/users', userInfo)
@@ -64,6 +65,7 @@ const Signup = () => {
         const email = e.target.email.value;
         const password = e.target.password.value;
         const photo = e.target.photo.value;
+        const phone = e.target.phone.value;
 
 
 
@@ -91,6 +93,7 @@ const Signup = () => {
                     name,
                     email,
                     photo,
+                    phone,
                     role:'regularUser'
                 }
                 axiosPublic.post('/users', userInfo)
@@ -157,6 +160,12 @@ const Signup = () => {
                                 <label >
                                     <p className="text-[#444444] font-semibold mb-2">Photo</p>
                                     <input type="text" name="photo" placeholder="Photo URL" className="p-3 w-full rounded-lg" />
+                                </label>
+                            </div>
+                            <div className="w-full mb-4">
+                                <label >
+                                    <p className="text-[#444444] font-semibold mb-2">phone</p>
+                                    <input type="text" name="phone" placeholder="phone" className="p-3 w-full rounded-lg" />
                                 </label>
                             </div>
                             <div className="w-full mb-4">

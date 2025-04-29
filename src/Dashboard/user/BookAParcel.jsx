@@ -240,6 +240,8 @@ const BookAParcel = () => {
 
                     </div>
 
+                    
+
                     <div className="md:flex mb-5 ">
                         <button className=" bg-[#3EA570] border-none text-white w-1/2 justify-center m-auto py-2 rounded-lg font-bold text-xl">Book</button>
                     </div>
