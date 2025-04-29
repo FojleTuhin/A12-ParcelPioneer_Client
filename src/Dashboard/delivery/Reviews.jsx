@@ -1,69 +1,133 @@
-import { Rating } from "@smastrom/react-rating";
-import { Helmet } from "react-helmet-async";
-import '@smastrom/react-rating/style.css'
-import useAxiosPublic from "@/hooks/useAxiosPublic";
-import { useQuery } from "@tanstack/react-query";
-import useUserRole from "@/hooks/useUserRole";
-const Reviews = () => {
+"use client"
 
-    const axiosPublic = useAxiosPublic();
-    const [userRole] = useUserRole();
+import { Rating } from "@smastrom/react-rating"
+import { Helmet } from "react-helmet-async"
+import "@smastrom/react-rating/style.css"
+import useAxiosPublic from "@/hooks/useAxiosPublic"
+import { useQuery } from "@tanstack/react-query"
+import useUserRole from "@/hooks/useUserRole"
+import { useEffect, useState } from "react"
 
-    console.log(userRole._id);
+// Custom rating styles to match the theme
+const customStyles = {
+  itemShapes: "star",
+  activeFillColor: "#3EA570",
+  inactiveFillColor: "#EBFBE5",
+}
 
-    const { data: allfeedback = [] } = useQuery({
-        queryKey: ['allfeedback', userRole._id],
-        queryFn: async () => {
-            const res = await axiosPublic.get(`/feedback/${userRole._id}`);
-            return res.data;
-        }
-    })
+export default function Reviews() {
+  const axiosPublic = useAxiosPublic()
+  const [userRole] = useUserRole()
+  const [showItems, setShowItems] = useState(false)
 
+  // Show items with animation after component mounts
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowItems(true)
+    }, 100)
 
-    console.log(allfeedback);
-    return (
-        <div className="px-4 pb-4 min-h-screen bg-[#F8F6F1] ">
-            <Helmet>
-                <title>
-                    ParcelPioneer || Reviews
-                </title>
-            </Helmet>
-            <div className="bg-[#EBFBE5] text-[#3EA570] py-4 mb-5">
-                <h1 className="font-bold italic  text-xl text-center">Clients Feedbacks</h1>
-            </div>
-            <div className="flex flex-wrap justify-center gap-10">
-                {
-                    allfeedback.map(item =>
-                        <div key={item._id} className="-mt-20">
-                            <div className="h-[106px] w-[106px] rounded-full border-4 border-[#95D2B3] relative top-24 left-8">
-                                <div className="h-[101px] w-[100px] rounded-full border-4 border-[#78ABA8]">
-                                    <img className="h-[100px] w-[100px] rounded-full" src={item.photo} alt="" />
-                                </div>
-                            </div>
-                            <div className="w-[350px] bg-gray-200 mt-10 px-6 py-6 rounded-2xl " >
-                                <div className="ml-32">
-                                    <p className="font-bold ">{item.name}</p>
-                                    <div >
-                                        <Rating
-                                            style={{ maxWidth: 180 }}
-                                            value={item.rating}
-                                            readOnly
-                                        />
-                                    </div>
-                                </div>
-                                <p className=" mt-6">{item.feedback}</p>
+    return () => clearTimeout(timer)
+  }, [])
 
-                                <p className="text-right mt-6">{item.date}</p>
-                            </div>
-                        </div>
-                    )
-                }
+  const { data: allfeedback = [], isLoading } = useQuery({
+    queryKey: ["allfeedback", userRole._id],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/feedback/${userRole._id}`)
+      return res.data
+    },
+  })
 
+  return (
+    <div className="min-h-screen bg-[#F8F6F1] pb-16">
+      <Helmet>
+        <title>ParcelPioneer || Client Reviews</title>
+      </Helmet>
 
-
-            </div>
+      {/* Header Section */}
+      <div className="relative mb-16">
+        <div className="bg-[#EBFBE5] py-8 shadow-md">
+          <h1 className="text-[#3EA570] font-bold text-3xl text-center">What Our Clients Say</h1>
+          <p className="text-center text-[#3EA570]/80 mt-2">
+            Discover the experiences of those who have used our services
+          </p>
         </div>
-    );
-};
 
-export default Reviews;
+        {/* Decorative elements */}
+        <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-[#3EA570] rounded-full"></div>
+      </div>
+
+      {/* Loading State */}
+      {isLoading && (
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#3EA570]"></div>
+        </div>
+      )}
+
+      {/* No Reviews State */}
+      {!isLoading && allfeedback.length === 0 && (
+        <div className="text-center py-16">
+          <h3 className="text-xl text-gray-600">No reviews available yet</h3>
+          <p className="text-gray-500 mt-2">Be the first to leave a review!</p>
+        </div>
+      )}
+
+      {/* Reviews Grid */}
+      <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {allfeedback.map((review, index) => (
+          <div
+            key={review._id}
+            className={`relative review-card ${showItems ? "show" : ""}`}
+            style={{ animationDelay: `${index * 100}ms` }}
+          >
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+              {/* Avatar */}
+              <div className="relative h-24 flex justify-center">
+                <div className="absolute -bottom-12 flex justify-center items-center">
+                  <div className="h-24 w-24 rounded-full border-4 border-[#EBFBE5] shadow-md overflow-hidden">
+                    <img
+                      src={review.photo || "/placeholder.svg?height=100&width=100"}
+                      alt={review.name}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="pt-16 pb-6 px-6">
+                <div className="text-center mb-4">
+                  <h3 className="font-bold text-xl text-gray-800">{review.name}</h3>
+                  <div className="flex justify-center mt-2">
+                    <Rating style={{ maxWidth: 120 }} value={review.rating} itemStyles={customStyles} readOnly />
+                  </div>
+                </div>
+
+                <div className="bg-[#F8F6F1] p-4 rounded-xl mt-4">
+                  <p className="text-gray-700 italic">"{review.feedback}"</p>
+                </div>
+
+                <div className="mt-4 text-right">
+                  <p className="text-sm text-gray-500">{review.date}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* CSS for animations */}
+      <style jsx>{`
+        .review-card {
+          opacity: 0;
+          transform: translateY(20px);
+          transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .review-card.show {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      `}</style>
+    </div>
+  )
+}
