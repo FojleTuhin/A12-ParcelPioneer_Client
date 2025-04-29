@@ -59,6 +59,10 @@ const BookAParcel = () => {
             Swal.fire("Saved!", "", "success");
             navigate('/dashboard/myParcel')
         },
+        onError: (error) => {
+            console.log('Error:', error)
+            Swal.fire(error.response.data.message);
+        }
     })
 
     

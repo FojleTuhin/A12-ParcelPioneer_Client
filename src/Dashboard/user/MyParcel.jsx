@@ -27,8 +27,6 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -86,7 +84,8 @@ const MyParcel = () => {
     },
     onSuccess: () => {
       console.log("Data Saved Successfully");
-      toast.success("Feedback given Successfully!");
+      Swal.fire("Saved!", "", "success");
+      toast.success("Feedback added successfully!");
     },
   });
 
@@ -102,7 +101,7 @@ const MyParcel = () => {
         axiosPublic.patch(`/canceled/${id}`).then((res) => {
           if (res.data.modifiedCount > 0) {
             Swal.fire("Parcel canceled done!", "", "success");
-            refetch();
+            // refetch();
           }
         });
       } else if (result.isDenied) {
@@ -110,12 +109,19 @@ const MyParcel = () => {
       }
     });
   };
+  const [manId, setManId] = useState(''); 
+
+  const handleDeliveryManID = (id) => {
+    console.log(id);
+    setManId(id); // Set the delivery
+  }
+
 
   const handleGiveReview = async (e) => {
     e.preventDefault();
     const feedback = e.target.feedback.value;
     const date = moment().format("MMM Do YY");
-    const deliveryManId = e.target.deliveryManId.value;
+    // const deliveryManId = e.target.deliveryManId.value;
 
     const newFeedback = {
       name: user.displayName,
@@ -123,16 +129,35 @@ const MyParcel = () => {
       rating,
       feedback,
       date,
-      deliveryManId,
+      deliveryManId: manId, // Use the state variable here
     };
     await mutateAsync(newFeedback);
     e.target.reset();
 
-    axiosPublic.patch(`/calculateAvgRating/${deliveryManId}`).then((data) => {
-      console.log(data);
-      if (data.modifiedCount > 0) {
-        Swal.fire("Saved!", "", "success");
-        refetch();
+   
+
+
+
+
+
+
+    Swal.fire({
+      title: "Are you sure?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      denyButtonText: `No`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosPublic.patch(`/calculateAvgRating/${manId}`).then((data) => {
+          console.log(data);
+          if (data.modifiedCount > 0) {
+            Swal.fire("Saved!", "", "success");
+            refetch();
+          }
+        });
+      } else if (result.isDenied) {
+        Swal.fire("not saved", "", "info");
       }
     });
   };
@@ -363,8 +388,8 @@ const MyParcel = () => {
                           </AlertDialogTitle>
 
                           <form className="mx-auto" onSubmit={handleGiveReview}>
-                            <div className="-mt-20 ">
-                              <div className="h-[106px] w-[106px] rounded-full border-4 border-[#95D2B3] relative top-24 left-8">
+                            <div className=" ">
+                              {/* <div className="h-[106px] w-[106px] rounded-full border-4 border-[#95D2B3] relative top-24 left-8">
                                 <div className="h-[101px] w-[100px] rounded-full border-4 border-[#78ABA8]">
                                   <img
                                     className="h-[100px] w-[100px] rounded-full"
@@ -372,27 +397,31 @@ const MyParcel = () => {
                                     alt=""
                                   />
                                 </div>
-                              </div>
+                              </div> */}
                               <div className="w-[350px] bg-gray-200 mt-10 px-6 py-6 rounded-2xl ">
-                                <div className="ml-32">
-                                  <p className="font-bold ">
-                                    {user.displayName}
-                                  </p>
+                                <div className="mb-5">
+                                  {/* <p className="font-bold ">
+                                    {item.deliveryManName}
+                                  </p> */}
                                   <div>
                                     <Rating
-                                      style={{ maxWidth: 180 }}
+                                      style={{ maxWidth: 150 }}
                                       value={rating}
                                       onChange={setRating}
                                       isRequired
                                     />
                                   </div>
                                 </div>
-                                <input
+                                {/* <input
                                   type="text"
                                   name="deliveryManId"
                                   defaultValue={item.deliveryManId}
-                                  className="border border-gray-400 py-2 px-3 rounded-lg mb-3"
-                                />
+                                  readOnly
+                                  className=" py-2 px-3 rounded-lg"
+                                /> */}
+
+
+                                <p className=" pb-2 px-3">{item.deliveryManName}</p>
                                 <textarea
                                   name="feedback"
                                   id=""
@@ -402,7 +431,7 @@ const MyParcel = () => {
                                 <br />
 
                                 <AlertDialogCancel>
-                                  <button className="">Submit</button>
+                                  <button onClick={()=>handleDeliveryManID(item.deliveryManId)} className="">Submit</button>
                                 </AlertDialogCancel>
                               </div>
                             </div>
