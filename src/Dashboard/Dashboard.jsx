@@ -1,6 +1,6 @@
 import { AuthContext } from "@/Firebase/FirebaseProvider";
 import { useContext } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ActivityIcon, LayoutGridIcon, ListIcon, MenuIcon, MountainIcon, SaveIcon, UsersIcon } from "lucide-react";
@@ -13,6 +13,7 @@ const Dashboard = () => {
 
     const [userRole] = useUserRole();
     // const userRole = "admin"
+    const navigate = useNavigate();
 
 
     const { logOut } = useContext(AuthContext);
@@ -21,6 +22,7 @@ const Dashboard = () => {
         logOut()
             .then(result => {
                 console.log(result);
+                navigate('/')   
             })
             .catch()
     }

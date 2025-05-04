@@ -34,18 +34,18 @@ const AllParcel = () => {
   const [status] = useState("OnTheWay");
   const [startDate, setStartDate] = useState(new Date());
 
-  const [from, setFrom] = useState("");
-  const [to, setTo] = useState("");
+  // const [from, setFrom] = useState("");
+  // const [to, setTo] = useState("");
 
-  const handleSearchByDate = (e) => {
-    e.preventDefault();
-    const dateFrom = e.target.dateFrom.value;
-    setFrom(dateFrom);
-    const dateTo = e.target.dateTo.value;
-    setTo(dateTo);
+  // const handleSearchByDate = (e) => {
+  //   e.preventDefault();
+  //   const dateFrom = e.target.dateFrom.value;
+  //   setFrom(dateFrom);
+  //   const dateTo = e.target.dateTo.value;
+  //   setTo(dateTo);
 
-    console.log(from, to);
-  };
+  //   console.log(from, to);
+  // };
 
   const { data: allParcel = [] } = useQuery({
     queryKey: ["parcel"],
