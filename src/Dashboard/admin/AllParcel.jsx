@@ -230,7 +230,7 @@ const AllParcel = () => {
         <title>ParcelPioneer || AllParcel</title>
       </Helmet>
 
-      <div className="mb-16">
+      {/* <div className="mb-16">
         <form onSubmit={handleSearchByDate} className="md:grid md:grid-cols-3">
           <div>
             <span className="font-bold mr-4 text-xl">From</span>
@@ -261,7 +261,7 @@ const AllParcel = () => {
             </button>
           </div>
         </form>
-      </div>
+      </div> */}
       <div className="mt-10">
         <MUIDataTable
           className=""
