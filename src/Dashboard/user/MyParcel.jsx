@@ -1,6 +1,8 @@
-import { MdOutlineUpdate } from "react-icons/md";
-import { FaTrashAlt } from "react-icons/fa";
-import { Helmet } from "react-helmet-async";
+"use client"
+
+import { MdOutlineUpdate } from "react-icons/md"
+import { FaTrashAlt } from "react-icons/fa"
+import { Helmet } from "react-helmet-async"
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -9,85 +11,83 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import useAxiosPublic from "@/hooks/useAxiosPublic";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { useContext, useState } from "react";
-import { AuthContext } from "@/Firebase/FirebaseProvider";
-import { Rating } from "@smastrom/react-rating";
-import "@smastrom/react-rating/style.css";
-import moment from "moment";
-import toast from "react-hot-toast";
-import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
-import useAxiosSecure from "@/hooks/useAxiosSecure";
+} from "@/components/ui/alert-dialog"
+import useAxiosPublic from "@/hooks/useAxiosPublic"
+import { useMutation, useQuery } from "@tanstack/react-query"
+import { useContext, useState } from "react"
+import { AuthContext } from "@/Firebase/FirebaseProvider"
+import { Rating } from "@smastrom/react-rating"
+import "@smastrom/react-rating/style.css"
+import moment from "moment"
+import toast from "react-hot-toast"
+import Swal from "sweetalert2"
+import { Link } from "react-router-dom"
+import useAxiosSecure from "@/hooks/useAxiosSecure"
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogClose,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/components/ui/dialog"
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Phone, Mail, Package, Star } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Phone, Mail, Package, Star } from "lucide-react"
 
 const MyParcel = () => {
-  const { user } = useContext(AuthContext);
-  const [rating, setRating] = useState(0);
-  const axiosPublic = useAxiosPublic();
-  const axiosSecure = useAxiosSecure();
+  const { user } = useContext(AuthContext)
+  const [rating, setRating] = useState(0)
+  const axiosPublic = useAxiosPublic()
+  const axiosSecure = useAxiosSecure()
 
-  const [deliveryman, setDeliveryMan] = useState(null);
+  const [deliveryman, setDeliveryMan] = useState(null)
 
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState("")
 
   const { data: parcelData = [], refetch } = useQuery({
     queryKey: ["parcel", user?.email, search],
     queryFn: async () => {
-      const res = await axiosSecure.get(
-        `/allParcel/${user?.email}?search=${search}`
-      );
-      return res.data;
+      const res = await axiosSecure.get(`/allParcel/${user?.email}?search=${search}`)
+      return res.data
     },
-  });
+  })
 
   const { data: allDeliveryMan = [] } = useQuery({
     queryKey: ["deliveryMan"],
     queryFn: async () => {
-      const res = await axiosPublic.get("/deliveryMan");
-      return res.data;
+      const res = await axiosPublic.get("/deliveryMan")
+      return res.data
     },
-  });
+  })
 
   const handleDeliveryMan = (deliveryManId) => {
-    const deliveryMan = allDeliveryMan.find(
-      (item) => item._id === deliveryManId
-    );
-    setDeliveryMan(deliveryMan);
-  };
+    const deliveryMan = allDeliveryMan.find((item) => item._id === deliveryManId)
+    setDeliveryMan(deliveryMan)
+    console.log(deliveryMan);
+  }
 
   const handleSearch = (e) => {
-    e.preventDefault();
-    const searchText = e.target.searchStatus.value;
-    setSearch(searchText);
-    e.target.reset();
-  };
+    e.preventDefault()
+    const searchText = e.target.searchStatus.value
+    setSearch(searchText)
+    e.target.reset()
+  }
 
   const { mutateAsync } = useMutation({
     mutationFn: async (newFeedback) => {
-      const { data } = await axiosPublic.post(`/feedback`, newFeedback);
-      return data;
+      const { data } = await axiosPublic.post(`/feedback`, newFeedback)
+      return data
     },
     onSuccess: () => {
-      console.log("Data Saved Successfully");
-      Swal.fire("Saved!", "", "success");
-      toast.success("Feedback added successfully!");
+      console.log("Data Saved Successfully")
+      Swal.fire("Saved!", "", "success")
+      toast.success("Feedback added successfully!")
     },
-  });
+  })
 
   const handleCancel = (id) => {
     Swal.fire({
@@ -100,28 +100,28 @@ const MyParcel = () => {
       if (result.isConfirmed) {
         axiosPublic.patch(`/canceled/${id}`).then((res) => {
           if (res.data.modifiedCount > 0) {
-            Swal.fire("Parcel canceled done!", "", "success");
+            Swal.fire("Parcel canceled done!", "", "success")
             // refetch();
           }
-        });
+        })
       } else if (result.isDenied) {
-        Swal.fire("Changes are not saved", "", "info");
+        Swal.fire("Changes are not saved", "", "info")
       }
-    });
-  };
-  const [manId, setManId] = useState(''); 
+    })
+  }
+  const [manId, setManId] = useState("")
 
   const handleDeliveryManID = (id) => {
-    console.log(id);
-    setManId(id); // Set the delivery
+    console.log(id)
+    setManId(id) // Set the delivery
   }
 
+  const handleGiveReview = async (e, deliveryManId) => {
+    e.preventDefault()
+    const feedback = e.target.feedback.value
+    const date = moment().format("MMM Do YY")
 
-  const handleGiveReview = async (e) => {
-    e.preventDefault();
-    const feedback = e.target.feedback.value;
-    const date = moment().format("MMM Do YY");
-    // const deliveryManId = e.target.deliveryManId.value;
+    console.log("Submitting review for delivery man ID:", deliveryManId)
 
     const newFeedback = {
       name: user.displayName,
@@ -129,17 +129,13 @@ const MyParcel = () => {
       rating,
       feedback,
       date,
-      deliveryManId: manId, // Use the state variable here
-    };
-    await mutateAsync(newFeedback);
-    e.target.reset();
+      deliveryManId: deliveryManId,
+    }
+    await mutateAsync(newFeedback)
+    e.target.reset()
 
-   
-
-
-
-
-
+    // Store the ID for the rating calculation
+    setManId(deliveryManId)
 
     Swal.fire({
       title: "Are you sure?",
@@ -149,18 +145,18 @@ const MyParcel = () => {
       denyButtonText: `No`,
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosPublic.patch(`/calculateAvgRating/${manId}`).then((data) => {
-          console.log(data);
+        axiosPublic.patch(`/calculateAvgRating/${deliveryManId}`).then((data) => {
+          console.log(data)
           if (data.modifiedCount > 0) {
-            Swal.fire("Saved!", "", "success");
-            refetch();
+            Swal.fire("Saved!", "", "success")
+            refetch()
           }
-        });
+        })
       } else if (result.isDenied) {
-        Swal.fire("not saved", "", "info");
+        Swal.fire("not saved", "", "info")
       }
-    });
-  };
+    })
+  }
 
   return (
     <div className="md:px-4 pb-4 bg-[#F8F6F1]">
@@ -179,10 +175,7 @@ const MyParcel = () => {
             className="border border-gray-400 rounded-md px-5 py-2 "
             placeholder="Search by booking status"
           />
-          <button
-            type="submit"
-            className="border border-gray-400 rounded-md px-5 py-2 "
-          >
+          <button type="submit" className="border border-gray-400 rounded-md px-5 py-2 ">
             Search
           </button>
         </form>
@@ -208,12 +201,8 @@ const MyParcel = () => {
               <tr key={item._id} className="text-center">
                 <td className="border border-slate-300 ">{item.type}</td>
                 <td className="border border-slate-300">{item.bookingDate}</td>
-                <td className="border border-slate-300">
-                  {item.requestedDeliveryDate}
-                </td>
-                <td className="border border-slate-300">
-                  {item.approximateDaliveryDate}
-                </td>
+                <td className="border border-slate-300">{item.requestedDeliveryDate}</td>
+                <td className="border border-slate-300">{item.approximateDaliveryDate}</td>
                 {/* <td
                   className="border border-slate-300"
                 >
@@ -225,7 +214,7 @@ const MyParcel = () => {
                       <Button
                         variant="outline"
                         onClick={() => {
-                          handleDeliveryMan(item.deliveryManId);
+                          handleDeliveryMan(item.deliveryManId)
                         }}
                       >
                         {item?.deliveryManName}
@@ -233,32 +222,24 @@ const MyParcel = () => {
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-md">
                       <DialogHeader>
-                        <DialogTitle className="text-xl">
-                          Delivery Person Details
-                        </DialogTitle>
+                        <DialogTitle className="text-xl">Delivery Person Details</DialogTitle>
+                        <DialogDescription>
+                          View contact information and delivery statistics for this delivery person.
+                        </DialogDescription>
                       </DialogHeader>
 
                       <div className="mt-4 space-y-6">
                         {/* Profile section with photo and name */}
                         <div className="flex flex-col sm:flex-row items-center gap-4">
                           <Avatar className="h-24 w-24">
-                            <AvatarImage
-                              src={deliveryman?.photo || "/placeholder.svg"}
-                              alt={deliveryman?.name}
-                            />
-                            <AvatarFallback>
-                              {deliveryman?.name.substring(0, 2).toUpperCase()}
-                            </AvatarFallback>
+                            <AvatarImage src={deliveryman?.photo || "/placeholder.svg"} alt={deliveryman?.name} />
+                            <AvatarFallback>{deliveryman?.name.substring(0, 2).toUpperCase()}</AvatarFallback>
                           </Avatar>
                           <div className="text-center sm:text-left">
-                            <h3 className="text-lg font-semibold">
-                              {deliveryman?.name}
-                            </h3>
+                            <h3 className="text-lg font-semibold">{deliveryman?.name}</h3>
                             <div className="flex items-center justify-center sm:justify-start mt-2">
                               <Star className="h-5 w-5 text-yellow-500 mr-1" />
-                              <span className="font-medium">
-                                {deliveryman?.averageRating}
-                              </span>
+                              <span className="font-medium">{deliveryman?.averageRating}</span>
                             </div>
                           </div>
                         </div>
@@ -280,12 +261,8 @@ const MyParcel = () => {
                           <div className="flex items-center gap-3">
                             <Package className="h-5 w-5 text-gray-500" />
                             <div>
-                              <span className="font-medium">
-                                {deliveryman?.numberOfParcelDelivered}
-                              </span>
-                              <span className="text-gray-600 ml-1">
-                                parcels delivered
-                              </span>
+                              <span className="font-medium">{deliveryman?.numberOfParcelDelivered}</span>
+                              <span className="text-gray-600 ml-1">parcels delivered</span>
                             </div>
                           </div>
                         </div>
@@ -302,26 +279,11 @@ const MyParcel = () => {
                 <td className="border border-slate-300">
                   <p
                     className={`capitalize inline-block px-3 py-1 rounded-full font-semibold 
-                            ${
-                              item.status === "pending" &&
-                              "bg-pink-500 text-white"
-                            }
-                            ${
-                              item.status === "OnTheWay" &&
-                              "bg-blue-500 text-white"
-                            }
-                            ${
-                              item.status === "returned" &&
-                              "bg-red-300 text-white"
-                            }
-                            ${
-                              item.status === "canceled" &&
-                              "bg-red-500 text-white"
-                            }
-                            ${
-                              item.status === "delivered" &&
-                              "bg-[#3EA570] text-white"
-                            }
+                            ${item.status === "pending" && "bg-pink-500 text-white"}
+                            ${item.status === "OnTheWay" && "bg-blue-500 text-white"}
+                            ${item.status === "returned" && "bg-red-300 text-white"}
+                            ${item.status === "canceled" && "bg-red-500 text-white"}
+                            ${item.status === "delivered" && "bg-[#3EA570] text-white"}
                              `}
                   >
                     {item.status}
@@ -357,9 +319,7 @@ const MyParcel = () => {
 
                   {item.status === "delivered" ? (
                     item.payment ? (
-                      <p className=" text-white bg-[#3EA570]  px-1 py-1 rounded-full">
-                        Done
-                      </p>
+                      <p className=" text-white bg-[#3EA570]  px-1 py-1 rounded-full">Done</p>
                     ) : (
                       <button className="bg-[#EBFBE5] p-2 border border-gray-500 rounded-md">
                         <Link to={`/dashboard/payment/${item._id}`}>Pay</Link>
@@ -373,27 +333,23 @@ const MyParcel = () => {
                   {item.status === "delivered" ? (
                     <AlertDialog>
                       <AlertDialogTrigger>
-                        <button
-                          className={`capitalize inline-block px-3 py-1 rounded-full font-semibold bg-[#EBFBE5]`}
-                        >
+                        <button className={`capitalize inline-block px-3 py-1 rounded-full font-semibold bg-[#EBFBE5]`}>
                           Review
                         </button>
                       </AlertDialogTrigger>
                       <AlertDialogContent>
                         <AlertDialogHeader>
                           <AlertDialogTitle>
-                            <p className="text-center font-bold mb-4">
-                              Give a review of delivery man
-                            </p>
+                            <p className="text-center font-bold mb-4">Give a review of delivery man</p>
                           </AlertDialogTitle>
 
-                          <form className="mx-auto" onSubmit={handleGiveReview}>
+                          <form className="mx-auto" onSubmit={(e) => handleGiveReview(e, item.deliveryManId)}>
                             <div className=" ">
                               {/* <div className="h-[106px] w-[106px] rounded-full border-4 border-[#95D2B3] relative top-24 left-8">
                                 <div className="h-[101px] w-[100px] rounded-full border-4 border-[#78ABA8]">
                                   <img
                                     className="h-[100px] w-[100px] rounded-full"
-                                    src={user.photoURL}
+                                    src={user.photoURL || "/placeholder.svg"}
                                     alt=""
                                   />
                                 </div>
@@ -404,12 +360,7 @@ const MyParcel = () => {
                                     {item.deliveryManName}
                                   </p> */}
                                   <div>
-                                    <Rating
-                                      style={{ maxWidth: 150 }}
-                                      value={rating}
-                                      onChange={setRating}
-                                      isRequired
-                                    />
+                                    <Rating style={{ maxWidth: 150 }} value={rating} onChange={setRating} isRequired />
                                   </div>
                                 </div>
                                 {/* <input
@@ -420,7 +371,6 @@ const MyParcel = () => {
                                   className=" py-2 px-3 rounded-lg"
                                 /> */}
 
-
                                 <p className=" pb-2 px-3">{item.deliveryManName}</p>
                                 <textarea
                                   name="feedback"
@@ -430,9 +380,9 @@ const MyParcel = () => {
                                 ></textarea>
                                 <br />
 
-                                <AlertDialogCancel>
-                                  <button onClick={()=>handleDeliveryManID(item.deliveryManId)} className="">Submit</button>
-                                </AlertDialogCancel>
+                                <button type="submit" className="w-full bg-green-600 text-white py-2 rounded-lg mt-4">
+                                  Submit Review
+                                </button>
                               </div>
                             </div>
                           </form>
@@ -453,7 +403,7 @@ const MyParcel = () => {
         </table>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default MyParcel;
+export default MyParcel
