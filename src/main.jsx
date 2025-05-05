@@ -29,6 +29,7 @@ import AboutUs from "./Pages/aboutUs/AboutUs";
 import Services from "./Pages/services/Services";
 import Contact from "./Pages/contact/Contact";
 import DeliveryManProfile from "./Dashboard/delivery/UserProfile";
+import PrivateRoute from "./Shared/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -64,32 +65,38 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard></Dashboard>,
+    element: <PrivateRoute> <Dashboard></Dashboard> </PrivateRoute>,
     children: [
       //dashboard for normal user
       {
         path: "userProfile",
-        element: <UserProfile></UserProfile>,
+        element: <PrivateRoute> <UserProfile></UserProfile> </PrivateRoute>,
       },
       {
         path: "bookAParcel",
-        element: <BookAParcel></BookAParcel>,
+        element: (
+          <PrivateRoute>
+            <BookAParcel></BookAParcel>
+          </PrivateRoute>
+        ),
       },
       {
         path: "myParcel",
-        element: <MyParcel></MyParcel>,
+        element: <PrivateRoute> <MyParcel></MyParcel> </PrivateRoute>,
       },
       {
         path: "update/:id",
-        element: <UpdateParcel></UpdateParcel>,
+        element: <PrivateRoute> <UpdateParcel></UpdateParcel> </PrivateRoute>,
         loader: ({ params }) =>
           fetch(`https://parcel-pioneer-server.vercel.app/update/${params.id}`),
       },
       {
         path: "payment/:id",
-        element: <Payment></Payment>,
+        element: <PrivateRoute> <Payment></Payment> </PrivateRoute>,
         loader: ({ params }) =>
-          fetch(`https://parcel-pioneer-server.vercel.app/payment/${params.id}`),
+          fetch(
+            `https://parcel-pioneer-server.vercel.app/payment/${params.id}`
+          ),
       },
       {
         path: "success",
@@ -99,33 +106,33 @@ const router = createBrowserRouter([
       // dashboard for delivery man
       {
         path: "deliveryManProfile",
-        element: <DeliveryManProfile />,
+        element: <PrivateRoute> <DeliveryManProfile></DeliveryManProfile> </PrivateRoute>,
       },
       {
         path: "deliveryList",
-        element: <DeliveryList></DeliveryList>,
+        element: <PrivateRoute> <DeliveryList></DeliveryList> </PrivateRoute>,
       },
       {
         path: "reviews",
-        element: <Reviews></Reviews>,
+        element: <PrivateRoute> <Reviews></Reviews> </PrivateRoute>,
       },
 
       //dashboard for admin
       {
         path: "statistics",
-        element: <Statistics></Statistics>,
+        element:  <Statistics></Statistics> ,  
       },
       {
         path: "allUser",
-        element: <AllUser></AllUser>,
+        element: <PrivateRoute> <AllUser></AllUser> </PrivateRoute>,
       },
       {
         path: "allParcel",
-        element: <AllParcel></AllParcel>,
+        element: <PrivateRoute> <AllParcel></AllParcel> </PrivateRoute>,
       },
       {
         path: "allDeliveryMan",
-        element: <AllDeliveryMan></AllDeliveryMan>,
+        element: <PrivateRoute> <AllDeliveryMan></AllDeliveryMan> </PrivateRoute>,
       },
     ],
   },
